@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ReviewRepository {
 
-    private String jdbcUrl = "";
-    private String dbUser = "";
-    private String dbPassword = "";
+    private String jdbcUrl = "jdbc:mysql://localhost:3307/oopFinal";
+    private String dbUser = "root";
+    private String dbPassword = "Lisemeitner1878$";
 
     public ReviewRepository(String jdbcUrl, String dbUser, String dbPassword) {
         this.jdbcUrl = jdbcUrl;
@@ -61,4 +61,20 @@ public class ReviewRepository {
 
         return reviews;
     }
+
+    public void deleteReview(int reviewId) {
+        String sql = "DELETE FROM reviews WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, reviewId);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

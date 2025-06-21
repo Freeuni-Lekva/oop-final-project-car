@@ -2,71 +2,84 @@ package org.example.adminTests;
 
 import org.example.car.User.Model.Review;
 import org.example.car.User.Repository.ReviewRepository;
+import org.junit.jupiter.api.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ReviewTest {
 
-    public static void main(String[] args) {
-        try {
-            String jdbcUrl = "jdbc:h2:mem:car_rental;DB_CLOSE_DELAY=-1";
-            String dbUser = "sa";
-            String dbPassword = "";
+    private ReviewRepository repo;
 
+    @BeforeAll
+    void setupDatabase() throws SQLException {
+        String jdbcUrl = "jdbc:h2:mem:car_rental;DB_CLOSE_DELAY=-1";
+        String dbUser = "sa";
+        String dbPassword = "";
 
-            Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
-
-
-            createReviewsTable(conn);
-            System.out.println("Table created.");
-
-
-            ReviewRepository repo = new ReviewRepository(jdbcUrl, dbUser, dbPassword);
-
-
-            Review review = new Review();
-            review.setUserId(1);
-            review.setCarId(2);
-            review.setRating(4);
-            review.setComment("Dzalian kargi iyo");
-            repo.save(review);
-            System.out.println("Review inserted.");
-
-
-            Review review2 = new Review();
-            review2.setUserId(4);
-            review2.setCarId(2);
-            review2.setRating(2);
-            review2.setComment("interieri ar uvarga");
-            repo.save(review2);
-            System.out.println("Review inserted.");
-
-
-            List<Review> reviews = repo.getReviewsByCarId(2);
-            for (Review r : reviews) {
-                System.out.println(r.getRating() + " ★ - " + r.getComment());
+        // Create table
+        try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)) {
+            String sql = """
+                CREATE TABLE reviews (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    user_id INT NOT NULL,
+                    car_id INT NOT NULL,
+                    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+                    comment TEXT
+                );
+                """;
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute(sql);
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+
+        repo = new ReviewRepository(jdbcUrl, dbUser, dbPassword);
     }
 
-    private static void createReviewsTable(Connection conn) throws SQLException {
-        String sql = """
-            CREATE TABLE reviews (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                user_id INT NOT NULL,
-                car_id INT NOT NULL,
-                rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
-                comment TEXT
-            );
-            """;
-        try (var stmt = conn.createStatement()) {
-            stmt.execute(sql);
-        }
+    @Test
+    void testSaveAndFetchReviews() {
+        Review review1 = new Review();
+        review1.setUserId(1);
+        review1.setCarId(10);
+        review1.setRating(5);
+        review1.setComment("Great car");
+
+        Review review2 = new Review();
+        review2.setUserId(2);
+        review2.setCarId(10);
+        review2.setRating(3);
+        review2.setComment("Okay car");
+
+        repo.save(review1);
+        repo.save(review2);
+
+        List<Review> reviews = repo.getReviewsByCarId(10);
+
+        assertEquals(2, reviews.size());
+        assertTrue(reviews.stream().anyMatch(r -> r.getComment().equals("Great car")));
+        assertTrue(reviews.stream().anyMatch(r -> r.getComment().equals("Okay car")));
+    }
+
+    @Test
+    void testDeleteReview() {
+        Review review = new Review();
+        review.setUserId(3);
+        review.setCarId(20);
+        review.setRating(1);
+        review.setComment("Terrible");
+
+        repo.save(review);
+
+        List<Review> reviews = repo.getReviewsByCarId(20);
+        assertEquals(1, reviews.size());
+        int reviewId = reviews.get(0).getId();
+
+        repo.deleteReview(reviewId);
+
+        List<Review> afterDelete = repo.getReviewsByCarId(20);
+        assertEquals(0, afterDelete.size());
     }
 }
