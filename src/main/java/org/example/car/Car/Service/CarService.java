@@ -1,6 +1,6 @@
-package org.example.car.User.Service;
-import org.example.car.User.Model.Car;
-import org.example.car.User.Repository.CarRepository;
+package org.example.car.Car.Service;
+import org.example.car.Car.Model.Car;
+import org.example.car.Car.Repository.CarRepository;
 
 import java.sql.SQLException;
 import java.util.List;

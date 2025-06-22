@@ -5,7 +5,7 @@
   Time: 1:19 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.List, org.example.car.User.Model.Car" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.List, org.example.car.Car.Model.Car" %>
 <html>
 <head>
     <title>Cars Rental</title>

@@ -1,11 +1,10 @@
-package org.example.car.User.Repository;
+package org.example.car.Car.Repository;
 
-import org.example.car.User.Model.Car;
+import org.example.car.Car.Model.Car;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class CarRepository {
     private Connection connection;

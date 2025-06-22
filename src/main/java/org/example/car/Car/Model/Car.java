@@ -1,4 +1,4 @@
-package org.example.car.User.Model;
+package org.example.car.Car.Model;
 
 public class Car {
     private int id;
