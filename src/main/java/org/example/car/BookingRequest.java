@@ -13,8 +13,8 @@ public class BookingRequest {
     public BookingRequest(int userId, int bookingId, Date startDate, Date endDate) {
         this.userId = userId;
         this.car = bookingId;
-        startDate = startDate;
-        EndDate = endDate;
+        this.startDate = startDate;
+        this.EndDate = endDate;
     }
 
     public int getUserId() {

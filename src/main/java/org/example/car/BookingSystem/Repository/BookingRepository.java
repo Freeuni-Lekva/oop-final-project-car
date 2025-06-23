@@ -28,7 +28,7 @@ public class BookingRepository {
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 if(rs.getInt(1) == 0)
-                    return false;
+                    return true;
             }
         }
 
