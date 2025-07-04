@@ -16,7 +16,11 @@ public class AIServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String message = request.getParameter("message");
-        String AIresponse = message;
+
+        GeminiAI ai = new GeminiAI();
+        String AIresponse = ai.ask(message);
+
+        System.out.println(AIresponse);
 
         HttpSession session = request.getSession();
 
