@@ -3,10 +3,14 @@ package org.example.car.AIAssistant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.car.Booking;
+import org.example.car.Car.Model.Car;
+import org.example.car.Review;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class GeminiAI {
     private final String KEY = "AIzaSyB3jDGkifi1jNGn9Y86vOStVECBBNOSUCE";
@@ -14,6 +18,7 @@ public class GeminiAI {
     private final String URL = "https://generativelanguage.googleapis.com/v1/" + AIModel + ":generateContent?key=" + KEY;
 
     public String ask(String message) throws IOException {
+        message = prepareMessage(message);
         InputStream is = sendMessage(message);
         StringBuilder output = readOut(is);
         String finalOutput = parseOutput(output);
@@ -22,7 +27,7 @@ public class GeminiAI {
     }
 
     private InputStream sendMessage(String message) throws IOException {
-        String input = """
+        String input = String.format("""
             {
               "contents": [
                 {
@@ -34,7 +39,7 @@ public class GeminiAI {
                 }
               ]
             }
-            """.formatted(message);
+            """, message);
 
         URL url = new URL(URL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -77,5 +82,44 @@ public class GeminiAI {
                 .asText()
                 .trim();
     }
+
+    private String prepareMessage(String message){
+        GetDatabase gd = new GetDatabase();
+
+        List<Car> cars = gd.getCars();
+        List<Booking> bookings = gd.getBookings();
+        List<Review> reviews = gd.getReviews();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("you are assistant for car rental website. ONLY answer questions related to data below\n\n");
+
+        sb.append("\n=== Cars ===\n");
+        for(Car car: cars) {
+            String s = String.format("Car ID: %d: Brand - %s; Model - %s; Year of release - %d; Price per day - %.2f; Description - %s",
+                    car.getId(), car.getBrand(), car.getModel(), car.getYear(), car.getPrice_per_day(), car.getDescription());
+            sb.append(s).append("\n");
+        }
+
+        sb.append("\n=== Bookings ===\n");
+        for(Booking b: bookings){
+            String s = String.format("Car with ID: %d is booked from %s to %s", b.getCarId(), b.getStartDate(), b.getEndDate());
+            sb.append(s).append("\n");
+        }
+
+        sb.append("\n=== Reviews ===\n");
+        for(Review r: reviews){
+            String s = String.format("Car with ID: %d is rated %d/5", r.getCarId(), r.getRating());
+            sb.append(s).append("\n");
+        }
+
+
+        sb.append("\nremember you ONLY answer questions about data above\n\n");
+        sb.append("User question: ").append(message);
+
+        return sb.toString();
+    }
+
+
+
 }
 

@@ -2,28 +2,28 @@ package org.example.car;
 
 public class Review {
     private int id;
-    private int uder_id;
+    private int user_id;
     private int car_id;
     private int rating;
-    private String text;
+    private String comment;
 
-    public Review(int id, int uder_id, int car_id, int rating, String text) {
+    public Review(int id, int user_id, int car_id, int rating, String text) {
         this.id = id;
-        this.uder_id = uder_id;
+        this.user_id = user_id;
         this.car_id = car_id;
         this.rating = rating;
-        this.text = text;
+        this.comment = text;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getUder_id() {
-        return uder_id;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public int getCar_id() {
+    public int getCarId() {
         return car_id;
     }
 
@@ -31,18 +31,7 @@ public class Review {
         return rating;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    @Override
-    public String toString() {
-        return "Review{" +
-                "id=" + id +
-                ", uder_id=" + uder_id +
-                ", car_id=" + car_id +
-                ", rating=" + rating +
-                ", text='" + text + '\'' +
-                '}';
+    public String getComment() {
+        return comment;
     }
 }

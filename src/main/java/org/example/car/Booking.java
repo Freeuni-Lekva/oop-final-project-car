@@ -21,19 +21,19 @@ public class Booking {
         return id;
     }
 
-    public int getUser_id() {
+    public int getUserId() {
         return user_id;
     }
 
-    public int getCar_id() {
+    public int getCarId() {
         return car_id;
     }
 
-    public Date getStart_date() {
+    public Date getStartDate() {
         return start_date;
     }
 
-    public Date getEnd_date() {
+    public Date getEndDate() {
         return end_date;
     }
 
