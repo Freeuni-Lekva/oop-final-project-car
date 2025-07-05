@@ -34,4 +34,15 @@ public class Review {
     public String getText() {
         return text;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", uder_id=" + uder_id +
+                ", car_id=" + car_id +
+                ", rating=" + rating +
+                ", text='" + text + '\'' +
+                '}';
+    }
 }

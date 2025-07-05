@@ -37,5 +37,14 @@ public class Booking {
         return end_date;
     }
 
-
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", user_id=" + user_id +
+                ", car_id=" + car_id +
+                ", start_date=" + start_date +
+                ", end_date=" + end_date +
+                '}';
+    }
 }

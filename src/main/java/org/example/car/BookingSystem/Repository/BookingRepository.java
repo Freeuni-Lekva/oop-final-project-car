@@ -1,7 +1,7 @@
 package org.example.car.BookingSystem.Repository;
 
 import org.example.car.BookingRequest;
-import org.example.car.BookingSystem.Service.BookingService;
+import org.example.car.DBConnector;
 
 import java.sql.*;
 
