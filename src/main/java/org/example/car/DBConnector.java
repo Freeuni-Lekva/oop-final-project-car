@@ -1,4 +1,4 @@
-package org.example.car.BookingSystem.Repository;
+package org.example.car;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

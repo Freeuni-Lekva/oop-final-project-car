@@ -9,6 +9,26 @@ public class Car {
     private String description;
     private String image_url;
 
+    public Car(int id, String brand, String model, int year, double price_per_day, String description, String image_url) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.price_per_day = price_per_day;
+        this.description = description;
+        this.image_url = image_url;
+    }
+
+    public Car() {
+        this.id = 0;
+        this.brand = null;
+        this.model = null;
+        this.year = 0;
+        this.price_per_day = 0;
+        this.description = null;
+        this.image_url = null;
+    }
+
     public int getId() {
         return id;
     }
@@ -50,6 +70,19 @@ public class Car {
     }
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                ", price_per_day=" + price_per_day +
+                ", description='" + description + '\'' +
+                ", image_url='" + image_url + '\'' +
+                '}';
     }
 }
 
