@@ -46,7 +46,16 @@ public class CarController extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/login.jsp");
             }
         }else{
-            List<Car> cars = carRepository.getAllCars();
+
+
+            List<Car> cars;
+
+            if(req.getParameter("sortBy") != null && req.getParameter("order") != null) {
+                cars = carRepository.getSortedCars(req.getParameter("sortBy") ,req.getParameter("order"));
+            }else{
+                cars = carRepository.getAllCars();
+            }
+
             req.setAttribute("cars", cars);
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
