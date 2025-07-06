@@ -1,9 +1,15 @@
 package org.example.car.BookingSystem.Repository;
 
+import org.example.car.Booking;
 import org.example.car.BookingRequest;
 import org.example.car.DBConnector;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BookingRepository {
     public boolean isCarAvaliable(BookingRequest bookingRequest) {
@@ -70,6 +76,74 @@ public class BookingRepository {
         return false;
     }
 
+    public List<Booking> getBookingsByUserId(int userId) {
+        List<Booking> bookings = new ArrayList<>();
+        String sql = "SELECT * FROM bookings WHERE user_id = ?";
+
+        try (
+            Connection conn = DBConnector.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int car_id = rs.getInt("car_id");
+                Date start_date = rs.getDate("start_date");
+                Date end_date = rs.getDate("end_date");
+
+                bookings.add(new Booking(id, userId, car_id, start_date, end_date));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return bookings;
+    }
+
+    public Map<String, List<Booking>> categorizeBookings(int userId) {
+        Map<String, List<Booking>> map = new HashMap<>();
+        map.put("past", new ArrayList<>());
+        map.put("current", new ArrayList<>());
+        map.put("future", new ArrayList<>());
+
+        String sql = "SELECT * FROM bookings WHERE user_id = ?";
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            LocalDate today = LocalDate.now();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int car_id = rs.getInt("car_id");
+                Date start_date = rs.getDate("start_date");
+                Date end_date = rs.getDate("end_date");
+
+                Booking booking = new Booking(id, userId, car_id, start_date, end_date);
+
+                LocalDate start = start_date.toLocalDate();
+                LocalDate end = end_date.toLocalDate();
+
+                if (end.isBefore(today)) {
+                    map.get("past").add(booking);
+                } else if ((start.isEqual(today) || start.isBefore(today)) && end.isAfter(today)) {
+                    map.get("current").add(booking);
+                } else {
+                    map.get("future").add(booking);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return map;
+    }
 
 
 }

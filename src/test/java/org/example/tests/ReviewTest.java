@@ -1,4 +1,4 @@
-package org.example.tests.adminTests;
+package org.example.tests;
 
 import org.example.car.DBConnector;
 import org.example.car.Review;
