@@ -1,7 +1,5 @@
-package org.example.car.User.Repository;
+package org.example.car;
 
-import org.example.car.DBConnector;
-import org.example.car.Review;
 //import org.example.tests.DBConnectorForTests;
 
 import java.sql.*;
@@ -64,6 +62,30 @@ public class ReviewRepository {
             e.printStackTrace();
         }
     }
+
+    public List<Review> getReviewsByUserId(int userId) {
+        List<Review> reviews = new ArrayList<>();
+        String sql = "SELECT * FROM reviews WHERE user_id = ?";
+
+        try (
+            Connection conn =DBConnector.getConnection();
+            PreparedStatement stmt= conn.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Review r =new Review(rs.getInt("id"),userId, rs.getInt("car_id"),
+                        rs.getInt("rating"), rs.getString("comment"));
+                reviews.add(r);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reviews;
+    }
+
 
 
 }

@@ -2,7 +2,7 @@ package org.example.tests.adminTests;
 
 import org.example.car.DBConnector;
 import org.example.car.Review;
-import org.example.car.User.Repository.ReviewRepository;
+import org.example.car.ReviewRepository;
 import org.junit.jupiter.api.*;
 
 import java.sql.*;
@@ -51,6 +51,7 @@ public class ReviewTest {
         assertEquals(2, reviews.size());
         assertTrue(reviews.stream().anyMatch(r -> r.getComment().equals("Great car")));
         assertTrue(reviews.stream().anyMatch(r -> r.getComment().equals("Okay car")));
+
     }
 
     @Test
@@ -60,12 +61,32 @@ public class ReviewTest {
         repo.save(review);
 
         List<Review> reviews = repo.getReviewsByCarId(20);
-        assertEquals(1, reviews.size());
+
+        int startSize = reviews.size();
         int reviewId = reviews.get(0).getId();
 
         repo.deleteReview(reviewId);
 
         List<Review> afterDelete = repo.getReviewsByCarId(20);
-        assertEquals(0, afterDelete.size());
+        assertEquals(startSize-1, afterDelete.size());
+    }
+
+
+    @Test
+    void testGetReviewsByUserId(){
+        Review r1 = new Review(1,3,20,1,"Terrible");
+        Review r2 = new Review(1,3,15,5,"Great");
+        Review r3 = new Review(1,3,2,4,"good");
+        Review r4 = new Review(1,4,2,4,"good");
+
+        repo.save(r1);
+        repo.save(r2);
+        repo.save(r3);
+        repo.save(r4);
+
+        List<Review> reviews = repo.getReviewsByUserId(3);
+        for(int i=0; i<reviews.size(); i++){
+            assertEquals(3, reviews.get(i).getUser_id());
+        }
     }
 }

@@ -1,12 +1,10 @@
-package org.example.car.User.Controller;
+package org.example.car;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.car.Review;
-import org.example.car.User.Service.ReviewService;
 
 import java.io.IOException;
 
