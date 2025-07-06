@@ -7,9 +7,9 @@ import java.util.List;
 
 public class ReviewService {
 
-    private String jdbcUrl = "jdbc:mysql://localhost:3307/oopFinal";
-    private String dbUser = "root";
-    private String dbPassword = "Lisemeitner1878$";
+    private String jdbcUrl = "";
+    private String dbUser = "";
+    private String dbPassword = "";
 
     private final ReviewRepository reviewRepository = new ReviewRepository(jdbcUrl, dbUser, dbPassword);
 

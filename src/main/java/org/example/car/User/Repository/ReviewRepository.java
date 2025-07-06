@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ReviewRepository {
 
-    private String jdbcUrl = "jdbc:mysql://localhost:3307/oopFinal";
-    private String dbUser = "root";
-    private String dbPassword = "Lisemeitner1878$";
+    private String jdbcUrl = "";
+    private String dbUser = "";
+    private String dbPassword = "";
 
     public ReviewRepository(String jdbcUrl, String dbUser, String dbPassword) {
         this.jdbcUrl = jdbcUrl;
