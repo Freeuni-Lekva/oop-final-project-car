@@ -34,4 +34,5 @@ public class Review {
     public String getComment() {
         return comment;
     }
+
 }
