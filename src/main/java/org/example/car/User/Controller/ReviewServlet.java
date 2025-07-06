@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.car.User.Model.Review;
+import org.example.car.Review;
 import org.example.car.User.Service.ReviewService;
 
 import java.io.IOException;
@@ -19,6 +19,7 @@ public class ReviewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String reviewIdStr = request.getParameter("reviewId");
         String comment = request.getParameter("comment");
         String ratingStr = request.getParameter("rating");
         String userIdStr = request.getParameter("userId");
@@ -35,15 +36,12 @@ public class ReviewServlet extends HttpServlet {
         }
 
         try {
+            int reviewId = Integer.parseInt(reviewIdStr);
             int userId = Integer.parseInt(userIdStr);
             int carId = Integer.parseInt(carIdStr);
             int rating = Integer.parseInt(ratingStr);
 
-            Review review = new Review();
-            review.setUserId(userId);
-            review.setCarId(carId);
-            review.setRating(rating);
-            review.setComment(comment);
+            Review review = new Review(reviewId, userId, carId, rating, comment);
 
             reviewService.saveReview(review);
 

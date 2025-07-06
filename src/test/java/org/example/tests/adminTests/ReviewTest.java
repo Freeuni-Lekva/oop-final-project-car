@@ -1,6 +1,7 @@
-package org.example.adminTests;
+package org.example.tests.adminTests;
 
-import org.example.car.User.Model.Review;
+import org.example.car.DBConnector;
+import org.example.car.Review;
 import org.example.car.User.Repository.ReviewRepository;
 import org.junit.jupiter.api.*;
 
@@ -16,12 +17,9 @@ public class ReviewTest {
 
     @BeforeAll
     void setupDatabase() throws SQLException {
-        String jdbcUrl = "jdbc:h2:mem:car_rental;DB_CLOSE_DELAY=-1";
-        String dbUser = "sa";
-        String dbPassword = "";
 
         // Create table
-        try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)) {
+        try (Connection conn = DBConnector.getConnection()) {
             String sql = """
                 CREATE TABLE reviews (
                     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,22 +34,14 @@ public class ReviewTest {
             }
         }
 
-        repo = new ReviewRepository(jdbcUrl, dbUser, dbPassword);
+        repo = new ReviewRepository();
     }
 
     @Test
     void testSaveAndFetchReviews() {
-        Review review1 = new Review();
-        review1.setUserId(1);
-        review1.setCarId(10);
-        review1.setRating(5);
-        review1.setComment("Great car");
+        Review review1 = new Review(1, 1,10,5, "Great car");
 
-        Review review2 = new Review();
-        review2.setUserId(2);
-        review2.setCarId(10);
-        review2.setRating(3);
-        review2.setComment("Okay car");
+        Review review2 = new Review(2,2,10,3,"Okay car");
 
         repo.save(review1);
         repo.save(review2);
@@ -65,11 +55,7 @@ public class ReviewTest {
 
     @Test
     void testDeleteReview() {
-        Review review = new Review();
-        review.setUserId(3);
-        review.setCarId(20);
-        review.setRating(1);
-        review.setComment("Terrible");
+        Review review = new Review(1,3,20,1,"Terrible");
 
         repo.save(review);
 
