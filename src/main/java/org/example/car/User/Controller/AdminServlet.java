@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.example.car.BookingSystem.Repository.BookingRepository;
 import org.example.car.Car.Repository.CarRepository;
 import org.example.car.ReviewRepository;
+import org.example.car.User.Model.User;
 import org.example.car.User.Repository.UserRepository;
 
 import java.io.IOException;
@@ -34,8 +35,14 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        if (session == null || !"admin".equals(session.getAttribute("status"))) {
-            resp.sendRedirect("/login.jsp"); // Or show an error page
+
+        if (session == null) {
+            resp.sendRedirect("/login.jsp");
+            return;
+        }
+        User u = (User) session.getAttribute("user");
+        if (u ==null || !u.is_admin()) {
+            resp.sendRedirect("/access-denied.jsp");
             return;
         }
 
@@ -49,11 +56,17 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(false);
-        if (session == null || !"admin".equals(session.getAttribute("status"))) {
+
+        if (session == null) {
             resp.sendRedirect("/login.jsp");
             return;
         }
 
+        User u = (User) session.getAttribute("user");
+        if (u==null || !u.is_admin()) {
+            resp.sendRedirect("/access-denied.jsp");
+            return;
+        }
 
         String action = req.getParameter("action");
         int id = Integer.parseInt(req.getParameter("id"));

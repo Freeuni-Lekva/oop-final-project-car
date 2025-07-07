@@ -1,4 +1,4 @@
-<%--
+<%@ page import="org.example.car.User.Model.User" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 7/7/2025
@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    String status = (String) session.getAttribute("status");
-    if (status == null || !"admin".equals(status)) {
-        response.sendRedirect("/login.jsp");
+    User u = (User) session.getAttribute("user");
+    if (u ==null || !u.is_admin()) {
+        response.sendRedirect("/access-denied.jsp");
         return;
     }
 %>
