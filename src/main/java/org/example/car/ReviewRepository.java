@@ -86,6 +86,32 @@ public class ReviewRepository {
         return reviews;
     }
 
+    public List<Review> getReviews(){
+        List<Review> reviews = new ArrayList<>();
+        String sql = "select * from reviews";
+
+        try(
+                Connection conn = DBConnector.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+        ){
+            while(rs.next()){
+                int id = rs.getInt("id");
+                int user_id = rs.getInt("user_id");
+                int car_id = rs.getInt("car_id");
+                int rating = rs.getInt("rating");
+                String comment = rs.getString("comment");
+
+                Review review = new Review(id, user_id, car_id, rating, comment);
+                reviews.add(review);
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return reviews;
+    }
 
 
 }
