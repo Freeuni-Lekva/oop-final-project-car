@@ -10,7 +10,54 @@ import org.example.car.Car.Repository.CarRepository;
 import org.example.car.ReviewRepository;
 import org.example.car.User.Repository.UserRepository;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
+
+    private UserRepository userRepo = new UserRepository();
+    private ReviewRepository reviewRepo = new ReviewRepository();
+    private BookingRepository bookingRepo = new BookingRepository();
+    private CarRepository carRepo;
+
+    {
+        try {
+            carRepo = new CarRepository();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("users", userRepo.getAllUsers());
+        req.setAttribute("reviews", reviewRepo.getReviews());
+        req.setAttribute("bookings", bookingRepo.getBookings());
+        req.setAttribute("cars", carRepo.getAllCars());
+        req.getRequestDispatcher("/admin-dashboard.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String action = req.getParameter("action");
+        int id = Integer.parseInt(req.getParameter("id"));
+
+        switch (action) {
+            case "deleteUser":
+                userRepo.deleteUser(id);
+                break;
+            case "deleteReview":
+                reviewRepo.deleteReview(id);
+                break;
+            case "deleteBooking":
+                bookingRepo.deleteBooking(id);
+                break;
+        }
+
+        resp.sendRedirect("/admin");
+    }
+
 
 }

@@ -27,7 +27,6 @@ public class UserProfileServlet extends HttpServlet {
 
         BookingRepository bookingRepo = new BookingRepository();
         ReviewRepository reviewRepo = new ReviewRepository();
-        BookingService bookingService = new BookingService();
 
         Map<String, List<Booking>> categorized = bookingRepo.categorizeBookings(user.getId());
 
