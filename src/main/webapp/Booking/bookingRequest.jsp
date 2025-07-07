@@ -27,6 +27,11 @@
 <html>
   <head>
     <title>Booking</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
   </head>
   <body>
 
@@ -52,6 +57,17 @@
 
     <button type = "submit">Book</button>
   </form>
+
+
+  <script>
+    bookedDates = [
+      <% for (int i = 0; i < bookedDates.size(); i++) { %>
+      "<%= bookedDates.get(i) %>"<%= (i < bookedDates.size() - 1 ? "," : "") %>
+      <% } %>
+    ];
+    pricePerDay = <%= pricePerDay %>;
+  </script>
+  <script src="booking_calendar.js"></script>
 
   </body>
 </html>
