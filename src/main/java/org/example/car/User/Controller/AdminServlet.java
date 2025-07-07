@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.example.car.BookingSystem.Repository.BookingRepository;
 import org.example.car.Car.Repository.CarRepository;
 import org.example.car.ReviewRepository;
@@ -32,6 +33,12 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        if (session == null || !"admin".equals(session.getAttribute("status"))) {
+            resp.sendRedirect("/login.jsp"); // Or show an error page
+            return;
+        }
+
         req.setAttribute("users", userRepo.getAllUsers());
         req.setAttribute("reviews", reviewRepo.getReviews());
         req.setAttribute("bookings", bookingRepo.getBookings());
@@ -41,6 +48,13 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession(false);
+        if (session == null || !"admin".equals(session.getAttribute("status"))) {
+            resp.sendRedirect("/login.jsp");
+            return;
+        }
+
+
         String action = req.getParameter("action");
         int id = Integer.parseInt(req.getParameter("id"));
 
