@@ -66,7 +66,7 @@ public class CarRepository {
         return cars;
     }
 
-    public Car getCarById(int id) throws SQLException {
+    public static Car getCarById(int id) throws SQLException {
         Car car = null;
         String query = "SELECT * FROM cars WHERE id = " + id;
         Connection connection = DBConnector.getConnection();

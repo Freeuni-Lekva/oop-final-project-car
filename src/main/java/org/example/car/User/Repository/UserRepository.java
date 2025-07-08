@@ -49,4 +49,29 @@ public class UserRepository {
         }
     }
 
+    public static User getUserById(int id){
+        String query = "select * from users where id = ?";
+
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                int userId = rs.getInt("id");
+                String fullName = rs.getString("full_name");
+                String passwordHash = rs.getString("password_hash");
+                boolean isAdmin = rs.getBoolean("is_admin");
+
+                return new User(userId, fullName, passwordHash, isAdmin);
+            }
+        }
+
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }

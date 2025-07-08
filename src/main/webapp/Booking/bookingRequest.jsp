@@ -17,6 +17,9 @@
     LocalDate start = b.getStartDate().toLocalDate();
     LocalDate end = b.getEndDate().toLocalDate();
 
+    System.out.println(start.toString());
+    System.out.println(end.toString());
+
     while(!start.isAfter(end)){
       bookedDates.add(start.toString());
       start = start.plusDays(1);
