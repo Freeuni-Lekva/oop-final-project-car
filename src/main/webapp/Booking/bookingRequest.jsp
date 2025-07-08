@@ -3,12 +3,17 @@
 <%@ page import="org.example.car.BookingSystem.Repository.BookingRepository" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.time.LocalDate" %>
+<%@ page import="org.example.car.Car.Model.Car" %>
+<%@ page import="org.example.car.Car.Repository.CarRepository" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
   int carId = 1;
-  String carName = "Toyota";
-  Double pricePerDay = 50.0;
   int userId = 1;
+
+  Car c = CarRepository.getCarById(carId);
+
+  String carName = c.getModel() + " " + c.getBrand();
+  Double pricePerDay = c.getPrice_per_day();
 
   List<Booking> bookings = BookingRepository.getCarBookings(carId);
   List<String> bookedDates = new ArrayList<>();

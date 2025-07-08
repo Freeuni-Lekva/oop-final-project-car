@@ -35,6 +35,8 @@ public class BookingController extends HttpServlet {
             Car c = CarRepository.getCarById(bookingRequest.getCarId());
             String carName = c.getBrand() + " " + c.getModel();
             request.setAttribute("carName", carName);
+            request.setAttribute("carDetails", c.getDescription());
+            request.setAttribute("carPic", c.getImage_url());
             request.setAttribute("startDate", bookingRequest.getStartDate());
             request.setAttribute("endDate", bookingRequest.getEndDate());
 
