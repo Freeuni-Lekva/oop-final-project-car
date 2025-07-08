@@ -35,6 +35,7 @@ public class UserProfileServlet extends HttpServlet {
         req.setAttribute("currentBookings", categorized.get("current"));
         req.setAttribute("futureBookings", categorized.get("future"));
         req.setAttribute("userReviews", userReviews);
+        req.setAttribute("full_name", user.getFull_name());
 
         req.getRequestDispatcher("/userPage.jsp").forward(req, resp);
     }

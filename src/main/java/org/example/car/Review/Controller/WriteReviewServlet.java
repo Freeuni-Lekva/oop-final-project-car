@@ -11,7 +11,7 @@ import org.example.car.Review.Service.ReviewService;
 import java.io.IOException;
 
 @WebServlet("/submitReview")
-public class ReviewServlet extends HttpServlet {
+public class WriteReviewServlet extends HttpServlet {
 
     private final ReviewService reviewService = new ReviewService();
 

@@ -66,6 +66,32 @@ public class ReviewRepository {
         }
     }
 
+    public Review getReviewByID(int reviewId) {
+        String sql = "SELECT * FROM reviews WHERE id = ?";
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, reviewId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Review(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getInt("car_id"),
+                        rs.getInt("rating"),
+                        rs.getString("comment")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
     public List<Review> getReviewsByUserId(int userId) {
         List<Review> reviews = new ArrayList<>();
         String sql = "SELECT * FROM reviews WHERE user_id = ?";
