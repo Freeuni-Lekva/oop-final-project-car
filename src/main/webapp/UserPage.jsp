@@ -6,7 +6,9 @@
 <%@ page import="org.example.car.Review.Review" %>
 <%@ page import="java.sql.Date" %>
 <%@ page import="java.time.ZoneId" %>
-<%@ page import="org.example.car.BookingSystem.Repository.BookingRepository" %><%--
+<%@ page import="org.example.car.BookingSystem.Repository.BookingRepository" %>
+<%@ page import="org.example.car.User.Model.User" %>
+<%@ page import="org.example.car.User.Repository.UserRepository" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 7/7/2025
@@ -16,6 +18,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    User user = new User(1,"Tekla Vadakaria", "daj", false);
     List<Booking> current = BookingRepository.getBookingsByUserId(1);
     List<Booking> past = BookingRepository.getBookingsByUserId(1);
 
@@ -29,6 +32,7 @@
     request.setAttribute("pastBookings", past);
     request.setAttribute("futureBookings", future);
     request.setAttribute("userReviews", reviews);
+    request.setAttribute("user", user);
 
 %>
 <html>
@@ -60,13 +64,6 @@
             margin-bottom: 2rem;
         }
 
-        .home-icon {
-            text-decoration: none;
-            font-size: 1.2rem;
-            color: #219ebc;
-            font-weight: bold;
-        }
-
         .section-title {
             font-size: 1.4rem;
             border-bottom: 2px solid #219ebc;
@@ -75,18 +72,18 @@
         }
 
         .profile {
-            margin-top: -1rem;
+            margin-top: 3rem;
         }
 
         .summary {
             margin: 1rem 0;
-            font-weight: bold;
         }
 
         .grid {
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
+            margin-top: 0.5rem;
         }
 
         .card {
@@ -94,7 +91,7 @@
             border: 2px solid #8ecae6;
             border-radius: 10px;
             padding: 1rem;
-            width: 30%;
+            width: 28.5%;
             box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
 
@@ -112,6 +109,31 @@
         .see-more:hover {
             background-color: #ffb703;
         }
+
+
+        .home-link {
+            display: inline-flex;
+            align-items: center;
+            font-weight: bold;
+            color: #023047;
+            text-decoration: none;
+            margin-top: 1rem;
+            font-size: 24px;
+            margin-bottom: 2rem;
+        }
+
+        .home-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            transition: transform 0.2s ease;
+        }
+
+        .home-link:hover .home-icon {
+            transform: scale(1.1);
+        }
+
+
     </style>
 </head>
 <body>
@@ -119,12 +141,15 @@
 <div class="container">
     <header>
         <div class="home-icon">
-            <a href="/home.jsp">🏠 Home</a>
+            <a href="/home.jsp" class="home-link">
+                <img src="images/home-icon.png" alt="Home" class="home-icon">
+                Home
+            </a>
         </div>
     </header>
 
     <div class="profile">
-        <h2>${user.name}</h2>
+        <p>Name: ${user.full_name}</p>
         <p>ID: ${user.id}</p>
         <p class="summary">Rented Cars: ${rentedCount}</p>
         <p class="summary">Reviews Given: ${userReviews.size()}</p>
@@ -143,7 +168,7 @@
                 </c:if>
             </c:forEach>
         </div>
-        <c:if test="${currentBookings.size() > 3}">
+        <c:if test="${currentBookings.size() > 2}">
             <a class="see-more" href="/user/bookings?type=current">See More</a>
         </c:if>
     </div>
@@ -161,7 +186,7 @@
                 </c:if>
             </c:forEach>
         </div>
-        <c:if test="${futureBookings.size() > 3}">
+        <c:if test="${futureBookings.size() > 2}">
             <a class="see-more" href="/user/bookings?type=future">See More</a>
         </c:if>
     </div>
@@ -179,7 +204,7 @@
                 </c:if>
             </c:forEach>
         </div>
-        <c:if test="${pastBookings.size() > 3}">
+        <c:if test="${pastBookings.size() > 2}">
             <a class="see-more" href="/user/bookings?type=past">See More</a>
         </c:if>
     </div>
@@ -197,7 +222,7 @@
                 </c:if>
             </c:forEach>
         </div>
-        <c:if test="${userReviews.size() > 3}">
+        <c:if test="${userReviews.size() > 2}">
             <a class="see-more" href="/user/reviews">See More</a>
         </c:if>
     </div>
