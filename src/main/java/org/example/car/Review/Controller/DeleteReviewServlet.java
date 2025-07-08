@@ -14,6 +14,28 @@ import java.io.IOException;
 public class DeleteReviewServlet extends HttpServlet {
 
     private final ReviewRepository reviewRepo = new ReviewRepository();
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        User user = (User) req.getSession().getAttribute("user");
 
+        if (user == null) {
+            resp.sendRedirect("/login.jsp");
+            return;
+        }
+
+        try {
+            int reviewId = Integer.parseInt(req.getParameter("reviewId"));
+            Review review = reviewRepo.getReviewByID(reviewId);
+
+            if (review != null && review.getUser_id() == user.getId()) {
+                reviewRepo.deleteReview(reviewId);
+            }
+        } catch (NumberFormatException e) {
+            req.setAttribute("error", "Review not found.");
+            req.getRequestDispatcher("/userPage.jsp").forward(req, resp);
+        }
+
+        resp.sendRedirect("/userPage");
+    }
 }
 
