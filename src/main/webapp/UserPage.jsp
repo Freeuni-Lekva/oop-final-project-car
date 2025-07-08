@@ -133,6 +133,26 @@
             transform: scale(1.1);
         }
 
+        .btn-action {
+            background-color: #fb5800;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            position: relative;
+            top: 8px;
+            right: 8px;
+        }
+
+        .btn-action:hover {
+            background-color: #e04a00;
+        }
+
+        form {
+            display: inline;
+        }
 
     </style>
 </head>
@@ -182,6 +202,11 @@
                         <p><strong>Car:</strong> ${b.carId}</p>
                         <p><strong>From:</strong> ${b.startDate}</p>
                         <p><strong>To:</strong> ${b.endDate}</p>
+
+                        <form method="post" action="/cancelBooking">
+                            <input type="hidden" name="bookingId" value="${b.id}" />
+                            <button class="btn-action" type="submit">Cancel</button>
+                        </form>
                     </div>
                 </c:if>
             </c:forEach>
@@ -218,6 +243,11 @@
                         <p><strong>Car:</strong> ${r.carId}</p>
                         <p><strong>Rating:</strong> ${r.rating} / 5</p>
                         <p><strong>Comment:</strong> ${r.comment}</p>
+
+                        <form method="post" action="/deleteReview">
+                            <input type="hidden" name="reviewId" value="${r.id}" />
+                            <button class="btn-action" type="submit">Delete</button>
+                        </form>
                     </div>
                 </c:if>
             </c:forEach>
