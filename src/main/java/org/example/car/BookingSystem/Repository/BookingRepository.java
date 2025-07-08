@@ -7,6 +7,9 @@ import org.example.car.DBConnector;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BookingRepository {
     public boolean isCarAvaliable(BookingRequest bookingRequest) {
@@ -76,11 +79,10 @@ public class BookingRepository {
     public static List<Booking> getCarBookings(int carId){
         List<Booking> bookings = new ArrayList<>();
         String sql = "select * from bookings where car_id = ?;";
-
-        try(
+          try(
                 Connection conn = DBConnector.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
-        ){
+                    ){
             ps.setInt(1, carId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -93,13 +95,101 @@ public class BookingRepository {
                     Booking booking = new Booking(id, user_id, car_id, start_date, end_date);
                     bookings.add(booking);
                 }
-            }
+                      }
         }
         catch (SQLException e){
             e.printStackTrace();
         }
 
         return bookings;
+    }
+  
+    public List<Booking> getBookingsByUserId(int userId) {
+        List<Booking> bookings = new ArrayList<>();
+        String sql = "SELECT * FROM bookings WHERE user_id = ?";
+
+        try (
+            Connection conn = DBConnector.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int car_id = rs.getInt("car_id");
+                Date start_date = rs.getDate("start_date");
+                Date end_date = rs.getDate("end_date");
+
+                bookings.add(new Booking(id, userId, car_id, start_date, end_date));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return bookings;
+    }
+
+    public Map<String, List<Booking>> categorizeBookings(int userId) {
+        Map<String, List<Booking>> map = new HashMap<>();
+        map.put("past", new ArrayList<>());
+        map.put("current", new ArrayList<>());
+        map.put("future", new ArrayList<>());
+
+        String sql = "SELECT * FROM bookings WHERE user_id = ?";
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            LocalDate today = LocalDate.now();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int car_id = rs.getInt("car_id");
+                Date start_date = rs.getDate("start_date");
+                Date end_date = rs.getDate("end_date");
+
+                Booking booking = new Booking(id, userId, car_id, start_date, end_date);
+
+                LocalDate start = start_date.toLocalDate();
+                LocalDate end = end_date.toLocalDate();
+
+                if (end.isBefore(today)) {
+                    map.get("past").add(booking);
+                } else if ((start.isEqual(today) || start.isBefore(today)) && end.isAfter(today)) {
+                    map.get("current").add(booking);
+                } else {
+                    map.get("future").add(booking);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return map;
+    }
+
+    public List<Booking> getBookings(){
+        List<Booking> bookings = new ArrayList<>();
+        String sql = "select * from bookings";
+    
+
+    public void deleteBooking(int bookindId) {
+        String sql = "DELETE FROM bookings WHERE id = ?";
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, bookindId);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

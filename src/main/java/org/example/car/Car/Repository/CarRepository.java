@@ -15,6 +15,37 @@ public class CarRepository {
                 "root"
         );
     }
+
+
+    public List<Car> getSortedCars(String sortBy , String order){
+        List<Car> cars = new ArrayList<Car>();
+
+        String sql = "select * from cars order by " + sortBy+" "+order;
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while(resultSet.next()){
+                Car car = new Car();
+                car.setId(resultSet.getInt("id"));
+                car.setBrand(resultSet.getString("brand"));
+                car.setModel(resultSet.getString("model"));
+                car.setYear(resultSet.getInt("year"));
+                car.setPrice_per_day(resultSet.getInt("price_per_day"));
+                car.setDescription(resultSet.getString("description"));
+                car.setImage_url(resultSet.getString("image_url"));
+                cars.add(car);
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cars;
+    }
+
+
     public List<Car> getAllCars() {
         List<Car> cars = new ArrayList<Car>();
         try{

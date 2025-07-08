@@ -12,10 +12,38 @@
 </head>
 <body>
 <h1>Available Cars</h1>
+<form action="cars" method="get" style="margin-bottom: 20px;">
+    <label for="sortBy">Sort by:</label>
+    <select name="sortBy" id="sortBy">
+        <option value="brand">Brand</option>
+        <option value="price_per_day">Price</option>
+        <option value="year">Year</option>
+    </select>
+
+    <input type="hidden" name="order" id="order" value="asc" />
+
+    <button type="submit" onclick="setOrder('ASC')">
+        <img src="images/arrow_up.jpg" alt="Ascending" width="20"/>
+    </button>
+
+    <button type="submit" onclick="setOrder('DESC')">
+        <img src="images/arrow_down.jpg" alt="Descending" width="20"/>
+    </button>
+</form>
+
+<script>
+    function setOrder(order) {
+        document.getElementById("order").value = order;
+    }
+</script>
+
 <%
     List<Car> cars = (List<Car>) request.getAttribute("cars");
     if(!cars.isEmpty()){
         for(Car car : cars){
+
+
+
 %>
             <div>
             <h2>
