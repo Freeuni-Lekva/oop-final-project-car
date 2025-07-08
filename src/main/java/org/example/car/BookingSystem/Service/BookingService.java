@@ -1,6 +1,6 @@
 package org.example.car.BookingSystem.Service;
 
-import org.example.car.BookingRequest;
+import org.example.car.BookingSystem.BookingRequest;
 import org.example.car.BookingSystem.Repository.BookingRepository;
 
 public class BookingService {

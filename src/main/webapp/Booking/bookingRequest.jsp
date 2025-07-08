@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.car.Booking" %>
+<%@ page import="org.example.car.BookingSystem.Booking" %>
 <%@ page import="org.example.car.BookingSystem.Repository.BookingRepository" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.time.LocalDate" %>

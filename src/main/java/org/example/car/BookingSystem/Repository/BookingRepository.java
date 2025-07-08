@@ -1,7 +1,7 @@
 package org.example.car.BookingSystem.Repository;
 
-import org.example.car.Booking;
-import org.example.car.BookingRequest;
+import org.example.car.BookingSystem.Booking;
+import org.example.car.BookingSystem.BookingRequest;
 import org.example.car.DBConnector;
 
 import java.sql.*;
@@ -173,10 +173,32 @@ public class BookingRepository {
         return map;
     }
 
-    public List<Booking> getBookings(){
+    public static List<Booking> getBookings(){
         List<Booking> bookings = new ArrayList<>();
         String sql = "select * from bookings";
-    
+
+        try(
+                Connection conn = DBConnector.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+        ){
+            while(rs.next()){
+                int id = rs.getInt("id");
+                int user_id = rs.getInt("user_id");
+                int car_id = rs.getInt("car_id");
+                Date start_date = rs.getDate("start_date");
+                Date end_date = rs.getDate("end_date");
+
+                Booking booking = new Booking(id, user_id, car_id, start_date, end_date);
+                bookings.add(booking);
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return bookings;
+    }
 
     public void deleteBooking(int bookindId) {
         String sql = "DELETE FROM bookings WHERE id = ?";

@@ -3,9 +3,12 @@ package org.example.car.AIAssistant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.car.Booking;
+import org.example.car.BookingSystem.Booking;
+import org.example.car.BookingSystem.Repository.BookingRepository;
 import org.example.car.Car.Model.Car;
-import org.example.car.Review;
+import org.example.car.Car.Repository.CarRepository;
+import org.example.car.Review.Repository.ReviewRepository;
+import org.example.car.Review.Review;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -84,11 +87,10 @@ public class GeminiAI {
     }
 
     private String prepareMessage(String message){
-        GetDatabase gd = new GetDatabase();
 
-        List<Car> cars = gd.getCars();
-        List<Booking> bookings = gd.getBookings();
-        List<Review> reviews = gd.getReviews();
+        List<Car> cars = CarRepository.getAllCars();
+        List<Booking> bookings = BookingRepository.getBookings();
+        List<Review> reviews = ReviewRepository.getReviews();
 
         StringBuilder sb = new StringBuilder();
         sb.append("you are assistant for car rental website. ONLY answer questions related to data below\n\n");

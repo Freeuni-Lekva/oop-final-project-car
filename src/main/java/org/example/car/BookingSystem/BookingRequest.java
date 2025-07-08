@@ -1,4 +1,4 @@
-package org.example.car;
+package org.example.car.BookingSystem;
 
 import jakarta.servlet.http.HttpServletRequest;
 

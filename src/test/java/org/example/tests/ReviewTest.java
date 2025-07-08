@@ -1,8 +1,8 @@
 package org.example.tests;
 
 import org.example.car.DBConnector;
-import org.example.car.Review;
-import org.example.car.ReviewRepository;
+import org.example.car.Review.Review;
+import org.example.car.Review.Repository.ReviewRepository;
 import org.junit.jupiter.api.*;
 
 import java.sql.*;

@@ -1,6 +1,9 @@
-package org.example.car;
+package org.example.car.Review.Repository;
 
 //import org.example.tests.DBConnectorForTests;
+
+import org.example.car.DBConnector;
+import org.example.car.Review.Review;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -86,7 +89,7 @@ public class ReviewRepository {
         return reviews;
     }
 
-    public List<Review> getReviews(){
+    public static List<Review> getReviews(){
         List<Review> reviews = new ArrayList<>();
         String sql = "select * from reviews";
 
