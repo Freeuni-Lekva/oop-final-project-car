@@ -16,11 +16,7 @@ public class CarController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        try {
-            carRepository = new CarRepository();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        carRepository = new CarRepository();
     }
 
     @Override

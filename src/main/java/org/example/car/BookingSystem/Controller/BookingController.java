@@ -5,11 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.car.BookingRequest;
+import org.example.car.BookingSystem.BookingRequest;
 import org.example.car.BookingSystem.Service.BookingService;
 
 import java.io.IOException;
-import java.sql.Date;
 
 @WebServlet("/BookingController")
 public class BookingController extends HttpServlet {

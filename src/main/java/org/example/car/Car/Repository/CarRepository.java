@@ -1,20 +1,14 @@
 package org.example.car.Car.Repository;
 
 import org.example.car.Car.Model.Car;
+import org.example.car.DBConnector;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarRepository {
-    private Connection connection;
-    public CarRepository() throws SQLException {
-        this.connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3307/oopFinal",
-                "root",
-                "root"
-        );
-    }
+
 
 
     public List<Car> getSortedCars(String sortBy , String order){
@@ -22,6 +16,7 @@ public class CarRepository {
 
         String sql = "select * from cars order by " + sortBy+" "+order;
         try{
+            Connection connection = DBConnector.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
@@ -46,9 +41,10 @@ public class CarRepository {
     }
 
 
-    public List<Car> getAllCars() {
+    public static List<Car> getAllCars() {
         List<Car> cars = new ArrayList<Car>();
         try{
+            Connection connection = DBConnector.getConnection();
             String query = "SELECT * FROM cars";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -73,6 +69,7 @@ public class CarRepository {
     public Car getCarById(int id) throws SQLException {
         Car car = null;
         String query = "SELECT * FROM cars WHERE id = " + id;
+        Connection connection = DBConnector.getConnection();
         ResultSet rs = connection.prepareStatement(query).executeQuery();
         if(rs.next()) {
             car = new Car();
@@ -88,6 +85,7 @@ public class CarRepository {
     }
     public void addCar(Car car) throws SQLException {
         String query = "INSERT INTO cars (id, brand, model, year, price_per_day, description, image_url) VALUES (?,?,?,?,?,?,?)";
+        Connection connection = DBConnector.getConnection();
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1, car.getId());
         ps.setString(2, car.getBrand());
@@ -101,6 +99,7 @@ public class CarRepository {
 
     public void deleteCar(int id) throws SQLException {
         String query = "DELETE FROM cars WHERE id = " + id;
+        Connection connection = DBConnector.getConnection();
         connection.prepareStatement(query).executeQuery();
     }
 }

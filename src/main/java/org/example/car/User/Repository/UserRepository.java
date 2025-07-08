@@ -1,6 +1,5 @@
 package org.example.car.User.Repository;
 
-import org.example.car.Booking;
 import org.example.car.DBConnector;
 import org.example.car.User.Model.User;
 

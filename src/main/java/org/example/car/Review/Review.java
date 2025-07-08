@@ -1,4 +1,4 @@
-package org.example.car;
+package org.example.car.Review;
 
 public class Review {
     private int id;
