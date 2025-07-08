@@ -36,109 +36,172 @@
     <title>Your Dashboard</title>
     <style>
         body {
-            background-color: #e8f4fa;
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: url('images/background.png') no-repeat center center fixed;
+            background-size: cover;
             color: #023047;
         }
 
-        header {
-            background-color: #219ebc;
-            padding: 1rem;
-            text-align: center;
-            color: white;
-        }
-
-        section {
-            max-width: 900px;
+        .container {
+            background-color: rgba(255, 255, 255, 0.88);
+            max-width: 1000px;
             margin: 2rem auto;
-            padding: 1rem;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        h2 {
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .home-icon {
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: #219ebc;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
             border-bottom: 2px solid #219ebc;
-            padding-bottom: 0.3rem;
+            padding-bottom: 0.5rem;
             margin-top: 2rem;
         }
 
-        .card {
-            background-color: white;
-            border-left: 4px solid #219ebc;
-            margin: 1rem 0;
-            padding: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-radius: 6px;
+        .profile {
+            margin-top: -1rem;
         }
 
-        .btn {
+        .summary {
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border: 2px solid #8ecae6;
+            border-radius: 10px;
+            padding: 1rem;
+            width: 30%;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .see-more {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
             background-color: #fb8500;
             color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
         }
 
-        .btn:hover {
+        .see-more:hover {
             background-color: #ffb703;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Welcome to Your Dashboard</h1>
-</header>
-
-<section>
-    <h2>Current Bookings</h2>
-    <c:forEach var="b" items="${currentBookings}">
-        <div class="card">
-            <p><strong>Car ID:</strong> ${b.carId}</p>
-            <p><strong>From:</strong> ${b.startDate} <strong>To:</strong> ${b.endDate}</p>
+<div class="container">
+    <header>
+        <div class="home-icon">
+            <a href="/home.jsp">🏠 Home</a>
         </div>
-    </c:forEach>
+    </header>
 
-    <h2>Past Bookings</h2>
-    <c:forEach var="b" items="${pastBookings}">
-        <div class="card">
-            <p><strong>Car ID:</strong> ${b.carId}</p>
-            <p><strong>From:</strong> ${b.startDate} <strong>To:</strong> ${b.endDate}</p>
+    <div class="profile">
+        <h2>${user.name}</h2>
+        <p>ID: ${user.id}</p>
+        <p class="summary">Rented Cars: ${rentedCount}</p>
+        <p class="summary">Reviews Given: ${userReviews.size()}</p>
+    </div>
+
+    <div>
+        <div class="section-title">Current Bookings</div>
+        <div class="grid">
+            <c:forEach var="b" items="${currentBookings}" varStatus="loop">
+                <c:if test="${loop.index < 3}">
+                    <div class="card">
+                        <p><strong>Car:</strong> ${b.carId}</p>
+                        <p><strong>From:</strong> ${b.startDate}</p>
+                        <p><strong>To:</strong> ${b.endDate}</p>
+                    </div>
+                </c:if>
+            </c:forEach>
         </div>
-    </c:forEach>
+        <c:if test="${currentBookings.size() > 3}">
+            <a class="see-more" href="/user/bookings?type=current">See More</a>
+        </c:if>
+    </div>
 
-    <h2>Future Bookings</h2>
-    <c:forEach var="b" items="${futureBookings}">
-        <div class="card">
-            <p><strong>Car ID:</strong> ${b.carId}</p>
-            <p><strong>From:</strong> ${b.startDate} <strong>To:</strong> ${b.endDate}</p>
-
-            <form action="/user" method="post" style="margin-top: 0.5rem;">
-                <input type="hidden" name="action" value="cancelBooking" />
-                <input type="hidden" name="bookingId" value="${b.id}" />
-                <button class="btn" type="submit">Cancel Booking</button>
-            </form>
+    <div>
+        <div class="section-title">Future Bookings</div>
+        <div class="grid">
+            <c:forEach var="b" items="${futureBookings}" varStatus="loop">
+                <c:if test="${loop.index < 3}">
+                    <div class="card">
+                        <p><strong>Car:</strong> ${b.carId}</p>
+                        <p><strong>From:</strong> ${b.startDate}</p>
+                        <p><strong>To:</strong> ${b.endDate}</p>
+                    </div>
+                </c:if>
+            </c:forEach>
         </div>
-    </c:forEach>
+        <c:if test="${futureBookings.size() > 3}">
+            <a class="see-more" href="/user/bookings?type=future">See More</a>
+        </c:if>
+    </div>
 
-
-    <h2>Your Reviews</h2>
-    <c:forEach var="r" items="${userReviews}">
-        <div class="card">
-            <p><strong>Car ID:</strong> ${r.carId}</p>
-            <p><strong>Rating:</strong> ${r.rating} / 5</p>
-            <p><strong>Comment:</strong> ${r.comment}</p>
-
-            <form action="/user" method="post" style="margin-top: 0.5rem;">
-                <input type="hidden" name="action" value="deleteReview" />
-                <input type="hidden" name="reviewId" value="${r.id}" />
-                <button class="btn" type="submit">Delete Review</button>
-            </form>
+    <div>
+        <div class="section-title">Past Bookings</div>
+        <div class="grid">
+            <c:forEach var="b" items="${pastBookings}" varStatus="loop">
+                <c:if test="${loop.index < 3}">
+                    <div class="card">
+                        <p><strong>Car:</strong> ${b.carId}</p>
+                        <p><strong>From:</strong> ${b.startDate}</p>
+                        <p><strong>To:</strong> ${b.endDate}</p>
+                    </div>
+                </c:if>
+            </c:forEach>
         </div>
-    </c:forEach>
+        <c:if test="${pastBookings.size() > 3}">
+            <a class="see-more" href="/user/bookings?type=past">See More</a>
+        </c:if>
+    </div>
 
-</section>
+    <div>
+        <div class="section-title">Your Reviews</div>
+        <div class="grid">
+            <c:forEach var="r" items="${userReviews}" varStatus="loop">
+                <c:if test="${loop.index < 3}">
+                    <div class="card">
+                        <p><strong>Car:</strong> ${r.carId}</p>
+                        <p><strong>Rating:</strong> ${r.rating} / 5</p>
+                        <p><strong>Comment:</strong> ${r.comment}</p>
+                    </div>
+                </c:if>
+            </c:forEach>
+        </div>
+        <c:if test="${userReviews.size() > 3}">
+            <a class="see-more" href="/user/reviews">See More</a>
+        </c:if>
+    </div>
+</div>
 
 </body>
 </html>
