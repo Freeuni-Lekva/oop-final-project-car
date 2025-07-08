@@ -32,10 +32,10 @@ public class DeleteReviewServlet extends HttpServlet {
             }
         } catch (NumberFormatException e) {
             req.setAttribute("error", "Review not found.");
-            req.getRequestDispatcher("/userPage.jsp").forward(req, resp);
+            req.getRequestDispatcher("/UserPage.jsp").forward(req, resp);
         }
 
-        resp.sendRedirect("/userPage");
+        resp.sendRedirect("/UserPage");
     }
 }
 

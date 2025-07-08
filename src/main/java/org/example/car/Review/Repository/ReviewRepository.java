@@ -12,7 +12,7 @@ import java.util.List;
 public class ReviewRepository {
 
 
-    public void save(Review review) {
+    public static void save(Review review) {
         String sql = "INSERT INTO reviews (user_id, car_id, rating, comment) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBConnector.getConnection();
@@ -29,7 +29,7 @@ public class ReviewRepository {
         }
     }
 
-    public List<Review> getReviewsByCarId(int carId) {
+    public static List<Review> getReviewsByCarId(int carId) {
         List<Review> reviews = new ArrayList<>();
         String sql = "SELECT * FROM reviews WHERE car_id = ?";
 
@@ -52,7 +52,7 @@ public class ReviewRepository {
         return reviews;
     }
 
-    public void deleteReview(int reviewId) {
+    public static void deleteReview(int reviewId) {
         String sql = "DELETE FROM reviews WHERE id = ?";
 
         try (Connection conn = DBConnector.getConnection();
@@ -66,7 +66,7 @@ public class ReviewRepository {
         }
     }
 
-    public Review getReviewByID(int reviewId) {
+    public static Review getReviewByID(int reviewId) {
         String sql = "SELECT * FROM reviews WHERE id = ?";
         try (Connection conn = DBConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -92,7 +92,7 @@ public class ReviewRepository {
     }
 
 
-    public List<Review> getReviewsByUserId(int userId) {
+    public static List<Review> getReviewsByUserId(int userId) {
         List<Review> reviews = new ArrayList<>();
         String sql = "SELECT * FROM reviews WHERE user_id = ?";
 

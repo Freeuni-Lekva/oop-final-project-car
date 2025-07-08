@@ -5,7 +5,8 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="org.example.car.Review.Review" %>
 <%@ page import="java.sql.Date" %>
-<%@ page import="java.time.ZoneId" %><%--
+<%@ page import="java.time.ZoneId" %>
+<%@ page import="org.example.car.BookingSystem.Repository.BookingRepository" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 7/7/2025
@@ -15,12 +16,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    List<Booking> current = BookingRepository.getBookingsByUserId(1);
+    List<Booking> past = BookingRepository.getBookingsByUserId(1);
 
-    List<Booking> current = new ArrayList<>();
-
-    List<Booking> past = new ArrayList<>();
-
-    List<Booking> future = new ArrayList<>();
+    List<Booking> future = BookingRepository.getBookingsByUserId(1);
 
     List<Review> reviews = new ArrayList<>();
     reviews.add(new Review(1, 1, 3, 5, "Great car!"));
@@ -114,8 +113,15 @@
         <div class="card">
             <p><strong>Car ID:</strong> ${b.carId}</p>
             <p><strong>From:</strong> ${b.startDate} <strong>To:</strong> ${b.endDate}</p>
+
+            <form action="/user" method="post" style="margin-top: 0.5rem;">
+                <input type="hidden" name="action" value="cancelBooking" />
+                <input type="hidden" name="bookingId" value="${b.id}" />
+                <button class="btn" type="submit">Cancel Booking</button>
+            </form>
         </div>
     </c:forEach>
+
 
     <h2>Your Reviews</h2>
     <c:forEach var="r" items="${userReviews}">
@@ -123,8 +129,15 @@
             <p><strong>Car ID:</strong> ${r.carId}</p>
             <p><strong>Rating:</strong> ${r.rating} / 5</p>
             <p><strong>Comment:</strong> ${r.comment}</p>
+
+            <form action="/user" method="post" style="margin-top: 0.5rem;">
+                <input type="hidden" name="action" value="deleteReview" />
+                <input type="hidden" name="reviewId" value="${r.id}" />
+                <button class="btn" type="submit">Delete Review</button>
+            </form>
         </div>
     </c:forEach>
+
 </section>
 
 </body>

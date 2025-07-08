@@ -104,7 +104,7 @@ public class BookingRepository {
         return bookings;
     }
   
-    public List<Booking> getBookingsByUserId(int userId) {
+    public static List<Booking> getBookingsByUserId(int userId) {
         List<Booking> bookings = new ArrayList<>();
         String sql = "SELECT * FROM bookings WHERE user_id = ?";
 
@@ -130,7 +130,7 @@ public class BookingRepository {
         return bookings;
     }
 
-    public Map<String, List<Booking>> categorizeBookings(int userId) {
+    public static Map<String, List<Booking>> categorizeBookings(int userId) {
         Map<String, List<Booking>> map = new HashMap<>();
         map.put("past", new ArrayList<>());
         map.put("current", new ArrayList<>());
