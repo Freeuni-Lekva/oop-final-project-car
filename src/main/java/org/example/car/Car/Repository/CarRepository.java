@@ -9,9 +9,8 @@ import java.util.List;
 
 public class CarRepository {
 
-
-
     public static List<Car> getSortedCars(String sortBy , String order){
+      
         List<Car> cars = new ArrayList<Car>();
 
         String sql = "select * from cars order by " + sortBy+" "+order;
@@ -43,13 +42,16 @@ public class CarRepository {
 
     public static List<Car> getAllCars() {
         List<Car> cars = new ArrayList<Car>();
+        System.out.println("3");
         try{
             Connection connection = DBConnector.getConnection();
             String query = "SELECT * FROM cars";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
+            System.out.println("12");
             while (resultSet.next()) {
+
                 Car car = new Car();
                 car.setId(resultSet.getInt("id"));
                 car.setBrand(resultSet.getString("brand"));
@@ -59,6 +61,8 @@ public class CarRepository {
                 car.setDescription(resultSet.getString("description"));
                 car.setImage_url(resultSet.getString("image_url"));
                 cars.add(car);
+
+                System.out.println(car.toString());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
