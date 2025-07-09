@@ -93,26 +93,26 @@
             padding: 1rem;
             width: 28.5%;
             box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            display: flex;              /* Add flex layout */
-            flex-direction: column;     /* Stack items vertically */
-            gap: 0.5rem;               /* Space between elements */
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .card-content {
-            display: flex;             /* Flex layout for text + image */
-            gap: 1rem;                /* Space between text and image */
-            align-items: center;      /* Vertically align items */
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
 
         .card-text {
-            flex: 1;                 /* Let text take available space */
+            flex: 1;
         }
 
         .car-image {
-            width: 100px;           /* Fixed width for image */
-            height: auto;           /* Maintain aspect ratio */
+            width: 100px;
+            height: auto;
             border-radius: 8px;
-            object-fit: cover;      /* Ensure image fills space nicely */
+            object-fit: cover;
         }
 
         .see-more {
@@ -279,14 +279,15 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-text">
-                                <p><strong>Car:</strong> ${r.carId}</p>
-                                <p><strong>Rating:</strong> ${r.rating} / 5</p>
-                                <p><strong>Comment:</strong> ${r.comment}</p>
+                                <p><strong>Car:</strong> ${r.car.brand} ${r.car.model}</p>
+                                <p><strong>Rating:</strong> ${r.review.rating} / 5</p>
+                                <p><strong>Comment:</strong> ${r.review.comment}</p>
                             </div>
+                            <img src="${r.car.image_url}" alt="Car Image" class="car-image">
                         </div>
 
                         <form method="post" action="/deleteReview">
-                            <input type="hidden" name="reviewId" value="${r.id}" />
+                            <input type="hidden" name="reviewId" value="${r.review.id}" />
                             <button class="btn-action" type="submit">Delete</button>
                         </form>
                     </div>

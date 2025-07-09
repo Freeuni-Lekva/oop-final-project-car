@@ -11,6 +11,7 @@ import org.example.car.BookingSystem.BookingDisplay;
 import org.example.car.BookingSystem.Repository.BookingRepository;
 import org.example.car.BookingSystem.Service.BookingService;
 import org.example.car.Review.Review;
+import org.example.car.Review.Service.ReviewDisplayForUser;
 import org.example.car.Review.Service.ReviewService;
 import org.example.car.User.Model.User;
 import org.example.car.Review.Repository.ReviewRepository;
@@ -36,13 +37,18 @@ public class UserProfileServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        List<Review> userReviews = ReviewService.getReviewsByUserId(user.getId());
+        List<ReviewDisplayForUser> userReviews = null;
+        try {
+            userReviews = ReviewService.getReviewsByUserIdForUser(user.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         req.setAttribute("pastBookings", categorized.get("past"));
         req.setAttribute("currentBookings", categorized.get("current"));
         req.setAttribute("futureBookings", categorized.get("future"));
         req.setAttribute("userReviews", userReviews);
-        req.setAttribute("full_name", user.getFull_name());
+        req.setAttribute("user", user);
 
         req.getRequestDispatcher("/UserPage.jsp").forward(req, resp);
     }
