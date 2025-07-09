@@ -7,12 +7,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.example.car.BookingSystem.Booking;
+import org.example.car.BookingSystem.BookingDisplay;
 import org.example.car.BookingSystem.Repository.BookingRepository;
+import org.example.car.BookingSystem.Service.BookingService;
 import org.example.car.Review.Review;
+import org.example.car.Review.Service.ReviewService;
 import org.example.car.User.Model.User;
 import org.example.car.Review.Repository.ReviewRepository;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -24,12 +28,15 @@ public class UserProfileServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
 
-        BookingRepository bookingRepo = new BookingRepository();
-        ReviewRepository reviewRepo = new ReviewRepository();
 
-        Map<String, List<Booking>> categorized = bookingRepo.categorizeBookings(user.getId());
+        Map<String, List<BookingDisplay>> categorized = null;
+        try {
+            categorized = BookingService.categorizeBookings(user.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-        List<Review> userReviews = reviewRepo.getReviewsByUserId(user.getId());
+        List<Review> userReviews = ReviewService.getReviewsByUserId(user.getId());
 
         req.setAttribute("pastBookings", categorized.get("past"));
         req.setAttribute("currentBookings", categorized.get("current"));

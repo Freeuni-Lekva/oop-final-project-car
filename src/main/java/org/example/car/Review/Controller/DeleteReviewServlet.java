@@ -7,13 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.car.Review.Repository.ReviewRepository;
 import org.example.car.Review.Review;
+import org.example.car.Review.Service.ReviewService;
 import org.example.car.User.Model.User;
 
 import java.io.IOException;
 @WebServlet("/user/reviews/delete")
 public class DeleteReviewServlet extends HttpServlet {
 
-    private final ReviewRepository reviewRepo = new ReviewRepository();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         User user = (User) req.getSession().getAttribute("user");
@@ -25,10 +25,10 @@ public class DeleteReviewServlet extends HttpServlet {
 
         try {
             int reviewId = Integer.parseInt(req.getParameter("reviewId"));
-            Review review = reviewRepo.getReviewByID(reviewId);
+            Review review = ReviewService.getReviewById(reviewId);
 
             if (review != null && review.getUser_id() == user.getId()) {
-                reviewRepo.deleteReview(reviewId);
+                ReviewService.deleteReview(reviewId);
             }
         } catch (NumberFormatException e) {
             req.setAttribute("error", "Review not found.");

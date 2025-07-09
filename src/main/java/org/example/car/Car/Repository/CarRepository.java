@@ -11,7 +11,7 @@ public class CarRepository {
 
 
 
-    public List<Car> getSortedCars(String sortBy , String order){
+    public static List<Car> getSortedCars(String sortBy , String order){
         List<Car> cars = new ArrayList<Car>();
 
         String sql = "select * from cars order by " + sortBy+" "+order;
@@ -66,7 +66,7 @@ public class CarRepository {
         return cars;
     }
 
-    public Car getCarById(int id) throws SQLException {
+    public static Car getCarById(int id) throws SQLException {
         Car car = null;
         String query = "SELECT * FROM cars WHERE id = " + id;
         Connection connection = DBConnector.getConnection();
@@ -83,7 +83,7 @@ public class CarRepository {
         }
         return car;
     }
-    public void addCar(Car car) throws SQLException {
+    public static void addCar(Car car) throws SQLException {
         String query = "INSERT INTO cars (id, brand, model, year, price_per_day, description, image_url) VALUES (?,?,?,?,?,?,?)";
         Connection connection = DBConnector.getConnection();
         PreparedStatement ps = connection.prepareStatement(query);
@@ -97,7 +97,7 @@ public class CarRepository {
         ps.executeUpdate();
     }
 
-    public void deleteCar(int id) throws SQLException {
+    public static void deleteCar(int id) throws SQLException {
         String query = "DELETE FROM cars WHERE id = " + id;
         Connection connection = DBConnector.getConnection();
         connection.prepareStatement(query).executeQuery();

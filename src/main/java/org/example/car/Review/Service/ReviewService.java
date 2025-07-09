@@ -8,19 +8,20 @@ import java.util.List;
 public class ReviewService {
 
 
-    private final ReviewRepository reviewRepository = new ReviewRepository();
-
-    public void saveReview(Review review) {
-        reviewRepository.save(review);
+    public static void saveReview(Review review) {
+        ReviewRepository.save(review);
     }
 
-    public List<Review> getReviewsByCarId(int carId) {
-        return reviewRepository.getReviewsByCarId(carId);
+    public static List<Review> getReviewsByCarId(int carId) {
+        return ReviewRepository.getReviewsByCarId(carId);
     }
-    public void deleteReview(int reviewId) {
-        reviewRepository.deleteReview(reviewId);
+    public static void deleteReview(int reviewId) {
+        ReviewRepository.deleteReview(reviewId);
     }
+    public static Review getReviewById(int reviewId){return ReviewRepository.getReviewByID(reviewId);}
 
-    public List<Review> getReviewsByUserId(int userId){return reviewRepository.getReviewsByUserId(userId);}
+    public static List<Review> getReviewsByUserId(int userId){return ReviewRepository.getReviewsByUserId(userId);}
+
+    public static List<Review> getAllReviews(){return ReviewRepository.getReviews();}
 
 }
