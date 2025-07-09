@@ -1,0 +1,202 @@
+@import url('variables.css');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background);
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.wrapper {
+    max-width: 700px;
+    width: 100%;
+}
+
+.glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 12px 48px var(--shadow-strong);
+    animation: fadeIn 0.6s ease-out;
+}
+
+.glass_header {
+    margin-bottom: 2rem;
+}
+
+.status1 {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff4d6d, #ff1a3c);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(255, 26, 60, 0.6);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.status2 {
+    display: inline-block;
+    background: linear-gradient(135deg, #38b000, #70e000);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px var(--shadow-mid);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.status3{
+    display: inline-block;
+    background: linear-gradient(135deg, #b22940, #830016);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(255, 26, 60, 0.6);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.glass-header h2 {
+    font-size: 1.2rem;
+    color: var(--text-subtle);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+.glass-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.glass-header .year {
+    font-weight: normal;
+    font-size: 1rem;
+    color: var(--text-subtle);
+}
+
+.glass-header .price {
+    font-size: 1.2rem;
+    color: var(--accent-gold);
+    text-align: center;
+}
+
+.form-group {
+    margin-top: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+    color: var(--text-light);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+.highlight1 {
+    color: var(--accent-gold);
+    font-weight: bold;
+}
+
+.highlight2 {
+    color: var(--accent-pinkish);
+    font-weight: bold;
+}
+
+.dates p {
+    font-size: 1rem;
+    margin: 0.3rem 0;
+    color: var(--text-subtle);
+}
+
+.car {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.car-image {
+    max-width: 320px;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px var(--shadow-mid);
+}
+
+.car_info {
+    max-width: 400px;
+}
+
+.car-info h2 {
+    font-size: 1.8rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.car_desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.form-summary {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.form-summary p {
+    margin: 0.5rem 0;
+    color: var(--accent-gold);
+}
+
+.btn {
+    background: var(--accent-gradient);
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 16px var(--shadow-mid);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px var(--shadow-strong);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}

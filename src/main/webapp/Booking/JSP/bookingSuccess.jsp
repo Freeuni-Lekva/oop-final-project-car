@@ -2,14 +2,13 @@
 <html>
 <head>
   <title>Booking Confirmed</title>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/Booking/CSS/success.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/Booking/CSS/bookingStyles.css">
 </head>
 <body>
-
+<div class ="wrapper">
 <div class = "glass">
-
   <div class = "glass_header">
-    <div class = "status">Booking Confirmed</div>
+    <div class = "status2">Booking Confirmed</div>
     <h1> Congratulations ${userName}!</h1>
     <p>Your journey begins soon with <span class="highlight1">${carName}</span></p>
   </div>
@@ -28,9 +27,10 @@
   </div>
 
   <div class="glass-footer">
-    <a class="home-btn" href="${pageContext.request.contextPath}/index.jsp">Return to Homepage</a>
+    <a class="btn" href="${pageContext.request.contextPath}/index.jsp">Return to Homepage</a>
   </div>
 
+</div>
 </div>
 
 </body>
