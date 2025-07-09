@@ -75,7 +75,7 @@
     ];
     pricePerDay = <%= pricePerDay %>;
   </script>
-  <script src="booking_calendar.js"></script>
+  <script src="../JS/booking_calendar.js"></script>
 
   </body>
 </html>

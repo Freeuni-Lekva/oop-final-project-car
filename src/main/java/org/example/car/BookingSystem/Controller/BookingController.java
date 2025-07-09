@@ -42,12 +42,12 @@ public class BookingController extends HttpServlet {
 
             if(booked){
                 System.out.println("booked - FINAL");
-                request.getRequestDispatcher("Booking/bookingSuccess.jsp").forward(request, response);
+                request.getRequestDispatcher("Booking/JSP/bookingSuccess.jsp").forward(request, response);
             }
 
             else{
                 System.out.println("failed - FINAL");
-                request.getRequestDispatcher("Booking/bookingFailed.jsp").forward(request, response);
+                request.getRequestDispatcher("Booking/JSP/bookingFailed.jsp").forward(request, response);
             }
 
 
