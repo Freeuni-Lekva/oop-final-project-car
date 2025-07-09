@@ -27,7 +27,7 @@ public class UserProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-
+        user = new User(1, "	Alice Smith	","password123",	false);
 
         Map<String, List<BookingDisplay>> categorized = null;
         try {
@@ -44,7 +44,7 @@ public class UserProfileServlet extends HttpServlet {
         req.setAttribute("userReviews", userReviews);
         req.setAttribute("full_name", user.getFull_name());
 
-        req.getRequestDispatcher("/userPage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/UserPage.jsp").forward(req, resp);
     }
 
 

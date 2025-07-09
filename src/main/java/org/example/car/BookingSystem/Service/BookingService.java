@@ -70,7 +70,7 @@ public class BookingService {
         result.put("current", newCurrent);
         result.put("future", newFuture);
 
-
+        return result;
 
     }
 }
