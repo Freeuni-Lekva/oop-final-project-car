@@ -14,8 +14,8 @@
             margin: 0;
             padding: 0;
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e8f4fa; /* sky_blue-900 */
-            color: #023047; /* prussian_blue */
+            background-color: #e8f4fa;
+            color: #023047;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,7 +24,7 @@
 
         .container {
             background-color: white;
-            border: 2px solid #219ebc; /* blue_green */
+            border: 2px solid #219ebc;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(2, 48, 71, 0.1);
@@ -33,7 +33,7 @@
 
         h1 {
             font-size: 36px;
-            color: #fb8500; /* ut_orange */
+            color: #fb8500;
             margin-bottom: 10px;
         }
 
@@ -43,7 +43,7 @@
         }
 
         a.button {
-            background-color: #219ebc; /* blue_green */
+            background-color: #219ebc;
             color: white;
             padding: 12px 24px;
             border: none;
@@ -54,7 +54,7 @@
         }
 
         a.button:hover {
-            background-color: #023047; /* prussian_blue */
+            background-color: #023047;
         }
     </style>
 </head>
