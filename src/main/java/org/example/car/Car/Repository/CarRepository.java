@@ -3,104 +3,48 @@ package org.example.car.Car.Repository;
 import org.example.car.Car.Model.Car;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
-public class CarRepository {
-    private Connection connection;
-    public CarRepository() throws SQLException {
-        this.connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3307/oopFinal",
-                "root",
-                "root"
-        );
-    }
 
 
-    public List<Car> getSortedCars(String sortBy , String order){
-        List<Car> cars = new ArrayList<Car>();
+    public class CarRepository {
 
-        String sql = "select * from cars order by " + sortBy+" "+order;
-        try{
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            while(resultSet.next()){
-                Car car = new Car();
-                car.setId(resultSet.getInt("id"));
-                car.setBrand(resultSet.getString("brand"));
-                car.setModel(resultSet.getString("model"));
-                car.setYear(resultSet.getInt("year"));
-                car.setPrice_per_day(resultSet.getInt("price_per_day"));
-                car.setDescription(resultSet.getString("description"));
-                car.setImage_url(resultSet.getString("image_url"));
-                cars.add(car);
-
+        public Connection getConnection() {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver"); //HELPED
+                return DriverManager.getConnection("jdbc:mysql://localhost:3306/oopFinal", "root", "root");
+            } catch (Exception e) {
+                System.out.println("DB connection failed: ");
             }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return null;
         }
 
-        return cars;
-    }
 
 
-    public List<Car> getAllCars() {
-        List<Car> cars = new ArrayList<Car>();
-        try{
-            String query = "SELECT * FROM cars";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+        public Car getCarById(int id) throws SQLException {
 
-            while (resultSet.next()) {
-                Car car = new Car();
-                car.setId(resultSet.getInt("id"));
-                car.setBrand(resultSet.getString("brand"));
-                car.setModel(resultSet.getString("model"));
-                car.setYear(resultSet.getInt("year"));
-                car.setPrice_per_day(resultSet.getInt("price_per_day"));
-                car.setDescription(resultSet.getString("description"));
-                car.setImage_url(resultSet.getString("image_url"));
-                cars.add(car);
+            Car car = null;
+            String sql = "SELECT * FROM cars WHERE id = " + id;
+
+//            System.out.println("database check");
+            try (Connection conn = getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+//                System.out.println("database check passed");
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    car = new Car();
+                    car.setId(rs.getInt("id"));
+                    car.setBrand(rs.getString("brand"));
+                    car.setModel(rs.getString("model"));
+                    car.setYear(rs.getInt("year"));
+                    car.setPrice_per_day(rs.getDouble("price_per_day"));
+                    car.setDescription(rs.getString("description"));
+                    car.setImage_url(rs.getString("image_url"));
+                }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+//            System.out.println("getCarByIdCheck2");
+            return car;
         }
-        return cars;
     }
 
-    public Car getCarById(int id) throws SQLException {
-        Car car = null;
-        String query = "SELECT * FROM cars WHERE id = " + id;
-        ResultSet rs = connection.prepareStatement(query).executeQuery();
-        if(rs.next()) {
-            car = new Car();
-            car.setId(rs.getInt("id"));
-            car.setBrand(rs.getString("brand"));
-            car.setModel(rs.getString("model"));
-            car.setYear(rs.getInt("year"));
-            car.setPrice_per_day(rs.getInt("price_per_day"));
-            car.setDescription(rs.getString("description"));
-            car.setImage_url(rs.getString("image_url"));
-        }
-        return car;
-    }
-    public void addCar(Car car) throws SQLException {
-        String query = "INSERT INTO cars (id, brand, model, year, price_per_day, description, image_url) VALUES (?,?,?,?,?,?,?)";
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, car.getId());
-        ps.setString(2, car.getBrand());
-        ps.setString(3, car.getModel());
-        ps.setInt(4, car.getYear());
-        ps.setDouble(5, car.getPrice_per_day());
-        ps.setString(6, car.getDescription());
-        ps.setString(7, car.getImage_url());
-        ps.executeUpdate();
-    }
 
-    public void deleteCar(int id) throws SQLException {
-        String query = "DELETE FROM cars WHERE id = " + id;
-        connection.prepareStatement(query).executeQuery();
-    }
-}
