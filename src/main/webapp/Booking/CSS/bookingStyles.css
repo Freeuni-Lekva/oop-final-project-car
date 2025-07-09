@@ -99,7 +99,7 @@ body {
     text-align: center;
 }
 
-.form-group {
+.form_group {
     margin-top: 1.5rem;
 }
 
@@ -168,7 +168,7 @@ input[type="text"] {
     margin-bottom: 1rem;
 }
 
-.form-summary {
+.form_summary {
     margin-top: 2rem;
     font-size: 1.1rem;
     text-align: center;

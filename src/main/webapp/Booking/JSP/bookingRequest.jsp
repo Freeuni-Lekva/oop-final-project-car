@@ -59,12 +59,12 @@
         <input type="text" id="from" name="startDate" readonly required>
       </div>
 
-      <div class="form-group">
+      <div class="form_group">
         <label for="to">Return Date</label>
         <input type="text" id="to" name="endDate" readonly required>
       </div>
 
-      <div class="form-summary">
+      <div class="form_summary">
         <p>Days: <span id="totalDays">0</span></p>
         <p>Total: <span id="totalPrice">$0.00</span></p>
       </div>
