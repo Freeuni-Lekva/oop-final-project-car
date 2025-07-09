@@ -213,7 +213,7 @@
                 </c:if>
             </c:forEach>
         </div>
-        <c:if test="${pastBookings.size() > 2}">
+        <c:if test="${currentBookings.size() > 2}">
             <a class="see-more" href="/user/bookings?type=past">See More</a>
         </c:if>
     </div>

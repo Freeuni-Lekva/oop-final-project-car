@@ -44,11 +44,15 @@ public class UserProfileServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        req.setAttribute("pastBookings", categorized.get("past"));
+        List<BookingDisplay> past = categorized.get("past");
+
+        int carsRented = past.size() ;
+        req.setAttribute("pastBookings",past);
         req.setAttribute("currentBookings", categorized.get("current"));
         req.setAttribute("futureBookings", categorized.get("future"));
         req.setAttribute("userReviews", userReviews);
         req.setAttribute("user", user);
+        req.setAttribute("rentedCount", carsRented);
 
         req.getRequestDispatcher("/UserPage.jsp").forward(req, resp);
     }
