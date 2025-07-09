@@ -1,5 +1,7 @@
 package org.example.tests;
 
+import org.example.car.BookingSystem.Booking;
+import org.example.car.BookingSystem.Repository.BookingRepository;
 import org.example.car.DBConnector;
 import org.example.car.Review.Review;
 import org.example.car.Review.Repository.ReviewRepository;
@@ -37,8 +39,10 @@ public class ReviewTest {
         repo = new ReviewRepository();
     }
 
+
     @Test
     void testSaveAndFetchReviews() {
+
         Review review1 = new Review(1, 1,10,5, "Great car");
 
         Review review2 = new Review(2,2,10,3,"Okay car");

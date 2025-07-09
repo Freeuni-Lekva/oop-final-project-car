@@ -7,23 +7,18 @@ import java.util.List;
 
 
 public class CarService {
-    private CarRepository carRepository;
 
-    public CarService(CarRepository carRepository) {
-        this.carRepository = carRepository;
+    public static List<Car> getAllCars() {
+        return CarRepository.getAllCars();
     }
-
-    public List<Car> getAllCars() {
-        return carRepository.getAllCars();
+    public static void addCar(Car car) throws SQLException {
+        CarRepository.addCar(car);
     }
-    public void addCar(Car car) throws SQLException {
-        carRepository.addCar(car);
+    public static Car getCar(int id) throws SQLException {
+        return CarRepository.getCarById(id);
     }
-    public Car getCar(int id) throws SQLException {
-        return carRepository.getCarById(id);
-    }
-    public void deleteCar(int id) throws SQLException {
-        carRepository.deleteCar(id);
+    public static void deleteCar(int id) throws SQLException {
+        CarRepository.deleteCar(id);
     }
 
 }

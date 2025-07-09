@@ -14,7 +14,7 @@ public class DBConnector {
 
     private static final String URL = "jdbc:mysql://localhost:3307/oopFinal";
     private static final String USER = "root";
-    private static final String PASSWORD = "Lisemeitner1878";
+    private static final String PASSWORD = "Lisemeitner1878$";
 
     public static Connection getConnection() throws SQLException {
         try{

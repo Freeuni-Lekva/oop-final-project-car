@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserRepository {
 
-    public List<User> getAllUsers(){
+    public static List<User> getAllUsers(){
         List<User> users = new ArrayList<>();
         String sql = "select * from users";
 
@@ -35,7 +35,7 @@ public class UserRepository {
         return users;
     }
 
-    public void deleteUser(int user_id){
+    public static void deleteUser(int user_id){
         String sql = "DELETE FROM users WHERE id = ?";
 
         try(
