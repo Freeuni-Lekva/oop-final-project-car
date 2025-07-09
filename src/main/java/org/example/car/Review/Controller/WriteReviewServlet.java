@@ -11,9 +11,8 @@ import org.example.car.Review.Service.ReviewService;
 import java.io.IOException;
 
 @WebServlet("/submitReview")
-public class ReviewServlet extends HttpServlet {
+public class WriteReviewServlet extends HttpServlet {
 
-    private final ReviewService reviewService = new ReviewService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -43,7 +42,7 @@ public class ReviewServlet extends HttpServlet {
 
             Review review = new Review(reviewId, userId, carId, rating, comment);
 
-            reviewService.saveReview(review);
+            ReviewService.saveReview(review);
 
             response.getWriter().println("Review submitted!");
             // response.sendRedirect("carDetails.jsp?carId=" + carId);

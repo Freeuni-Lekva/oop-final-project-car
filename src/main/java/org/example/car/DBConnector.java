@@ -11,7 +11,6 @@ public class DBConnector {
 //    private static final String USER = "sa";
 //    private static final String PASSWORD = "";
 
-
     private static final String URL = "jdbc:mysql://localhost:3306/oopFinal";
     private static final String USER = "saba";
     private static final String PASSWORD = "1316";

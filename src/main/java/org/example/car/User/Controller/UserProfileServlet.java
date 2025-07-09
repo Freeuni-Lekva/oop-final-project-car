@@ -7,12 +7,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.example.car.BookingSystem.Booking;
+import org.example.car.BookingSystem.BookingDisplay;
 import org.example.car.BookingSystem.Repository.BookingRepository;
+import org.example.car.BookingSystem.Service.BookingService;
 import org.example.car.Review.Review;
+import org.example.car.Review.Service.ReviewDisplayForUser;
+import org.example.car.Review.Service.ReviewService;
 import org.example.car.User.Model.User;
 import org.example.car.Review.Repository.ReviewRepository;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,20 +28,33 @@ public class UserProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
+        user = new User(1, "	Alice Smith	","password123",	false);
 
-        BookingRepository bookingRepo = new BookingRepository();
-        ReviewRepository reviewRepo = new ReviewRepository();
+        Map<String, List<BookingDisplay>> categorized = null;
+        try {
+            categorized = BookingService.categorizeBookings(user.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-        Map<String, List<Booking>> categorized = bookingRepo.categorizeBookings(user.getId());
+        List<ReviewDisplayForUser> userReviews = null;
+        try {
+            userReviews = ReviewService.getReviewsByUserIdForUser(user.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-        List<Review> userReviews = reviewRepo.getReviewsByUserId(user.getId());
+        List<BookingDisplay> past = categorized.get("past");
 
-        req.setAttribute("pastBookings", categorized.get("past"));
+        int carsRented = past.size() ;
+        req.setAttribute("pastBookings",past);
         req.setAttribute("currentBookings", categorized.get("current"));
         req.setAttribute("futureBookings", categorized.get("future"));
         req.setAttribute("userReviews", userReviews);
+        req.setAttribute("user", user);
+        req.setAttribute("rentedCount", carsRented);
 
-        req.getRequestDispatcher("/userPage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/UserPage.jsp").forward(req, resp);
     }
 
 
