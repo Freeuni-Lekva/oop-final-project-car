@@ -1,6 +1,6 @@
-package org.example.car.User.Repository;
+package org.example.car;
 
-import org.example.car.User.Model.Review;
+//import org.example.tests.DBConnectorForTests;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,23 +8,14 @@ import java.util.List;
 
 public class ReviewRepository {
 
-    private String jdbcUrl = "";
-    private String dbUser = "";
-    private String dbPassword = "";
-
-    public ReviewRepository(String jdbcUrl, String dbUser, String dbPassword) {
-        this.jdbcUrl = jdbcUrl;
-        this.dbUser = dbUser;
-        this.dbPassword = dbPassword;
-    }
 
     public void save(Review review) {
         String sql = "INSERT INTO reviews (user_id, car_id, rating, comment) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+        try (Connection conn = DBConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, review.getUserId());
+            stmt.setInt(1, review.getUser_id());
             stmt.setInt(2, review.getCarId());
             stmt.setInt(3, review.getRating());
             stmt.setString(4, review.getComment());
@@ -39,19 +30,15 @@ public class ReviewRepository {
         List<Review> reviews = new ArrayList<>();
         String sql = "SELECT * FROM reviews WHERE car_id = ?";
 
-        try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+        try (Connection conn = DBConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, carId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Review r = new Review();
-                r.setId(rs.getInt("id"));
-                r.setUserId(rs.getInt("user_id"));
-                r.setCarId(rs.getInt("car_id"));
-                r.setRating(rs.getInt("rating"));
-                r.setComment(rs.getString("comment"));
+                Review r = new Review(rs.getInt("id"), rs.getInt("user_id"),
+                        rs.getInt("car_id"), rs.getInt("rating"), rs.getString("comment"));
                 reviews.add(r);
             }
 
@@ -65,7 +52,7 @@ public class ReviewRepository {
     public void deleteReview(int reviewId) {
         String sql = "DELETE FROM reviews WHERE id = ?";
 
-        try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+        try (Connection conn = DBConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, reviewId);
@@ -75,6 +62,30 @@ public class ReviewRepository {
             e.printStackTrace();
         }
     }
+
+    public List<Review> getReviewsByUserId(int userId) {
+        List<Review> reviews = new ArrayList<>();
+        String sql = "SELECT * FROM reviews WHERE user_id = ?";
+
+        try (
+            Connection conn =DBConnector.getConnection();
+            PreparedStatement stmt= conn.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Review r =new Review(rs.getInt("id"),userId, rs.getInt("car_id"),
+                        rs.getInt("rating"), rs.getString("comment"));
+                reviews.add(r);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reviews;
+    }
+
 
 
 }

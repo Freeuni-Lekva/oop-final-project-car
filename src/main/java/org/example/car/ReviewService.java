@@ -1,17 +1,11 @@
-package org.example.car.User.Service;
-
-import org.example.car.User.Model.Review;
-import org.example.car.User.Repository.ReviewRepository;
+package org.example.car;
 
 import java.util.List;
 
 public class ReviewService {
 
-    private String jdbcUrl = "";
-    private String dbUser = "";
-    private String dbPassword = "";
 
-    private final ReviewRepository reviewRepository = new ReviewRepository(jdbcUrl, dbUser, dbPassword);
+    private final ReviewRepository reviewRepository = new ReviewRepository();
 
     public void saveReview(Review review) {
         reviewRepository.save(review);
@@ -23,5 +17,7 @@ public class ReviewService {
     public void deleteReview(int reviewId) {
         reviewRepository.deleteReview(reviewId);
     }
+
+    public List<Review> getReviewsByUserId(int userId){return reviewRepository.getReviewsByUserId(userId);}
 
 }
