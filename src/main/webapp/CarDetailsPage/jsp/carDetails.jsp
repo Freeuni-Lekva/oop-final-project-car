@@ -34,11 +34,12 @@
 
         <textarea name="comment" placeholder="Add a comment..." required></textarea>
         <select name="rating" required>
-          <option value="">Rate the car</option>
+          <option value="" disabled selected>Select a rating</option>
           <c:forEach var="i" begin="1" end="5">
             <option value="${i}">${i} Star${i > 1 ? 's' : ''}</option>
           </c:forEach>
         </select>
+
 
         <button type="submit" class="btn">Submit</button>
       </form>

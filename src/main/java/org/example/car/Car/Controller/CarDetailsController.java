@@ -22,7 +22,7 @@ public class CarDetailsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String carIdStr = req.getParameter("car");
-        String userIdStr = req.getParameter("user");
+        String userIdStr = req.getParameter("userId");
 
         if (carIdStr != null) {
             try {
