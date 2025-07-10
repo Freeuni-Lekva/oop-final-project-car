@@ -1,0 +1,159 @@
+@import url('../../Booking/CSS/variables.css');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background);
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 3rem 5rem;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 12px 48px var(--shadow-strong);
+    animation: fadeIn 0.6s ease-out;
+    max-width: 1400px;
+    width: 100%;
+}
+
+.glass-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.glass-header h2 {
+    font-size: 1.2rem;
+    color: var(--text-subtle);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.status1,
+.status2,
+.status3 {
+    display: inline-block;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.status1 {
+    background: linear-gradient(135deg, #ff4d6d, #ff1a3c);
+    box-shadow: 0 4px 12px rgba(255, 26, 60, 0.6);
+}
+
+.status2 {
+    background: linear-gradient(135deg, #38b000, #70e000);
+    box-shadow: 0 4px 12px var(--shadow-mid);
+}
+
+.status3 {
+    background: linear-gradient(135deg, #b22940, #830016);
+    box-shadow: 0 4px 12px rgba(255, 26, 60, 0.6);
+}
+
+.car-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.car {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 24px var(--shadow-mid);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease;
+    aspect-ratio: 1 / 1;
+    justify-content: center;
+}
+
+.car:hover {
+    transform: translateY(-4px);
+}
+
+.car-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1.8rem;
+    box-shadow: 0 8px 24px var(--shadow-mid);
+    display: block;
+}
+
+
+
+.car_info h2 {
+    font-size: 1.4rem;
+    color: var(--text-light);
+    margin-bottom: 0.6rem;
+}
+
+.car_info .year {
+    font-weight: normal;
+    font-size: 1.1rem;
+    color: var(--text-subtle);
+}
+
+.car_desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+}
+
+.price {
+    font-size: 1.2rem;
+    color: var(--accent-gold);
+    margin-bottom: 1.2rem;
+}
+
+.btn {
+    background: var(--accent-gradient);
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 16px var(--shadow-mid);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px var(--shadow-strong);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
