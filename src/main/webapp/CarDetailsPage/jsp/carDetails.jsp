@@ -11,14 +11,21 @@
 <body>
 <div class="wrapper">
   <div class="glass">
-    <!-- Car Info -->
+
     <div class="glass-header">
       <img class="car-image" src="${car.image_url}" alt="Car Image">
-      <h1>${car.brand} ${car.model}</h1>
+      <h1>${car.brand} ${car.model} (${car.year})</h1>
       <p class="car_desc">${car.description}</p>
+      <p class="price">Price per day: <span class="highlight1">$${car.price_per_day}</span></p>
+
+
+      <form action="bookingForm.jsp" method="get">
+        <input type="hidden" name="carId" value="${car.id}">
+        <button type="submit" class="btn">Book Now</button>
+      </form>
     </div>
 
-    <!-- Review Form -->
+
     <div class="review-section">
       <h2 class="review-title">Write your review</h2>
       <form class="review-form" method="post" action="submitReview">
@@ -37,12 +44,12 @@
       </form>
     </div>
 
-    <!-- Display Reviews -->
+
     <div class="reviews">
       <h2 class="review-title">What others say</h2>
       <c:forEach var="review" items="${reviews}">
         <div class="review-card">
-          <div class="review-user">User #${review.userId}</div>
+          <div class="review-user">User #${review.user_id}</div>
           <div class="review-rating">⭐ ${review.rating}/5</div>
           <div class="review-comment">${review.comment}</div>
         </div>
