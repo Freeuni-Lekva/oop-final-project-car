@@ -1,3 +1,11 @@
+<%
+    Object user = session.getAttribute("user");
+    if (user == null) {
+        response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
+        return;
+    }
+%>
+
 <%--
   Created by IntelliJ IDEA.
   User: User
