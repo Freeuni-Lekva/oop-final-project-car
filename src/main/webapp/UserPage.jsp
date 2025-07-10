@@ -18,6 +18,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    Object user = session.getAttribute("user");
+    if (user == null) {
+        response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
+        return;
+    }
+%>
+
+<%
 //    User user = new User(1,"Tekla Vadakaria", "daj", false);
 //    List<Booking> current = BookingRepository.getBookingsByUserId(1);
 //    List<Booking> past = BookingRepository.getBookingsByUserId(1);

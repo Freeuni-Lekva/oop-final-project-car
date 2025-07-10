@@ -25,6 +25,13 @@ public class BookingController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
+            return;
+        }
+
         try{
             BookingRequest bookingRequest = BookingRequest.getBookingRequest(request);
             boolean booked = bookingService.bookCar(bookingRequest);
