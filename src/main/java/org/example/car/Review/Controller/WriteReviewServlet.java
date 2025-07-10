@@ -18,16 +18,10 @@ public class WriteReviewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String reviewIdStr = request.getParameter("reviewId");
         String comment = request.getParameter("comment");
         String ratingStr = request.getParameter("rating");
         String userIdStr = request.getParameter("userId");
         String carIdStr = request.getParameter("carId");
-
-        System.out.println("DEBUG - userId: " + userIdStr);
-        System.out.println("DEBUG - carId: " + carIdStr);
-        System.out.println("DEBUG - rating: " + ratingStr);
-        System.out.println("DEBUG - comment: " + comment);
 
         if (userIdStr == null || carIdStr == null || ratingStr == null || ratingStr.isEmpty()) {
             response.getWriter().println("Missing required parameters.");
@@ -35,17 +29,17 @@ public class WriteReviewServlet extends HttpServlet {
         }
 
         try {
-            int reviewId = Integer.parseInt(reviewIdStr);
             int userId = Integer.parseInt(userIdStr);
             int carId = Integer.parseInt(carIdStr);
             int rating = Integer.parseInt(ratingStr);
 
-            Review review = new Review(reviewId, userId, carId, rating, comment);
+            Review review = new Review(0, userId, carId, rating, comment);
 
             ReviewService.saveReview(review);
 
-            response.getWriter().println("Review submitted!");
-            // response.sendRedirect("carDetails.jsp?carId=" + carId);
+            //response.getWriter().println("Review submitted!");
+            response.sendRedirect(request.getContextPath() + "/car-details?car=" + carId + "&userId=" + userId);
+
         } catch (NumberFormatException e) {
             response.getWriter().println("Invalid number format: " + e.getMessage());
         }

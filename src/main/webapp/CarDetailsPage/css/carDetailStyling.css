@@ -1,0 +1,130 @@
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background);
+    color: var(--text-light);
+    padding: 2rem;
+}
+
+.wrapper {
+    max-width: 800px;
+    margin: auto;
+}
+
+.glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 12px 48px var(--shadow-strong);
+    animation: fadeIn 0.6s ease-out;
+}
+
+.car-image {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 8px 24px var(--shadow-mid);
+}
+
+.car_desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.8rem;
+}
+
+.review-section {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.review-title {
+    font-size: 1.4rem;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.review-form textarea {
+    padding: 1rem;
+    border-radius: 10px;
+    border: none;
+    resize: vertical;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    font-size: 1rem;
+    height: 100px;
+}
+
+.review-form select {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    padding: 0.6rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    border: none;
+}
+select:hover,
+select:focus {
+    background-color: #ffffff;
+    color: #023047;
+    outline: none;
+    border-color: #8ecae6;
+}
+
+
+.btn {
+    background: var(--accent-gradient);
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+    align-self: flex-end;
+    cursor: pointer;
+    box-shadow: 0 6px 16px var(--shadow-mid);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px var(--shadow-strong);
+}
+
+.reviews {
+    margin-top: 2rem;
+}
+
+.review-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.review-user {
+    font-weight: bold;
+    color: var(--accent-pinkish);
+    margin-bottom: 0.3rem;
+}
+
+.review-rating {
+    color: var(--accent-gold);
+    font-size: 1rem;
+}
+
+.review-comment {
+    margin-top: 0.4rem;
+    color: var(--text-light);
+}

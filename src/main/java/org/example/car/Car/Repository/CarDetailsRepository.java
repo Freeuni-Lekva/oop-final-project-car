@@ -1,31 +1,20 @@
 package org.example.car.Car.Repository;
 
 import org.example.car.Car.Model.Car;
+import org.example.car.DBConnector;
 
 import java.sql.*;
 
 
 public class CarDetailsRepository {
 
-    public Connection getConnection() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); //HELPED
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/oopFinal", "root", "root");
-        } catch (Exception e) {
-            System.out.println("DB connection failed: ");
-        }
-        return null;
-    }
-
-
-
-    public Car getCarById(int id) throws SQLException {
+    public static Car getCarById(int id) throws SQLException {
 
         Car car = null;
         String sql = "SELECT * FROM cars WHERE id = " + id;
 
 //            System.out.println("database check");
-        try (Connection conn = getConnection();
+        try (Connection conn = DBConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
 //                System.out.println("database check passed");

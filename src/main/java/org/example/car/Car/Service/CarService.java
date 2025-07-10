@@ -1,5 +1,6 @@
 package org.example.car.Car.Service;
 import org.example.car.Car.Model.Car;
+import org.example.car.Car.Repository.CarDetailsRepository;
 import org.example.car.Car.Repository.CarRepository;
 
 import java.sql.SQLException;
@@ -21,4 +22,7 @@ public class CarService {
         CarRepository.deleteCar(id);
     }
 
+    public static Car getCarById(int id) throws SQLException {
+       return CarDetailsRepository.getCarById(id);
+    }
 }
