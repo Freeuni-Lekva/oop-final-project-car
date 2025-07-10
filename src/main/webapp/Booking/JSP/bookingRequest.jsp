@@ -9,38 +9,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<%
-  User user = (User) session.getAttribute("user");
-  if (user == null) {
-    response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
-    return;
-  }
-%>
-
-
 
 <%
-//  int carId = 1;
-//  int userId = 1;
-
-  int carId = (Integer) request.getAttribute("carId");
-  Car c = CarRepository.getCarById(carId);
-  String carName = c.getModel() + " " + c.getBrand();
-  Double pricePerDay = c.getPrice_per_day();
-  int year = c.getYear();
-
-  List<Booking> bookings = BookingRepository.getCarBookings(carId);
-  List<String> bookedDates = new ArrayList<>();
-
-  for (Booking b : bookings) {
-    LocalDate start = b.getStartDate().toLocalDate();
-    LocalDate end = b.getEndDate().toLocalDate();
-    while (!start.isAfter(end)) {
-      bookedDates.add(start.toString());
-      start = start.plusDays(1);
-    }
-  }
+  List<String> bookedDates = (List<String>) request.getAttribute("bookedDates");
+  Car car = (Car) request.getAttribute("car");
+  User user = (User) request.getAttribute("user");
+  String carName = car.getBrand() + " " + car.getModel();
+  int year = car.getYear();
+  double pricePerDay = car.getPrice_per_day();
+  int carId = car.getId();
 %>
+
 
 <html>
 <head>
@@ -63,7 +42,7 @@
     </div>
 
     <form action="${pageContext.request.contextPath}/BookingController" method="post" id="bookingForm">
-      <input type="hidden" name="carId" value="${carId}">
+      <input type="hidden" name="carId" value="<%= carId %>">
       <input type="hidden" name="carName" value="<%= carName %>">
       <input type="hidden" name="pricePerDay" value="<%= pricePerDay %>">
       <input type="hidden" name="userId" value="<%= user.getId() %>">

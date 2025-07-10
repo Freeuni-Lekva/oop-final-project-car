@@ -26,6 +26,8 @@ public class BookingController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        System.out.println("movida");
+
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
@@ -40,8 +42,8 @@ public class BookingController extends HttpServlet {
             String name = u.getFull_name();
             request.setAttribute("userName", name);
             Car c = CarRepository.getCarById(bookingRequest.getCarId());
-
             String carName = c.getBrand() + " " + c.getModel();
+
             request.setAttribute("carId", c.getId());
             request.setAttribute("carName", carName);
             request.setAttribute("carDetails", c.getDescription());
@@ -58,8 +60,7 @@ public class BookingController extends HttpServlet {
                 System.out.println("failed - FINAL");
                 request.getRequestDispatcher("Booking/JSP/bookingFailed.jsp").forward(request, response);
             }
-
-
+            
         }
 
         catch(Exception e){
