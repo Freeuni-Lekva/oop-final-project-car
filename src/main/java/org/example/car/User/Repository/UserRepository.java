@@ -49,4 +49,70 @@ public class UserRepository {
         }
     }
 
+    public static User getUserById(int id){
+        String query = "select * from users where id = ?";
+
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                int userId = rs.getInt("id");
+                String fullName = rs.getString("full_name");
+                String passwordHash = rs.getString("password_hash");
+                boolean isAdmin = rs.getBoolean("is_admin");
+
+                return new User(userId, fullName, passwordHash, isAdmin);
+            }
+        }
+
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static boolean save(User user) {
+        String sql = "INSERT INTO users (full_name, password_hash, is_admin) VALUES (?, ?, ?)";
+        try (
+            Connection conn = DBConnector.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, user.getFull_name());
+            ps.setString(2, user.getPassword_hash());
+            ps.setBoolean(3, user.is_admin());
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                return false;
+            }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static User findByFullNameAndPassword(String fullName, String password) {
+        String sql = "SELECT * FROM users WHERE full_name = ? AND password_hash = ?";
+        try (
+            Connection conn = DBConnector.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+            ps.setString(1, fullName);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("full_name");
+                String pass = rs.getString("password_hash");
+                boolean isAdmin = rs.getBoolean("is_admin");
+                return new User(id, name, pass, isAdmin);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

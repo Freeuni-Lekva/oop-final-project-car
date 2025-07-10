@@ -47,16 +47,16 @@
 %>
             <div>
             <h2>
-                <a href="cars?id=<%=car.getId()%>">
+                <a href="${pageContext.request.contextPath}/cars?id=<%=car.getId()%>">
                     ${car.brand} ${car.model} (${car.year})
                 </a>
             </h2>
             <br>
-                <a href="cars?id=<%=car.getId()%>">
+                <a href="${pageContext.request.contextPath}/cars?id=<%=car.getId()%>">
             <img src="${car.image_url}" width="200" alt="car">
                 </a>
             <br>
-            <p>Price: $${car.price_per_day} per day</p>
+            <p>Price: $${car.getPrice_per_day()} per day</p>
             </div>
 <%
         }

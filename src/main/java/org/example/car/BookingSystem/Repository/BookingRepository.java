@@ -45,7 +45,7 @@ public class BookingRepository {
         return false;
     }
 
-    public boolean insertBooking(BookingRequest bookingRequest) {
+    public static boolean insertBooking(BookingRequest bookingRequest) {
 
         int userId = bookingRequest.getUserId();
         int carId = bookingRequest.getCarId();

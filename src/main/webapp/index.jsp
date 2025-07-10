@@ -8,6 +8,6 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="review.jsp">write a review</a>
+<a href="${pageContext.request.contextPath}/review.jsp">write a review</a>
 </body>
 </html>

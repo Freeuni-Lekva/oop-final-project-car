@@ -137,7 +137,7 @@
 <div class="container">
   <header>
     <div class="home-icon">
-      <a href="/home.jsp" class="home-link">
+      <a href="${pageContext.request.contextPath}/home.jsp" class="home-link">
         <img src="images/home-icon.png" alt="Home" class="home-icon">
         Home
       </a>

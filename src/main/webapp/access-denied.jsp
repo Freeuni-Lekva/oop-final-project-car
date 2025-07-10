@@ -62,7 +62,7 @@
 <div class="container">
     <h1>🚫 Access Denied</h1>
     <p>You don’t have permission to access this page.</p>
-    <a class="button" href="/home.jsp">Go to Homepage</a>
+    <a class="button" href="${pageContext.request.contextPath}/home.jsp">Go to Homepage</a>
 </div>
 </body>
 </html>
