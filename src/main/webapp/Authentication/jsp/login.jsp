@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../css/authStyles.css">
 </head>
 <body>
+<%
+    String msg = request.getParameter("msg");
+    String successParam = request.getParameter("success");
+    boolean isSuccess = "true".equalsIgnoreCase(successParam);
+%>
 <div class="auth-container">
     <h2>Login</h2>
     <form method="post" action="<%=request.getContextPath()%>/login">
@@ -17,11 +22,8 @@
 
         <button type="submit">Login</button>
     </form>
-    <div class="message">
-        <% String msg = request.getParameter("msg");
-           if (msg != null) { %>
-            <%= msg %>
-        <% } %>
+    <div class="message<%= isSuccess ? " success" : "" %>">
+        <%= msg != null ? msg : "" %>
     </div>
     <div style="text-align:center; margin-top:18px;">
         <a href="register.jsp" style="color:var(--accent-gold);text-decoration:none;">Don't have an account? Register</a>
