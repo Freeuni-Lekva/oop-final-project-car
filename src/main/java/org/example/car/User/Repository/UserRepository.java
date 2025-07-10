@@ -93,4 +93,26 @@ public class UserRepository {
             return false;
         }
     }
+
+    public static User findByFullNameAndPassword(String fullName, String password) {
+        String sql = "SELECT * FROM users WHERE full_name = ? AND password_hash = ?";
+        try (
+            Connection conn = DBConnector.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+            ps.setString(1, fullName);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("full_name");
+                String pass = rs.getString("password_hash");
+                boolean isAdmin = rs.getBoolean("is_admin");
+                return new User(id, name, pass, isAdmin);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
