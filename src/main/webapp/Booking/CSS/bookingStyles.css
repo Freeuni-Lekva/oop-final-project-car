@@ -152,6 +152,14 @@ input[type="text"] {
     box-shadow: 0 8px 24px var(--shadow-mid);
 }
 
+.car-details-image {
+    max-width: 420px;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px var(--shadow-mid);
+}
+
+
 .car_info {
     max-width: 400px;
 }
