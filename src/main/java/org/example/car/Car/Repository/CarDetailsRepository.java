@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class CarDetailsRepository {
 
-    public Car getCarById(int id) throws SQLException {
+    public static Car getCarById(int id) throws SQLException {
 
         Car car = null;
         String sql = "SELECT * FROM cars WHERE id = " + id;
