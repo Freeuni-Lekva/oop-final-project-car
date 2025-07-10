@@ -40,7 +40,9 @@ public class BookingController extends HttpServlet {
             String name = u.getFull_name();
             request.setAttribute("userName", name);
             Car c = CarRepository.getCarById(bookingRequest.getCarId());
+
             String carName = c.getBrand() + " " + c.getModel();
+            request.setAttribute("carId", c.getId());
             request.setAttribute("carName", carName);
             request.setAttribute("carDetails", c.getDescription());
             request.setAttribute("carPic", c.getImage_url());

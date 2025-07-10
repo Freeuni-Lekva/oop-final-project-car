@@ -19,7 +19,7 @@
       <p class="price">Price per day: <span class="highlight1">$${car.price_per_day}</span></p>
 
 
-      <form action="bookingForm.jsp" method="get">
+      <form action="${pageContext.request.contextPath}/Booking/JSP/bookingRequest.jsp" method="get">
         <input type="hidden" name="carId" value="${car.id}">
         <button type="submit" class="btn">Book Now</button>
       </form>
@@ -30,7 +30,6 @@
       <h2 class="review-title">Write your review</h2>
       <form class="review-form" method="post" action="submitReview">
         <input type="hidden" name="carId" value="${car.id}">
-        <input type="hidden" name="userId" value="${userId}">
 
         <textarea name="comment" placeholder="Add a comment..." required></textarea>
         <select name="rating" required>

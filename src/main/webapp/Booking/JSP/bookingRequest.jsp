@@ -5,11 +5,25 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="org.example.car.Car.Model.Car" %>
 <%@ page import="org.example.car.Car.Repository.CarRepository" %>
+<%@ page import="org.example.car.User.Model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-  int carId = 1;
-  int userId = 1;
 
+
+<%
+  User user = (User) session.getAttribute("user");
+  if (user == null) {
+    response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
+    return;
+  }
+%>
+
+
+
+<%
+//  int carId = 1;
+//  int userId = 1;
+
+  int carId = (Integer) request.getAttribute("carId");
   Car c = CarRepository.getCarById(carId);
   String carName = c.getModel() + " " + c.getBrand();
   Double pricePerDay = c.getPrice_per_day();
@@ -49,10 +63,10 @@
     </div>
 
     <form action="${pageContext.request.contextPath}/BookingController" method="post" id="bookingForm">
-      <input type="hidden" name="carId" value="<%= carId %>">
+      <input type="hidden" name="carId" value="${carId}">
       <input type="hidden" name="carName" value="<%= carName %>">
       <input type="hidden" name="pricePerDay" value="<%= pricePerDay %>">
-      <input type="hidden" name="userId" value="<%= userId %>">
+      <input type="hidden" name="userId" value="<%= user.getId() %>">
 
       <div class="form-group">
         <label for="from">Pick-Up Date</label>
