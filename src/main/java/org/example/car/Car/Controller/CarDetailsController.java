@@ -22,10 +22,19 @@ public class CarDetailsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String carIdStr = req.getParameter("car");
-        String userIdStr = req.getParameter("userId");
+       // String userIdStr = req.getParameter("userId");
 
         if (carIdStr != null) {
             try {
+
+//                if(userIdStr==null){
+//                    System.out.println("modis");
+//                    req.setAttribute("userId", "");
+//                }else {
+//                    int userId = Integer.parseInt(userIdStr);
+//                    req.setAttribute("userId", userId);
+//                }
+
                 int carId = Integer.parseInt(carIdStr);
 
                 Car car = CarService.getCarById(carId);
@@ -33,20 +42,18 @@ public class CarDetailsController extends HttpServlet {
                 if (car != null) {
                     req.setAttribute("car", car);
                 }
-                if (userIdStr != null) {
-                    int userId = Integer.parseInt(userIdStr);
-                    req.setAttribute("userId", userId);
-                }
+
+
 
                 List<ReviewForCar> reviews = ReviewService.getReviewsToDisplayCar(carId);
                 req.setAttribute("reviews", reviews);
                 req.getRequestDispatcher("CarDetailsPage/jsp/carDetails.jsp").forward(req, resp);
 
             } catch (NumberFormatException | SQLException e) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid car ID."); //HELPED
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid car ID.");
             }
         } else {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing car ID."); //HELPED
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing car ID.");
         }
     }
 }

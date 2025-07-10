@@ -5,8 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.example.car.Review.Review;
 import org.example.car.Review.Service.ReviewService;
+import org.example.car.User.Model.User;
 
 import java.io.IOException;
 
@@ -18,30 +20,40 @@ public class WriteReviewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
         String comment = request.getParameter("comment");
         String ratingStr = request.getParameter("rating");
-        String userIdStr = request.getParameter("userId");
         String carIdStr = request.getParameter("carId");
 
-        if (userIdStr == null || carIdStr == null || ratingStr == null || ratingStr.isEmpty()) {
-            response.getWriter().println("Missing required parameters.");
-            return;
+
+        if(user==null){
+            response.sendRedirect(request.getContextPath() + "/login" );
+
         }
+        else {
 
-        try {
-            int userId = Integer.parseInt(userIdStr);
-            int carId = Integer.parseInt(carIdStr);
-            int rating = Integer.parseInt(ratingStr);
+            if (carIdStr == null || ratingStr == null || ratingStr.isEmpty()) {
+                response.getWriter().println("Missing required parameters.");
+                return;
+            }
 
-            Review review = new Review(0, userId, carId, rating, comment);
+            try {
+                int userId = user.getId();
+                int carId = Integer.parseInt(carIdStr);
+                int rating = Integer.parseInt(ratingStr);
 
-            ReviewService.saveReview(review);
+                Review review = new Review(0, userId, carId, rating, comment);
 
-            //response.getWriter().println("Review submitted!");
-            response.sendRedirect(request.getContextPath() + "/car-details?car=" + carId + "&userId=" + userId);
+                ReviewService.saveReview(review);
 
-        } catch (NumberFormatException e) {
-            response.getWriter().println("Invalid number format: " + e.getMessage());
+                //response.getWriter().println("Review submitted!");
+                response.sendRedirect(request.getContextPath() + "/car-details?car=" + carId + "&userId=" + userId);
+
+            } catch (NumberFormatException e) {
+                response.getWriter().println("Invalid number format: " + e.getMessage());
+            }
         }
     }
 }

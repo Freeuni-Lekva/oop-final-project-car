@@ -42,7 +42,9 @@
           <h2><%= car.getBrand() %> <%= car.getModel() %> <span class="year">(<%= car.getYear() %>)</span></h2>
           <p class="car_desc"><%= car.getDescription() %></p>
           <p class="price highlight1">$<%= car.getPrice_per_day() %>/day</p>
-          <a class="btn" href="car.jsp">View Details</a>
+          <% System.out.println(car.getId()); %>
+          <a class="btn" href="car-details?car=<%= car.getId() %>">View Details</a>
+
         </div>
       </div>
       <%
