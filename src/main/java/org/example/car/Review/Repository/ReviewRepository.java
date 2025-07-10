@@ -12,11 +12,11 @@ import java.util.List;
 public class ReviewRepository {
 
 
-    public static void save(Review review) {
+    public static int save(Review review) {
         String sql = "INSERT INTO reviews (user_id, car_id, rating, comment) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setInt(1, review.getUser_id());
             stmt.setInt(2, review.getCarId());
@@ -24,10 +24,17 @@ public class ReviewRepository {
             stmt.setString(4, review.getComment());
             stmt.executeUpdate();
 
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return -1;
     }
+
 
     public static List<Review> getReviewsByCarId(int carId) {
         List<Review> reviews = new ArrayList<>();
