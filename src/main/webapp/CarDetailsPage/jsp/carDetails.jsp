@@ -30,7 +30,7 @@
       <h2 class="review-title">Write your review</h2>
       <form class="review-form" method="post" action="submitReview">
         <input type="hidden" name="carId" value="${car.id}">
-        <input type="hidden" name="userId" value="${user.id}">
+        <input type="hidden" name="userId" value="${userId}">
 
         <textarea name="comment" placeholder="Add a comment..." required></textarea>
         <select name="rating" required>

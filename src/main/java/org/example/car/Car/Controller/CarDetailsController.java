@@ -35,7 +35,7 @@ public class CarDetailsController extends HttpServlet {
                 }
                 if (userIdStr != null) {
                     int userId = Integer.parseInt(userIdStr);
-                    req.setAttribute("user", userId);
+                    req.setAttribute("userId", userId);
                 }
 
                 List<ReviewForCar> reviews = ReviewService.getReviewsToDisplayCar(carId);
