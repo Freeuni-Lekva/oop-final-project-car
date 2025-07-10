@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
@@ -28,10 +29,11 @@ public class RegisterServlet extends HttpServlet {
 
         boolean success = UserService.save(fullName, password, false);
         if (success) {
-            resp.getWriter().write("Registration successful.");
+            String msg = URLEncoder.encode("Registration successful. Please log in.", "UTF-8");
+            resp.sendRedirect("Authentication/jsp/login.jsp?msg=" + msg);
         } else {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write("Registration failed. User may already exist.");
+            String msg = URLEncoder.encode("Registration failed. User with this full name already exists.", "UTF-8");
+            resp.sendRedirect("Authentication/jsp/register.jsp?msg=" + msg);
         }
     }
 } 
