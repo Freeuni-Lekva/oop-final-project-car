@@ -11,9 +11,9 @@
 
   <div class="navbar">
     <div class="nav-left">
-      <a href="${pageContext.request.contextPath}/someServlet1" class="nav-btn">Home</a>
-      <a href="${pageContext.request.contextPath}/someServlet2" class="nav-btn">Profile</a>
-      <a href="${pageContext.request.contextPath}/someServler3" class="nav-btn">Log in</a>
+      <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
+      <a href="${pageContext.request.contextPath}/userProfile" class="nav-btn">Profile</a>
+      <a href="${pageContext.request.contextPath}/login" class="nav-btn">Log in</a>
     </div>
   </div>
 
