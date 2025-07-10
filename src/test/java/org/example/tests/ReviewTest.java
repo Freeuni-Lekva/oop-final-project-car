@@ -1,7 +1,5 @@
 package org.example.tests;
 
-import org.example.car.BookingSystem.Booking;
-import org.example.car.BookingSystem.Repository.BookingRepository;
 import org.example.car.DBConnector;
 import org.example.car.Review.Review;
 import org.example.car.Review.Repository.ReviewRepository;
@@ -15,15 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ReviewTest {
 
-    private ReviewRepository repo;
-
     @BeforeAll
     void setupDatabase() throws SQLException {
-
-        // Create table
         try (Connection conn = DBConnector.getConnection()) {
             String sql = """
-                CREATE TABLE reviews (
+                CREATE TABLE IF NOT EXISTS reviews (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     user_id INT NOT NULL,
                     car_id INT NOT NULL,
@@ -35,62 +29,78 @@ public class ReviewTest {
                 stmt.execute(sql);
             }
         }
-
-        repo = new ReviewRepository();
     }
 
+    @AfterEach
+    void clearTable() throws SQLException {
+        try (Connection conn = DBConnector.getConnection();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute("DELETE FROM reviews");
+        }
+    }
 
     @Test
     void testSaveAndFetchReviews() {
+        Review r1 = new Review(0, 1, 10, 5, "Great car");
+        Review r2 = new Review(0, 2, 10, 3, "Okay car");
 
-        Review review1 = new Review(1, 1,10,5, "Great car");
+        ReviewRepository.save(r1);
+        ReviewRepository.save(r2);
 
-        Review review2 = new Review(2,2,10,3,"Okay car");
-
-        repo.save(review1);
-        repo.save(review2);
-
-        List<Review> reviews = repo.getReviewsByCarId(10);
-
+        List<Review> reviews = ReviewRepository.getReviewsByCarId(10);
         assertEquals(2, reviews.size());
         assertTrue(reviews.stream().anyMatch(r -> r.getComment().equals("Great car")));
         assertTrue(reviews.stream().anyMatch(r -> r.getComment().equals("Okay car")));
-
     }
 
     @Test
     void testDeleteReview() {
-        Review review = new Review(1,3,20,1,"Terrible");
+        Review review = new Review(0, 3, 20, 1, "Terrible");
+        int id = ReviewRepository.save(review);
 
-        repo.save(review);
-
-        List<Review> reviews = repo.getReviewsByCarId(20);
-
-        int startSize = reviews.size();
-        int reviewId = reviews.get(0).getId();
-
-        repo.deleteReview(reviewId);
-
-        List<Review> afterDelete = repo.getReviewsByCarId(20);
-        assertEquals(startSize-1, afterDelete.size());
+        assertNotNull(ReviewRepository.getReviewByID(id));
+        ReviewRepository.deleteReview(id);
+        assertNull(ReviewRepository.getReviewByID(id));
     }
 
+    @Test
+    void testGetReviewsByUserId() {
+        Review r1 = new Review(0, 3, 20, 1, "Terrible");
+        Review r2 = new Review(0, 3, 15, 5, "Great");
+        Review r3 = new Review(0, 3, 2, 4, "Good");
+        Review r4 = new Review(0, 4, 2, 4, "Also good");
+
+        ReviewRepository.save(r1);
+        ReviewRepository.save(r2);
+        ReviewRepository.save(r3);
+        ReviewRepository.save(r4);
+
+        List<Review> reviews = ReviewRepository.getReviewsByUserId(3);
+        assertEquals(3, reviews.size());
+        for (Review r : reviews) {
+            assertEquals(3, r.getUser_id());
+        }
+    }
 
     @Test
-    void testGetReviewsByUserId(){
-        Review r1 = new Review(1,3,20,1,"Terrible");
-        Review r2 = new Review(1,3,15,5,"Great");
-        Review r3 = new Review(1,3,2,4,"good");
-        Review r4 = new Review(1,4,2,4,"good");
+    void testGetReviewById() {
+        Review review = new Review(0, 6, 33, 4, "Good review");
+        int id = ReviewRepository.save(review);
 
-        repo.save(r1);
-        repo.save(r2);
-        repo.save(r3);
-        repo.save(r4);
+        Review fetched = ReviewRepository.getReviewByID(id);
+        assertNotNull(fetched);
+        assertEquals("Good review", fetched.getComment());
+    }
 
-        List<Review> reviews = repo.getReviewsByUserId(3);
-        for(int i=0; i<reviews.size(); i++){
-            assertEquals(3, reviews.get(i).getUser_id());
-        }
+    @Test
+    void testGetAllReviews() {
+        Review r1 = new Review(0, 7, 101, 5, "Excellent");
+        Review r2 = new Review(0, 8, 102, 2, "Bad");
+
+        ReviewRepository.save(r1);
+        ReviewRepository.save(r2);
+
+        List<Review> allReviews = ReviewRepository.getReviews();
+        assertTrue(allReviews.size() >= 2);
     }
 }
