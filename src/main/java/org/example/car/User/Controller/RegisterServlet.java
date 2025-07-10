@@ -30,10 +30,10 @@ public class RegisterServlet extends HttpServlet {
         boolean success = UserService.save(fullName, password, false);
         if (success) {
             String msg = URLEncoder.encode("Registration successful. Please log in.", "UTF-8");
-            resp.sendRedirect("Authentication/jsp/login.jsp?msg=" + msg);
+            resp.sendRedirect("Authentication/jsp/login.jsp?msg=" + msg + "&success=true");
         } else {
             String msg = URLEncoder.encode("Registration failed. User with this full name already exists.", "UTF-8");
-            resp.sendRedirect("Authentication/jsp/register.jsp?msg=" + msg);
+            resp.sendRedirect("Authentication/jsp/register.jsp?msg=" + msg + "&success=false");
         }
     }
 } 
