@@ -115,4 +115,19 @@ public class UserRepository {
         }
         return null;
     }
+
+    public static boolean existsByFullName(String fullName) {
+        String sql = "SELECT 1 FROM users WHERE full_name = ? LIMIT 1";
+        try (
+            Connection conn = DBConnector.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+            ps.setString(1, fullName);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

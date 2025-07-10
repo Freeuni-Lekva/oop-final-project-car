@@ -24,7 +24,7 @@
         <% } %>
     </div>
     <div style="text-align:center; margin-top:18px;">
-        <a href="/login.jsp" style="color:var(--accent-gold);text-decoration:none;">Already have an account? Login</a>
+        <a href="login.jsp" style="color:var(--accent-gold);text-decoration:none;">Already have an account? Login</a>
     </div>
 </div>
 </body>

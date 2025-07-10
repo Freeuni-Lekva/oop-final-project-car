@@ -19,6 +19,10 @@ public class UserService {
     }
 
     public static boolean save(String full_name, String password, boolean is_admin){
+        if (UserRepository.existsByFullName(full_name)) {
+            return false;
+        }
+        
         String hashedPassword = PasswordHashingService.hashPassword(password);
         User userToSave = new User(full_name, hashedPassword, is_admin);
         return UserRepository.save(userToSave);
