@@ -3,8 +3,7 @@
 <html>
 <head>
   <title>Car Details</title>
-  <link rel="stylesheet" href="Booking/CSS/variables.css">
-  <link rel="stylesheet" href="Booking/CSS/bookingStyles.css">
+  <link rel="stylesheet" href="../Booking/CSS/bookingStyles.css">
 </head>
 <body>
 

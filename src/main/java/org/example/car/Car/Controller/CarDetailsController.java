@@ -38,7 +38,7 @@ public class CarDetailsController extends HttpServlet {
                     int userId = Integer.parseInt(userIdStr);
                     req.setAttribute("user", userId);
                 }
-                req.getRequestDispatcher("/carDetails.jsp").forward(req, resp);
+                req.getRequestDispatcher("CarDetailsPage/carDetails.jsp").forward(req, resp);
 
             } catch (NumberFormatException | SQLException e) {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid car ID."); //HELPED
