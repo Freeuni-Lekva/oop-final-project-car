@@ -244,7 +244,8 @@
             </c:forEach>
         </div>
         <c:if test="${futureBookings.size() > 2}">
-            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull">See More</a>
+            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=past">See More</a>
+
         </c:if>
     </div>
 
@@ -267,7 +268,8 @@
             </c:forEach>
         </div>
         <c:if test="${pastBookings.size() > 2}">
-            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull">See More</a>
+            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=past">See More</a>
+
         </c:if>
     </div>
 
@@ -295,7 +297,8 @@
             </c:forEach>
         </div>
         <c:if test="${userReviews.size() > 2}">
-            <a class="see-more" href="${pageContext.request.contextPath}/user/reviews">See More</a>
+            <a class="see-more" href="${pageContext.request.contextPath}/userReviewsFull">See More</a>
+
         </c:if>
     </div>
 </div>

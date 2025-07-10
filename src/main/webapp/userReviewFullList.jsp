@@ -137,7 +137,7 @@
 <div class="container">
   <header>
     <div class="home-icon">
-      <a href="${pageContext.request.contextPath}/home.jsp" class="home-link">
+      <a href="/cars.jsp" class="home-link">
         <img src="images/home-icon.png" alt="Home" class="home-icon">
         Home
       </a>
@@ -150,28 +150,24 @@
   </div>
 
   <div>
-    <div class="section-title"> Bookings</div>
+    <div class="section-title">Your Reviews</div>
     <div class="grid">
-      <c:forEach var="bd"  items="${bookings}" varStatus="loop">
+      <c:forEach var="r" items="${userReviews}" varStatus="loop">
         <c:if test="${loop.index < 3}">
           <div class="card">
             <div class="card-content">
               <div class="card-text">
-                <p><strong>Car:</strong> ${bd.car.brand} ${bd.car.model}</p>
-                <p><strong>From:</strong> ${bd.booking.startDate}</p>
-                <p><strong>To:</strong> ${bd.booking.endDate}</p>
+                <p><strong>Car:</strong> ${r.car.brand} ${r.car.model}</p>
+                <p><strong>Rating:</strong> ${r.review.rating} / 5</p>
+                <p><strong>Comment:</strong> ${r.review.comment}</p>
               </div>
-              <img src="${bd.car.image_url}" alt="Car Image" class="car-image">
+              <img src="${r.car.image_url}" alt="Car Image" class="car-image">
             </div>
 
-            <c:if test="${type == 'future'}">
-              <form method="post" action="/cancelBooking">
-                <input type="hidden" name="bookingId" value="${bd.booking.id}" />
-                <button class="btn-action" type="submit">Cancel</button>
-              </form>
-            </c:if>
-
-
+            <form method="post" action="/deleteReview">
+              <input type="hidden" name="reviewId" value="${r.review.id}" />
+              <button class="btn-action" type="submit">Delete</button>
+            </form>
           </div>
         </c:if>
       </c:forEach>

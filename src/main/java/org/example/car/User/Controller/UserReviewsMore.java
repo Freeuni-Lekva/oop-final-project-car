@@ -6,44 +6,40 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.example.car.BookingSystem.BookingDisplay;
-import org.example.car.BookingSystem.Service.BookingService;
+import org.example.car.Review.Service.ReviewDisplayForUser;
+import org.example.car.Review.Service.ReviewService;
 import org.example.car.User.Model.User;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
-@WebServlet("/userBookingsFull")
-public class UserBookingsMoreServlet extends HttpServlet {
+@WebServlet("/userReviewsFull")
+public class UserReviewsMore extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("1");
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         user = new User(1, "	Alice Smith	","password123",	false);
-
         if (user == null) {
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
             return;
         }
 
-        String type = req.getParameter("type"); // past current future
+        List<ReviewDisplayForUser> reviews;
 
         try {
-            Map<String, List<BookingDisplay>> categorized = BookingService.categorizeBookings(user.getId());
-            List<BookingDisplay> list = categorized.get(type);
-
-            req.setAttribute("bookings", list);
-            req.setAttribute("type", type);
-            req.setAttribute("user", user);
-            req.getRequestDispatcher("/userBookingList.jsp").forward(req, resp);
-        } catch (Exception e) {
-            e.printStackTrace();
-            resp.sendError(500);
+            reviews = ReviewService.getReviewsByUserIdForUser(user.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+
+        req.setAttribute("userReviews", reviews);
+        req.setAttribute("user", user);
+
+        req.getRequestDispatcher("/userReviewFullList.jsp").forward(req, resp);
+
+
     }
-
-
 }
