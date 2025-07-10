@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Login</title>
+    <title>Admin Login</title>
     <link rel="stylesheet" href="../css/authStyles.css">
 </head>
 <body>
@@ -12,21 +12,21 @@
     boolean isSuccess = "true".equalsIgnoreCase(successParam);
 %>
 <div class="auth-container">
-    <h2>Login</h2>
-    <form method="post" action="<%=request.getContextPath()%>/login">
+    <h2>Admin Login</h2>
+    <form method="post" action="<%=request.getContextPath()%>/admin-login">
         <label for="full_name">Full Name</label>
         <input type="text" id="full_name" name="full_name" required />
 
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required />
 
-        <button type="submit">Login</button>
+        <button type="submit">Login as Admin</button>
     </form>
     <div class="message<%= isSuccess ? " success" : "" %>">
         <%= msg != null ? msg : "" %>
     </div>
     <div style="text-align:center; margin-top:18px;">
-        <a href="register.jsp" style="color:var(--accent-gold);text-decoration:none;">Don't have an account? Register</a>
+        <a href="adminRegister.jsp" style="color:var(--accent-gold);text-decoration:none;">Register as Admin</a>
     </div>
 </div>
 </body>

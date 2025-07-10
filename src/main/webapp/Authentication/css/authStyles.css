@@ -75,7 +75,7 @@ button:hover {
 }
 
 .success {
-    color: var(--accent-gold);
+    color: #38b000 !important;
 }
 
 @keyframes fadeIn {
