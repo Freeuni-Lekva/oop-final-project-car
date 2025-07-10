@@ -222,7 +222,7 @@
             </c:forEach>
         </div>
         <c:if test="${currentBookings.size() > 2}">
-            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=past">See More</a>
+            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=current">See More</a>
         </c:if>
     </div>
 
@@ -252,7 +252,7 @@
             </c:forEach>
         </div>
         <c:if test="${futureBookings.size() > 2}">
-            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=past">See More</a>
+            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=future">See More</a>
 
         </c:if>
     </div>

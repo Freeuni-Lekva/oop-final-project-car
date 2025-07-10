@@ -24,6 +24,7 @@ public class UserProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
+        user = new User(1, "	Alice Smith	","password123",	false);
 
         Map<String, List<BookingDisplay>> categorized = null;
         try {

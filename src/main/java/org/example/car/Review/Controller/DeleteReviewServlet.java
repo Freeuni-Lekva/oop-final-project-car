@@ -16,10 +16,10 @@ public class DeleteReviewServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        User user = (User) req.getSession().getAttribute("user");
 
+        User user = (User) req.getSession().getAttribute("user");
         if (user == null) {
-            resp.sendRedirect("/login.jsp");
+            resp.sendRedirect(req.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
             return;
         }
 

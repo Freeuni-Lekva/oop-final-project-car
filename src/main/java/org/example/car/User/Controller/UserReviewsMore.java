@@ -21,7 +21,7 @@ public class UserReviewsMore extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        user = new User(1, "	Alice Smith	","password123",	false);
+        //user = new User(1, "	Alice Smith	","password123",	false);
         if (user == null) {
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
             return;

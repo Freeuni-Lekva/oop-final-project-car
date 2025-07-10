@@ -200,7 +200,7 @@ public class BookingRepository {
         return bookings;
     }
 
-    public void deleteBooking(int bookindId) {
+    public static void deleteBooking(int bookindId) {
         String sql = "DELETE FROM bookings WHERE id = ?";
 
         try (Connection conn = DBConnector.getConnection();
