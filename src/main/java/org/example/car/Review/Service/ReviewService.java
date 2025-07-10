@@ -4,6 +4,10 @@ import org.example.car.Car.Model.Car;
 import org.example.car.Car.Service.CarService;
 import org.example.car.Review.Repository.ReviewRepository;
 import org.example.car.Review.Review;
+import org.example.car.Review.ReviewDisplayForUser;
+import org.example.car.Review.ReviewForCar;
+import org.example.car.User.Model.User;
+import org.example.car.User.Repository.UserRepository;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +38,18 @@ public class ReviewService {
         for( Review r: list){
             Car car = CarService.getCar(r.getCarId());
             res.add(new ReviewDisplayForUser(r, car));
+        }
+        return  res;
+    }
+
+    public static List<ReviewForCar> getReviewsToDisplayCar(int carId){
+        List<Review> list = ReviewRepository.getReviewsByCarId(carId);
+        List<ReviewForCar> res = new ArrayList<>();
+        for( Review r: list){
+            int userId = r.getUser_id();
+            User u = UserRepository.getUserById(userId);
+            assert u != null;
+            res.add(new ReviewForCar(r, u.getFull_name()));
         }
         return  res;
     }

@@ -6,15 +6,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.example.car.BookingSystem.Booking;
 import org.example.car.BookingSystem.BookingDisplay;
-import org.example.car.BookingSystem.Repository.BookingRepository;
 import org.example.car.BookingSystem.Service.BookingService;
-import org.example.car.Review.Review;
-import org.example.car.Review.Service.ReviewDisplayForUser;
+import org.example.car.Review.ReviewDisplayForUser;
 import org.example.car.Review.Service.ReviewService;
 import org.example.car.User.Model.User;
-import org.example.car.Review.Repository.ReviewRepository;
 
 import java.io.IOException;
 import java.sql.SQLException;

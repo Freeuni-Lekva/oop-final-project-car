@@ -1,13 +1,11 @@
 package org.example.tests;
 
 
-import org.example.car.Car.Model.Car;
-import org.example.car.Car.Service.CarService;
 import org.example.car.DBConnector;
 import org.example.car.Review.Review;
 import org.example.car.Review.Repository.ReviewRepository;
 import org.example.car.Review.Service.ReviewService;
-import org.example.car.Review.Service.ReviewDisplayForUser;
+import org.example.car.Review.ReviewDisplayForUser;
 import org.junit.jupiter.api.*;
 
 import java.sql.*;

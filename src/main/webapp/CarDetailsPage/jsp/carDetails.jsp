@@ -49,9 +49,9 @@
       <h2 class="review-title">What others say</h2>
       <c:forEach var="review" items="${reviews}">
         <div class="review-card">
-          <div class="review-user">User #${review.user_id}</div>
-          <div class="review-rating">⭐ ${review.rating}/5</div>
-          <div class="review-comment">${review.comment}</div>
+          <div class="review-user">${review.userName}</div>
+          <div class="review-rating">⭐ ${review.review.rating}/5</div>
+          <div class="review-comment">${review.review.comment}</div>
         </div>
       </c:forEach>
     </div>

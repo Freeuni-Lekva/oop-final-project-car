@@ -32,4 +32,8 @@ public class UserService {
         String hashedPassword = PasswordHashingService.hashPassword(password);
         return UserRepository.findByFullNameAndPassword(fullName, hashedPassword);
     }
+
+    public static User getUserById(int userId){
+        return UserRepository.getUserById(userId);
+    }
 }

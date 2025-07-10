@@ -1,8 +1,6 @@
-package org.example.car.Review.Service;
+package org.example.car.Review;
 
-import org.example.car.BookingSystem.Booking;
 import org.example.car.Car.Model.Car;
-import org.example.car.Review.Review;
 
 public class ReviewDisplayForUser {
     private Review review;

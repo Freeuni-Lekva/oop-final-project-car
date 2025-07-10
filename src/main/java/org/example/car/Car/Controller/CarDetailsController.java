@@ -7,7 +7,9 @@ import org.example.car.Car.Model.Car;
 import org.example.car.Car.Repository.CarDetailsRepository;
 import org.example.car.Car.Service.CarService;
 import org.example.car.Review.Review;
+import org.example.car.Review.ReviewForCar;
 import org.example.car.Review.Service.ReviewService;
+import org.example.car.User.Service.UserService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -36,7 +38,7 @@ public class CarDetailsController extends HttpServlet {
                     req.setAttribute("user", userId);
                 }
 
-                List<Review> reviews = ReviewService.getReviewsByCarId(carId);
+                List<ReviewForCar> reviews = ReviewService.getReviewsToDisplayCar(carId);
                 req.setAttribute("reviews", reviews);
                 req.getRequestDispatcher("CarDetailsPage/jsp/carDetails.jsp").forward(req, resp);
 
