@@ -18,4 +18,8 @@ public class UserService {
     public static boolean save(User user){
         return UserRepository.save(user);
     }
+
+    public static User authenticate(String fullName, String password) {
+        return UserRepository.findByFullNameAndPassword(fullName, password);
+    }
 }
