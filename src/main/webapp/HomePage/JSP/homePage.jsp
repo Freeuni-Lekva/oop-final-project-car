@@ -9,8 +9,18 @@
   </head>
   <body>
 
+  <div class="navbar">
+    <div class="nav-left">
+      <a href="${pageContext.request.contextPath}/someServlet1" class="nav-btn">Home</a>
+      <a href="${pageContext.request.contextPath}/someServlet2" class="nav-btn">Profile</a>
+      <a href="${pageContext.request.contextPath}/someServler3" class="nav-btn">Log in</a>
+    </div>
+  </div>
+
+
   <div class="wrapper">
     <div class="glass">
+
 
       <div class="glass-header">
         <h1>Available Cars</h1>
