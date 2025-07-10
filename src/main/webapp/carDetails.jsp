@@ -3,69 +3,47 @@
 <html>
 <head>
   <title>Car Details</title>
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            sky_blue: '#8ecae6',
-            blue_green: '#219ebc',
-            prussian_blue: '#023047',
-            selective_yellow: '#ffb703',
-            ut_orange: '#fb8500',
-          }
-        }
-      }
-    }
-  </script>
+  <link rel="stylesheet" href="Booking/CSS/variables.css">
+  <link rel="stylesheet" href="Booking/CSS/bookingStyles.css">
 </head>
-<body class="bg-sky_blue-100 font-sans p-6">
+<body>
 
 <%
   Car car = (Car) request.getAttribute("car");
   Integer userId = (Integer) request.getAttribute("user");
 %>
 
-<% if (car != null) { %>
-<div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-8 flex flex-col md:flex-row items-start gap-8">
-  <div class="md:w-2/3">
-    <h1 class="text-3xl font-bold text-prussian_blue mb-4"><%= car.getBrand() %> <%= car.getModel() %> (<%= car.getYear() %>)</h1>
-    <img src="<%= car.getImage_url() %>" alt="Car image" class="w-full rounded-xl mb-4 shadow">
-    <p class="text-lg text-gray-700 mb-2"><span class="font-semibold text-ut_orange">Price per day:</span> $<%= car.getPrice_per_day() %></p>
-    <p class="text-gray-600"><%= car.getDescription() %></p>
-  </div>
+<div class="wrapper">
+  <% if (car != null) { %>
+  <div class="glass">
+    <div class="car">
+      <img src="<%= car.getImage_url() %>" alt="Car image" class="car-details-image" >
 
-  <div class="md:w-1/3 flex justify-center items-center">
-    <% if (userId != null) { %>
-    <form action="booking.jsp" method="get">
+      <div class="car_info">
+        <div class="glass-header">
+          <h1><%= car.getBrand() %> <%= car.getModel() %> <span class="year">(<%= car.getYear() %>)</span></h1>
+          <p class="price">$<%= car.getPrice_per_day() %> / day</p>
+        </div>
+        <p class="car_desc" style="text-align: center"><%= car.getDescription() %></p>
 
-      <br>
-      // ES  NAWILIA BOOKINGI eseigi Tipi aris adloginebuli da misi userID gvaq.//
-      <br>
-      <input type="hidden" name="userId" value="<%= userId %>">
-      <input type="hidden" name="carId" value="<%= car.getId() %>">
-      <button
-              type="submit"
-              class="bg-ut_orange hover:bg-selective_yellow text-white font-semibold py-3 px-6 rounded-xl shadow transition-all duration-300 text-lg"
-      >
-        BOOK NOW
-      </button>
-    </form>
-    <% } else { %>
-    <a
-            href="${pageContext.request.contextPath}/signUp?car=<%= car.getId() %>"
-            class="bg-ut_orange hover:bg-selective_yellow text-white font-semibold py-3 px-6 rounded-xl shadow transition-all duration-300 text-lg"
-    >
-      SIGN UP TO BOOK
-    </a>
-    <% } %>
+        <div class="form_group" style="text-align: center">
+          <% if (userId != null) { %>
+          <form action="booking.jsp" method="get">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <input type="hidden" name="carId" value="<%= car.getId() %>">
+            <button type="submit" class="btn">BOOK NOW</button>
+          </form>
+          <% } else { %>
+          <a href="${pageContext.request.contextPath}/signUp?car=<%= car.getId() %>" class="btn">SIGN UP TO BOOK</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
   </div>
+  <% } else { %>
+  <p class="status3">Car not found.</p>
+  <% } %>
 </div>
-<% } else { %>
-<p class="text-center text-red-500 font-semibold">Car not found.</p>
-<% } %>
 
 </body>
 </html>
