@@ -18,13 +18,14 @@ public class UserService {
         UserRepository.deleteUser(userId);
     }
 
-    public static boolean save(User user){
-        String hashedPassword = PasswordHashingService.hashPassword(user.getPassword_hash());
-        User userToSave = new User(user.getFull_name(), hashedPassword, user.is_admin());
+    public static boolean save(String full_name, String password, boolean is_admin){
+        String hashedPassword = PasswordHashingService.hashPassword(password);
+        User userToSave = new User(full_name, hashedPassword, is_admin);
         return UserRepository.save(userToSave);
     }
 
     public static User authenticate(String fullName, String password) {
-        return UserRepository.findByFullNameAndPassword(fullName, password);
+        String hashedPassword = PasswordHashingService.hashPassword(password);
+        return UserRepository.findByFullNameAndPassword(fullName, hashedPassword);
     }
 }

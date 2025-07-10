@@ -25,9 +25,8 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        User user = new User(fullName, password, false);
 
-        boolean success = UserService.save(user);
+        boolean success = UserService.save(fullName, password, false);
         if (success) {
             resp.getWriter().write("Registration successful.");
         } else {
