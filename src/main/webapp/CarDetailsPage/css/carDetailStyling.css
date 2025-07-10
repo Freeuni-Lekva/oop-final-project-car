@@ -65,13 +65,21 @@ body {
 }
 
 .review-form select {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #023047;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
     padding: 0.6rem;
     border-radius: 8px;
     font-size: 1rem;
     border: none;
 }
+select:hover,
+select:focus {
+    background-color: #ffffff;
+    color: #023047;
+    outline: none;
+    border-color: #8ecae6;
+}
+
 
 .btn {
     background: var(--accent-gradient);
