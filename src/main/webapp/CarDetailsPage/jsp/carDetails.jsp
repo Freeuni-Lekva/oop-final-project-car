@@ -19,7 +19,7 @@
       <p class="price">Price per day: <span class="highlight1">$${car.price_per_day}</span></p>
 
 
-      <form action="${pageContext.request.contextPath}/Booking/JSP/bookingRequest.jsp" method="get">
+      <form action="${pageContext.request.contextPath}/BookingRequestController" method="get">
         <input type="hidden" name="carId" value="${car.id}">
         <button type="submit" class="btn">Book Now</button>
       </form>
