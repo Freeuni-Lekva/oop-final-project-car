@@ -74,4 +74,23 @@ public class UserRepository {
         return null;
     }
 
+    public static boolean save(User user) {
+        String sql = "INSERT INTO users (full_name, password_hash, is_admin) VALUES (?, ?, ?)";
+        try (
+            Connection conn = DBConnector.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, user.getFull_name());
+            ps.setString(2, user.getPassword_hash());
+            ps.setBoolean(3, user.is_admin());
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                return false;
+            }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -14,4 +14,8 @@ public class UserService {
     public static void deleteUser(int userId){
         UserRepository.deleteUser(userId);
     }
+
+    public static boolean save(User user){
+        return UserRepository.save(user);
+    }
 }

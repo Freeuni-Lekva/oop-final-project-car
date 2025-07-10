@@ -13,6 +13,12 @@ public class User {
         this.is_admin = is_admin;
     }
 
+    public User(String full_name, String password_hash, boolean is_admin){
+        this.full_name = full_name;
+        this.password_hash = password_hash;
+        this.is_admin = is_admin;
+    }
+
     public int getId() {
         return id;
     }

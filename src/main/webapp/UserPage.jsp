@@ -181,7 +181,7 @@
 <div class="container">
     <header>
         <div class="home-icon">
-            <a href="/home.jsp" class="home-link">
+            <a href="${pageContext.request.contextPath}/home.jsp" class="home-link">
                 <img src="images/home-icon.png" alt="Home" class="home-icon">
                 Home
             </a>
@@ -214,7 +214,7 @@
             </c:forEach>
         </div>
         <c:if test="${currentBookings.size() > 2}">
-            <a class="see-more" href="/userBookingsFull?type=past">See More</a>
+            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=past">See More</a>
         </c:if>
     </div>
 
@@ -244,7 +244,7 @@
             </c:forEach>
         </div>
         <c:if test="${futureBookings.size() > 2}">
-            <a class="see-more" href="/userBookingsFull">See More</a>
+            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull">See More</a>
         </c:if>
     </div>
 
@@ -267,7 +267,7 @@
             </c:forEach>
         </div>
         <c:if test="${pastBookings.size() > 2}">
-            <a class="see-more" href="/userBookingsFull">See More</a>
+            <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull">See More</a>
         </c:if>
     </div>
 
@@ -295,7 +295,7 @@
             </c:forEach>
         </div>
         <c:if test="${userReviews.size() > 2}">
-            <a class="see-more" href="/user/reviews">See More</a>
+            <a class="see-more" href="${pageContext.request.contextPath}/user/reviews">See More</a>
         </c:if>
     </div>
 </div>
