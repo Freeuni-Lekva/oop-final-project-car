@@ -48,7 +48,7 @@ public class UserRepoTest {
     }
 
     @Test
-    void testGetUserById() {
+    void testGetUserById() throws SQLException {
         User user = new User(0, "Bob Builder", "secure123", true);
         UserRepository.save(user);
 
@@ -71,7 +71,7 @@ public class UserRepoTest {
     }
 
     @Test
-    void testDeleteUser() {
+    void testDeleteUser() throws SQLException {
         UserRepository.save(new User(0, "ToDelete", "pw", false));
         User user = UserRepository.getAllUsers().get(0);
 
@@ -82,7 +82,7 @@ public class UserRepoTest {
     }
 
     @Test
-    void testFindByFullNameAndPassword() {
+    void testFindByFullNameAndPassword() throws SQLException {
         User user = new User(0, "LoginUser", "hashedpw", false);
         UserRepository.save(user);
 

@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Objects;
+import java.sql.SQLException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -26,7 +27,12 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        User user = UserService.authenticate(fullName, password);
+        User user = null;
+        try {
+            user = UserService.authenticate(fullName, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         if (user != null) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);

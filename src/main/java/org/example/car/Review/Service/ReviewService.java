@@ -20,17 +20,17 @@ public class ReviewService {
         ReviewRepository.save(review);
     }
 
-    public static List<Review> getReviewsByCarId(int carId) {
-        return ReviewRepository.getReviewsByCarId(carId);
-    }
+//    public static List<Review> getReviewsByCarId(int carId) {
+//        return ReviewRepository.getReviewsByCarId(carId);
+//    }
     public static void deleteReview(int reviewId) {
         ReviewRepository.deleteReview(reviewId);
     }
     public static Review getReviewById(int reviewId){return ReviewRepository.getReviewByID(reviewId);}
 
-    public static List<Review> getReviewsByUserId(int userId){return ReviewRepository.getReviewsByUserId(userId);}
+    //public static List<Review> getReviewsByUserId(int userId){return ReviewRepository.getReviewsByUserId(userId);}
 
-    public static List<Review> getAllReviews(){return ReviewRepository.getReviews();}
+    //public static List<Review> getAllReviews(){return ReviewRepository.getReviews();}
 
     public static List<ReviewDisplayForUser> getReviewsByUserIdForUser(int userId) throws SQLException {
         List<Review> list = ReviewRepository.getReviewsByUserId(userId);
@@ -42,7 +42,7 @@ public class ReviewService {
         return  res;
     }
 
-    public static List<ReviewForCar> getReviewsToDisplayCar(int carId){
+    public static List<ReviewForCar> getReviewsToDisplayCar(int carId) throws SQLException {
         List<Review> list = ReviewRepository.getReviewsByCarId(carId);
         List<ReviewForCar> res = new ArrayList<>();
         for( Review r: list){

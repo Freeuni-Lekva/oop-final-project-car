@@ -41,7 +41,12 @@ public class UserProfileServlet extends HttpServlet {
             targetUserId = user.getId();
         }
 
-        User targetUser = UserService.getUserById(targetUserId);
+        User targetUser = null;
+        try {
+            targetUser = UserService.getUserById(targetUserId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
 
         Map<String, List<BookingDisplay>> categorized = null;
