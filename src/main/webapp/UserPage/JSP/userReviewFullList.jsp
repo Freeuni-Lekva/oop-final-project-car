@@ -21,7 +21,6 @@
 
   <div class="profile">
     <p>Name: ${user.full_name}</p>
-    <p>ID: ${user.id}</p>
   </div>
 
   <div>

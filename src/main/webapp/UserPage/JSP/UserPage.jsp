@@ -58,7 +58,6 @@
 
     <div class="profile">
         <p>Name: ${user.full_name}</p>
-        <p>ID: ${user.id}</p>
         <p class="summary">Rented Cars: ${rentedCount}</p>
         <p class="summary">Reviews Given: ${userReviews.size()}</p>
     </div>
