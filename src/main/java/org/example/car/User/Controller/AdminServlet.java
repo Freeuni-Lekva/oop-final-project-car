@@ -20,7 +20,7 @@ public class AdminServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
 
-        if (user == null || !user.is_admin()) {
+        if (user == null || !user.isAdmin()) {
             resp.sendRedirect(req.getContextPath() + "/Authentication/jsp/login.jsp?msg=Unauthorized+access");
             return;
         }

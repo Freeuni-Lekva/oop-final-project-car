@@ -86,7 +86,7 @@ public class UserRepository {
         ) {
             ps.setString(1, user.getFull_name());
             ps.setString(2, user.getPassword_hash());
-            ps.setBoolean(3, user.is_admin());
+            ps.setBoolean(3, user.isAdmin());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 return false;

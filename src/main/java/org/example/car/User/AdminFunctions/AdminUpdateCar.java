@@ -22,7 +22,7 @@ public class AdminUpdateCar extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
             return;
         }
-        if (!currentUser.is_admin()) {
+        if (!currentUser.isAdmin()) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Not authorised");
             return;
         }
@@ -36,7 +36,6 @@ public class AdminUpdateCar extends HttpServlet {
             String desc      = request.getParameter("description");
             String imageUrl  = request.getParameter("image_url");
 
-            // 3️⃣ Build updated Car object
             Car updated = new Car(
                     carId,
                     brand,
@@ -51,7 +50,7 @@ public class AdminUpdateCar extends HttpServlet {
             CarService.updateCar(updated);
 
 
-            response.sendRedirect(request.getContextPath() + "/admin/car-details?carId=" + carId + "&userId=" + currentUser.getId());
+            response.sendRedirect(request.getContextPath() + "/car-details?car=" + carId);
 
         } catch (NumberFormatException nfe) {
             request.setAttribute("errorMessage", "Invalid numeric field: " + nfe.getMessage());

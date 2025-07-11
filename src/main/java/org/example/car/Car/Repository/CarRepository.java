@@ -101,11 +101,19 @@ public class CarRepository {
         ps.executeUpdate();
     }
 
-    public static void deleteCar(int id) throws SQLException {
-        String query = "DELETE FROM cars WHERE id = " + id;
-        Connection connection = DBConnector.getConnection();
-        connection.prepareStatement(query).executeQuery();
+    public static boolean deleteCar(int carId) throws SQLException {
+        String sql = "DELETE FROM cars WHERE id = ?";
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, carId);
+
+            int rows = ps.executeUpdate();
+            return rows > 0;
+        }
     }
+
 
     public static boolean updateCar(Car car) throws SQLException {
         String sql = """

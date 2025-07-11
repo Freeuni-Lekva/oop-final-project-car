@@ -22,7 +22,7 @@ public class DeleteUserServlet extends HttpServlet {
             return;
         }
 
-        if (!currentUser.is_admin()) {
+        if (!currentUser.isAdmin()) {
             request.setAttribute("errorMessage", "Only admins are allowed to delete users.");
             request.getRequestDispatcher("/error.jsp").forward(request, response);
             return;
@@ -36,7 +36,7 @@ public class DeleteUserServlet extends HttpServlet {
             boolean deleted = UserService.deleteUser(userId);
 
             if (deleted) {
-                response.sendRedirect(request.getContextPath() + "/admin-dashboard/user-list");
+                response.sendRedirect(request.getContextPath() + "/admin-dashboard");
             } else {
                 request.setAttribute("errorMessage", "Failed to delete user.");
                 request.getRequestDispatcher("/error.jsp").forward(request, response);

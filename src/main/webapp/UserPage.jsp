@@ -242,7 +242,7 @@
                         </div>
 
                         <c:if test="${not empty bd.booking}">
-                            <form method="post" action="/cancelBooking">
+                            <form method="post"  action="${pageContext.request.contextPath}/cancelBooking">
                                 <input type="hidden" name="bookingId" value="${bd.booking.id}" />
                                 <button class="btn-action" type="submit">Cancel</button>
                             </form>

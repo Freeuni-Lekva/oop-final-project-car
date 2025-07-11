@@ -58,7 +58,7 @@ public class UserRepoTest {
         User result = UserRepository.getUserById(id);
         assertNotNull(result);
         assertEquals("Bob Builder", result.getFull_name());
-        assertTrue(result.is_admin());
+        assertTrue(result.isAdmin());
     }
 
     @Test

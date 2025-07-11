@@ -29,7 +29,7 @@ public class DeleteBookingServlet extends HttpServlet {
         try {
             int bookingId = Integer.parseInt(request.getParameter("bookingId"));
 
-            if (user.is_admin()) {
+            if (user.isAdmin()) {
                 BookingService.deleteBooking(bookingId);
             } else {
                 Map<String, List<BookingDisplay>> categorizedBookings =
@@ -56,7 +56,7 @@ public class DeleteBookingServlet extends HttpServlet {
                 }
             }
 
-            if (user.is_admin()) {
+            if (user.isAdmin()) {
                 response.sendRedirect(request.getContextPath() + "/admin-dashboard/bookings");
             } else {
                 response.sendRedirect(request.getContextPath() + "/userProfile");

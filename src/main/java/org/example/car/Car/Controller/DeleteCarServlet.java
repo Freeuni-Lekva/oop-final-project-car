@@ -23,7 +23,7 @@ public class DeleteCarServlet extends HttpServlet {
             return;
         }
 
-        if (!user.is_admin()) {
+        if (!user.isAdmin()) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Not authorised");
             return;
         }

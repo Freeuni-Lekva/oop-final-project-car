@@ -22,7 +22,7 @@ public class AdminEditCarServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        if (user == null || !user.is_admin()) {
+        if (user == null || !user.isAdmin()) {
             response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Access+denied");
             return;
         }

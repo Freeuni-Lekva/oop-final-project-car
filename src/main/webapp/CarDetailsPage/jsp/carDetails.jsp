@@ -24,7 +24,7 @@
         <button type="submit" class="btn">Book Now</button>
       </form>
 
-      <c:if test="${sessionScope.user != null && sessionScope.user.is_admin}">
+      <c:if test="${sessionScope.user != null && sessionScope.user.admin}">
         <!-- manqanis daditeba mxolod admini -->
         <form action="${pageContext.request.contextPath}/editCar" method="get" style="display:inline;">
           <input type="hidden" name="carId" value="${car.id}">
