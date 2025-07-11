@@ -37,7 +37,7 @@ public class UserBookingsMoreServlet extends HttpServlet {
             req.setAttribute("bookings", list);
             req.setAttribute("type", type);
             req.setAttribute("user", user);
-            req.getRequestDispatcher("/userBookingList.jsp").forward(req, resp);
+            req.getRequestDispatcher("/UserPage/JSP/userBookingList.jsp").forward(req, resp);
         } catch (Exception e) {
             e.printStackTrace();
             resp.sendError(500);

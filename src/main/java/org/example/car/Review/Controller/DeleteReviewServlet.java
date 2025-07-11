@@ -33,10 +33,10 @@ public class DeleteReviewServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/userProfile" + (user.isAdmin() ? "?userId=" + review.getUser_id() : ""));
         } catch (NumberFormatException e) {
             req.setAttribute("error", "Review not found.");
-            req.getRequestDispatcher("/UserPage.jsp").forward(req, resp);
+            req.getRequestDispatcher("/UserPage/JSP/UserPage.jsp").forward(req, resp);
         } catch (Exception e) {
             req.setAttribute("error", "Something went wrong: " + e.getMessage());
-            req.getRequestDispatcher("/UserPage.jsp").forward(req, resp);
+            req.getRequestDispatcher("/UserPage/JSP/UserPage.jsp").forward(req, resp);
         }
     }
 }

@@ -73,7 +73,7 @@ public class UserProfileServlet extends HttpServlet {
         req.setAttribute("user", targetUser);
         req.setAttribute("rentedCount", carsRented);
 
-        req.getRequestDispatcher("/UserPage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/UserPage/JSP/UserPage.jsp").forward(req, resp);
     }
 
 

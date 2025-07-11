@@ -27,7 +27,7 @@ public class ReviewServiceTest {
                     id INT PRIMARY KEY,
                     brand VARCHAR(255),
                     model VARCHAR(255),
-                    "year" INT,
+                    `year` INT,
                     price_per_day DECIMAL(10,2),
                     description TEXT,
                     image_url VARCHAR(255)
@@ -71,7 +71,7 @@ public class ReviewServiceTest {
         // Insert cars
         try (Connection conn = DBConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                     "INSERT INTO cars (id, brand, model, \"year\", price_per_day, description, image_url)\n" +
+                     "INSERT INTO cars (id, brand, model, `year`, price_per_day, description, image_url)\n" +
                              "VALUES (?, ?, ?, ?, ?, ?, ?)")) {
 
             ps.setInt(1, 100);
@@ -121,7 +121,7 @@ public class ReviewServiceTest {
     void testSaveAndGetReviewById() throws SQLException {
         try (Connection conn = DBConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                     "INSERT INTO cars (id, brand, model, \"year\", price_per_day, description, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+                     "INSERT INTO cars (id, brand, model, `year`, price_per_day, description, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
 
             ps.setInt(1, 200);
             ps.setString(2, "Ford");
@@ -152,7 +152,7 @@ public class ReviewServiceTest {
     void testDeleteReview() throws SQLException {
         try (Connection conn = DBConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                     "INSERT INTO cars (id, brand, model, \"year\", price_per_day, description, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+                     "INSERT INTO cars (id, brand, model, `year`, price_per_day, description, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
 
             ps.setInt(1, 300);
             ps.setString(2, "Mazda");
@@ -199,7 +199,7 @@ public class ReviewServiceTest {
 
         try (Connection conn = DBConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                     "INSERT INTO cars (id, brand, model, \"year\", price_per_day, description, image_url) VALUES (?,?,?,?,?,?,?)")) {
+                     "INSERT INTO cars (id, brand, model, `year`, price_per_day, description, image_url) VALUES (?,?,?,?,?,?,?)")) {
 
             ps.setInt(1, 400);
             ps.setString(2, "BMW");

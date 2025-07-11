@@ -37,7 +37,7 @@ public class UserReviewsMore extends HttpServlet {
         req.setAttribute("userReviews", reviews);
         req.setAttribute("user", user);
 
-        req.getRequestDispatcher("/userReviewFullList.jsp").forward(req, resp);
+        req.getRequestDispatcher("/UserPage/JSP/userReviewFullList.jsp").forward(req, resp);
 
 
     }
