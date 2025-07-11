@@ -1,102 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+:root {
+    --background: #f5f7fa;
+    --glass: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --text-dark: #0a0a0a;
+    --text-light: #1a1a1a;
+    --text-muted: #6c757d;
+    --accent-gold: #f4a261;
+    --accent-pinkish: #e76f51;
+    --accent: #e63946;
+    --accent-hover: #d62828;
+    --shadow-mid: rgba(0, 0, 0, 0.1);
+    --shadow-strong: rgba(0, 0, 0, 0.2);
+}
 
 body {
     font-family: 'Poppins', sans-serif;
     background: var(--background);
     color: var(--text-light);
     padding: 2rem;
+    margin: 0;
+    line-height: 1.6;
 }
 
 .wrapper {
-    max-width: 800px;
+    max-width: 900px;
     margin: auto;
+    padding: 2rem;
 }
 
 .glass {
     background: var(--glass);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    padding: 2rem;
+    border-radius: 20px;
+    padding: 2.5rem;
     backdrop-filter: blur(20px);
-    box-shadow: 0 12px 48px var(--shadow-strong);
-    animation: fadeIn 0.6s ease-out;
+    box-shadow: 0 12px 32px var(--shadow-strong);
+    animation: fadeIn 0.5s ease-out;
+    transition: box-shadow 0.3s ease;
+}
+
+.glass:hover {
+    box-shadow: 0 16px 40px var(--shadow-strong);
 }
 
 .car-image {
     max-width: 100%;
-    border-radius: 12px;
-    margin-bottom: 1rem;
+    border-radius: 14px;
+    margin-bottom: 1.5rem;
     box-shadow: 0 8px 24px var(--shadow-mid);
+    object-fit: cover;
 }
 
 .car_desc {
     font-size: 1rem;
     color: var(--text-muted);
-    margin-top: 0.8rem;
+    margin-top: 1rem;
 }
 
 .review-section {
-    margin-top: 2rem;
-    padding-top: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--glass-border);
 }
 
 .review-title {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+    font-weight: 600;
     color: var(--accent-gold);
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 
 .review-form {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 1rem;
 }
 
 .review-form textarea {
     padding: 1rem;
     border-radius: 10px;
-    border: none;
+    border: 1px solid #ccc;
     resize: vertical;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-light);
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--text-dark);
     font-size: 1rem;
-    height: 100px;
+    height: 120px;
+    transition: border-color 0.3s;
 }
 
-.review-form select {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-light);
-    padding: 0.6rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    border: none;
-}
-select:hover,
-select:focus {
-    background-color: #ffffff;
-    color: #023047;
+.review-form textarea:focus {
+    border-color: var(--accent-gold);
     outline: none;
-    border-color: #8ecae6;
 }
 
+.review-form .star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    gap: 0.4rem;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 1.6rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: var(--accent-gold);
+}
 
 .btn {
-    background: var(--accent-gradient);
+    background: var(--accent);
     padding: 0.7rem 1.5rem;
     font-size: 1rem;
-    color: var(--text-dark);
+    color: white;
     text-decoration: none;
     border-radius: 10px;
-    font-weight: bold;
+    font-weight: 600;
     border: none;
     align-self: flex-end;
     cursor: pointer;
     box-shadow: 0 6px 16px var(--shadow-mid);
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s;
 }
 
 .btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px var(--shadow-strong);
+}
+
+.btn2 {
+    background: #67ec6c;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+    align-self: flex-end;
+    cursor: pointer;
+    box-shadow: 0 6px 16px var(--shadow-mid);
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s;
+}
+
+.btn2:hover {
+    background: #5d8e4a;
     transform: translateY(-2px);
     box-shadow: 0 10px 24px var(--shadow-strong);
 }
@@ -107,24 +167,79 @@ select:focus {
 
 .review-card {
     background: rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 14px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-3px);
 }
 
 .review-user {
-    font-weight: bold;
+    font-weight: 600;
     color: var(--accent-pinkish);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.nav-left {
+    display: flex;
+    gap: 1.5rem;
+}
+
+
+.nav-btn {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transform: none !important;
 }
 
 .review-rating {
     color: var(--accent-gold);
-    font-size: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
 }
 
 .review-comment {
     margin-top: 0.4rem;
-    color: var(--text-light);
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

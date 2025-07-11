@@ -1,19 +1,19 @@
 :root {
-    --background: linear-gradient(135deg, #30405e, #396e9e);
-    --glass: rgba(255, 0, 0, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --background: #f5f7fa;
+    --glass: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0, 0, 0, 0.1);
 
-    --accent-gradient: linear-gradient(135deg, #8ecae6, #219ebc);
-    --accent-gold: #ffd166;
-    --accent-pinkish: #ff5959;
-    --accent-green: #00ff00;
+    --accent-gradient: linear-gradient(135deg, #e63946, #d62828);
+    --accent-gold: #e63946;
+    --accent-pinkish: #e63946;
+    --accent-green: #38b000;
 
-    --text-light: #f1f5f9;
-    --text-muted: #cbd5e1;
-    --text-subtle: #94a3b8;
-    --text-dark: #0f172a;
+    --text-light: #0a0a0a;
+    --text-muted: #666;
+    --text-subtle: #999;
+    --text-dark: #111;
 
-    --shadow-soft: rgba(0, 0, 0, 0.2);
-    --shadow-mid: rgba(0, 0, 0, 0.4);
-    --shadow-strong: rgba(0, 0, 0, 0.6);
+    --shadow-soft: rgba(0, 0, 0, 0.05);
+    --shadow-mid: rgba(0, 0, 0, 0.1);
+    --shadow-strong: rgba(0, 0, 0, 0.15);
 }

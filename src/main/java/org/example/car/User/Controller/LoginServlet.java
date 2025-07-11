@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.Objects;
 import java.sql.SQLException;
 
 @WebServlet("/login")
@@ -18,9 +20,10 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String fullName = req.getParameter("full_name");
         String password = req.getParameter("password");
+        String prevPage = req.getParameter("prevPage");
 
         if (fullName == null || fullName.isEmpty() || password == null || password.isEmpty()) {
-            resp.sendRedirect("Authentication/jsp/login.jsp?msg=All+fields+are+required.");
+            resp.sendRedirect("Authentication/jsp/login.jsp?msg=All+fields+are+required.&prevPage=" + URLEncoder.encode(prevPage, "UTF-8"));
             return;
         }
 
@@ -33,9 +36,14 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            resp.sendRedirect("index.jsp");
+
+            if(Objects.equals(prevPage, "home") || prevPage == null)
+                resp.sendRedirect("HPcontroller");
+            else{
+                resp.sendRedirect("index.jsp");
+            }
         } else {
-            resp.sendRedirect("Authentication/jsp/login.jsp?msg=Invalid+credentials.");
+            resp.sendRedirect("Authentication/jsp/login.jsp?msg=Invalid+credentials.&prevPage=" + URLEncoder.encode(prevPage, "UTF-8"));
         }
     }
 
