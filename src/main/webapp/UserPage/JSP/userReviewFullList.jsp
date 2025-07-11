@@ -8,26 +8,22 @@
 </head>
 <body>
 
+<div class="navbar">
+  <div class="nav-left">
+    <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
+  </div>
+  <a href="${pageContext.request.contextPath}/logout" class="btn logout-btn">Logout</a>
+</div>
+
 <div class="wrapper">
   <div class="glass">
-    <div class="navbar">
-      <div class="nav-left">
-        <a href="${pageContext.request.contextPath}/HPcontroller" class="home-link">
-          <img src="${pageContext.request.contextPath}/images/home-icon.png" alt="Home" class="home-icon">
-          Home
-        </a>
-      </div>
+    <div class="profile">
+      <p>Name: ${user.full_name}</p>
     </div>
-
-  <div class="profile">
-    <p>Name: ${user.full_name}</p>
-  </div>
-
-  <div>
-    <div class="section-title">Your Reviews</div>
-    <div class="grid">
-      <c:forEach var="r" items="${userReviews}" varStatus="loop">
-        <c:if test="${loop.index < 3}">
+    <div>
+      <div class="section-title">Your Reviews</div>
+      <div class="grid">
+        <c:forEach var="r" items="${userReviews}" varStatus="loop">
           <div class="card">
             <div class="card-content">
               <div class="card-text">
@@ -37,18 +33,18 @@
               </div>
               <img src="${r.car.image_url}" alt="Car Image" class="car-image">
             </div>
-
-            <form method="post" action="${pageContext.request.contextPath}/deleteReview">
-              <input type="hidden" name="reviewId" value="${r.review.id}" />
-              <button class="btn-action" type="submit">Delete</button>
-            </form>
+            <div class="card-footer">
+              <form method="post" action="${pageContext.request.contextPath}/deleteReview">
+                <input type="hidden" name="reviewId" value="${r.review.id}" />
+                <button class="btn btn-delete" type="submit">Delete</button>
+              </form>
+            </div>
           </div>
-        </c:if>
-      </c:forEach>
+        </c:forEach>
+      </div>
     </div>
   </div>
-    </div>
-  </div>
+</div>
 
 </body>
 </html>
