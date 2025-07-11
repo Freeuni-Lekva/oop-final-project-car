@@ -49,14 +49,14 @@
         <!-- manqanis daditeba mxolod admini -->
         <form action="${pageContext.request.contextPath}/editCar" method="get" style="display:inline;">
           <input type="hidden" name="carId" value="${car.id}">
-          <button type="submit" class="btn">Edit Car</button>
+          <button type="submit" class="btn2">Edit Car</button>
         </form>
 
         <!-- manqanis washla mxolod admini -->
         <form action="${pageContext.request.contextPath}/deleteCar" method="post" style="display:inline;"
               onsubmit="return confirm('Delete this car?');">
           <input type="hidden" name="carId" value="${car.id}">
-          <button type="submit" class="btn">Delete Car</button>
+          <button type="submit" class="btn2">Delete Car</button>
         </form>
       </c:if>
 
