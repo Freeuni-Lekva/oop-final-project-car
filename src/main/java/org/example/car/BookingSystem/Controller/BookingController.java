@@ -13,6 +13,7 @@ import org.example.car.User.Model.User;
 import org.example.car.User.Repository.UserRepository;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 @WebServlet("/BookingController")
 public class BookingController extends HttpServlet {
@@ -27,15 +28,19 @@ public class BookingController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         System.out.println("movida");
+        BookingRequest bookingRequest = BookingRequest.getBookingRequest(request);
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
+            String carId = String.valueOf(bookingRequest.getCarId());
+            String encodedCarId = URLEncoder.encode(carId, "UTF-8");
+
+            response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first&prevPage=" + encodedCarId);
             return;
         }
 
         try{
-            BookingRequest bookingRequest = BookingRequest.getBookingRequest(request);
+
             boolean booked = bookingService.bookCar(bookingRequest);
 
             User u = UserRepository.getUserById(bookingRequest.getUserId());

@@ -26,6 +26,21 @@
     transform: none !important;
 }
 
+.btn {
+    background: var(--accent);
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+    align-self: flex-end;
+    cursor: pointer;
+    box-shadow: 0 6px 16px var(--shadow-mid);
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s;
+}
+
 body {
     padding-top: 70px;
     font-family: 'Poppins', sans-serif;
