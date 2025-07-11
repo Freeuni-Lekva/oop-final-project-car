@@ -51,7 +51,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background: url('images/background.png') no-repeat center center fixed;
+            background: url('../../images/background.png') no-repeat center center fixed;
             background-size: cover;
             color: #023047;
         }
@@ -190,7 +190,7 @@
     <header>
         <div class="home-icon">
             <a href="${pageContext.request.contextPath}/HPcontroller" class="home-link">
-                <img src="images/home-icon.png" alt="Home" class="home-icon">
+                <img src="../../images/home-icon.png" alt="Home" class="home-icon">
                 Home
             </a>
         </div>
