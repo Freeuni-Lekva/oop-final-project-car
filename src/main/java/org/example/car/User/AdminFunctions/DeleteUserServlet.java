@@ -1,4 +1,4 @@
-package org.example.car.User.Controller;
+package org.example.car.User.AdminFunctions;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -36,7 +36,7 @@ public class DeleteUserServlet extends HttpServlet {
             boolean deleted = UserService.deleteUser(userId);
 
             if (deleted) {
-                response.sendRedirect(request.getContextPath() + "/admin-dashboard/user-list.jsp?msg=User+deleted+successfully");
+                response.sendRedirect(request.getContextPath() + "/admin-dashboard/user-list");
             } else {
                 request.setAttribute("errorMessage", "Failed to delete user.");
                 request.getRequestDispatcher("/error.jsp").forward(request, response);

@@ -1,4 +1,4 @@
-package org.example.car.User.Controller;
+package org.example.car.User.AdminFunctions;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
