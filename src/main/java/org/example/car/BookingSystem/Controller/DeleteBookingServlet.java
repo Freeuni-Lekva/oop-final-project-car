@@ -16,7 +16,6 @@ import java.util.Map;
 
 @WebServlet("/cancelBooking")
 public class DeleteBookingServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -58,7 +57,7 @@ public class DeleteBookingServlet extends HttpServlet {
             }
 
             if (user.is_admin()) {
-                response.sendRedirect(request.getContextPath() + "/admin/bookings");
+                response.sendRedirect(request.getContextPath() + "/admin-dashboard/bookings");
             } else {
                 response.sendRedirect(request.getContextPath() + "/userProfile");
             }

@@ -62,7 +62,7 @@
 
     <c:choose>
         <c:when test="${not empty pageContext.request.userPrincipal}">
-            <a href="${pageContext.request.contextPath}/userProfile" class="btn">Back to My Bookings</a>
+            <a href="${pageContext.request.contextPath}/userProfile" class="btn">Back to My Profile</a>
         </c:when>
         <c:otherwise>
             <a href="${pageContext.request.contextPath}/login" class="btn">Go to Login Page</a>
