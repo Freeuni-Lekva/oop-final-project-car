@@ -14,8 +14,8 @@ public class UserService {
         return UserRepository.getAllUsers();
     }
 
-    public static void deleteUser(int userId){
-        UserRepository.deleteUser(userId);
+    public static boolean deleteUser(int userId){
+        return UserRepository.deleteUser(userId);
     }
 
     public static boolean save(String full_name, String password, boolean is_admin){
