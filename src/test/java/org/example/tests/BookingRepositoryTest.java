@@ -26,7 +26,7 @@ public class BookingRepositoryTest {
                     Statement.RETURN_GENERATED_KEYS
             );
             userStmt.setString(1, "Test User");
-            userStmt.setString(2, "test123"); // Fake hash
+            userStmt.setString(2, "test123");
             userStmt.setBoolean(3, false);
             userStmt.executeUpdate();
             ResultSet userKeys = userStmt.getGeneratedKeys();
@@ -76,7 +76,7 @@ public class BookingRepositoryTest {
     void testGetCarBookings() {
         List<Booking> bookings = BookingRepository.getCarBookings(testCarId);
         assertFalse(bookings.isEmpty());
-        insertedBookingId = bookings.get(0).getId(); // save for delete test
+        insertedBookingId = bookings.get(0).getId();
     }
 
     @Test
