@@ -66,7 +66,7 @@ body {
 }
 
 .wrapper {
-    max-width: 700px;
+    max-width: 900px;
     width: 100%;
 }
 
@@ -78,6 +78,19 @@ body {
     backdrop-filter: blur(20px);
     box-shadow: 0 12px 48px var(--shadow-strong);
     animation: fadeIn 0.6s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.glass::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(230,57,70,0.1) 0%, rgba(255,255,255,0) 70%);
+    z-index: -1;
 }
 
 .glass-header {
@@ -217,6 +230,60 @@ input[type="text"]:focus {
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 24px var(--shadow-strong);
+}
+
+.car {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin: 2rem 0;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    min-height: 200px;
+}
+
+.car-image {
+    width: 200px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px var(--shadow-mid);
+}
+
+.car_info {
+    flex: 1;
+}
+
+.car_info h2 {
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.car_desc {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.dates {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dates p {
+    margin: 0;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+
+.glass-footer {
+    margin-top: 2rem;
+    text-align: center;
 }
 
 @keyframes fadeIn {

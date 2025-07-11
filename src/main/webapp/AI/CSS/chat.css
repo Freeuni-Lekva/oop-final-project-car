@@ -133,7 +133,6 @@
     background: #c1121f;
 }
 
-/* Scrollbar styling */
 .chat-messages::-webkit-scrollbar {
     width: 6px;
 }
