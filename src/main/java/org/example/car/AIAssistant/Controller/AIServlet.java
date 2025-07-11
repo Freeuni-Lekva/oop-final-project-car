@@ -1,4 +1,4 @@
-package org.example.car.AIAssistant;
+package org.example.car.AIAssistant.Controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.example.car.AIAssistant.Service.GeminiAI;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ public class AIServlet extends HttpServlet {
         String message = request.getParameter("message");
 
         GeminiAI ai = new GeminiAI();
-        String AIresponse = ai.ask(message);
+        String AIresponse = "123";
+        AIresponse = ai.ask(message);
 
         System.out.println(AIresponse);
 
@@ -34,7 +36,7 @@ public class AIServlet extends HttpServlet {
 
         session.setAttribute("chat", chat);
 
-        response.sendRedirect("AIchat.jsp");
+        response.sendRedirect("/car_war_exploded/HPcontroller");
 
 
     }

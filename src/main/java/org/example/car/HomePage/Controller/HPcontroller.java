@@ -26,13 +26,43 @@ public class HPcontroller extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-       // User user = (User) session.getAttribute("user");
 
 
-        //request.setAttribute("user", userId);
+        String fromStr = request.getParameter("priceFrom");
+        String toStr = request.getParameter("priceTo");
+        String startDateStr = request.getParameter("startDate");
+        String endDateStr = request.getParameter("endDate");
 
-        List<Car> allCars = service.getAllCars();
+        System.out.println(startDateStr);
+        System.out.println(endDateStr);
+        System.out.println(startDateStr);
+        System.out.println(endDateStr);
+
+            double from = 0;
+            if(fromStr != null && !fromStr.isEmpty()){
+                try {
+                    from = Double.parseDouble(fromStr);
+                }
+                catch(NumberFormatException e){
+                    from = 0;
+                }
+            }
+
+            double to = Double.MAX_VALUE;
+            if(toStr != null && !toStr.isEmpty()){
+                try {
+                    to = Double.parseDouble(toStr);
+                }
+                catch(NumberFormatException e){
+                    to = Double.MAX_VALUE;
+                }
+            }
+
+        List<Car> allCars = HPservice.getCarsFilter(from, to);
+
         request.setAttribute("cars", allCars);
+        request.setAttribute("from", from);
+        request.setAttribute("to", to);
         request.getRequestDispatcher("HomePage/JSP/homePage.jsp").forward(request, response);
     }
 }

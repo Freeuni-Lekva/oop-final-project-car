@@ -26,6 +26,10 @@ public class CarService {
        return CarDetailsRepository.getCarById(id);
     }
 
+    public static List<Car> getCarsFilter(double from, double to){
+        return CarRepository.getCarsFilter(from, to);
+    }
+
     public static void updateCar(Car car) throws SQLException {
         if (car.getPrice_per_day() < 0) {
             throw new IllegalArgumentException("Price per day cannot be negative");
