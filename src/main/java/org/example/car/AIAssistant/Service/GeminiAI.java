@@ -98,13 +98,13 @@ public class GeminiAI {
 
 
         StringBuilder sb = new StringBuilder();
-        sb.append("you are assistant for car rental website. ONLY answer questions related to data below\n\n");
+        sb.append("you are assistant for car rental website. ONLY answer questions about cars\n\n");
 
         sb.append(repo.getCarsAsMessage());
         sb.append(repo.getBookingsAsMessage());
         sb.append(repo.getReviewsAsMessage());
 
-        sb.append("\nremember you ONLY answer questions about data above\n\n");
+        sb.append("\nremember you ONLY answer questions about cars\n\n");
         sb.append("User question: ").append(message);
 
         return sb.toString();

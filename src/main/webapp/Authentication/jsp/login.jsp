@@ -1,3 +1,4 @@
+<%@ page import="org.example.car.User.Model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -10,9 +11,29 @@
     String msg = request.getParameter("msg");
     String successParam = request.getParameter("success");
     boolean isSuccess = "true".equalsIgnoreCase(successParam);
+
+    User user = (User) session.getAttribute("user");
+    Boolean isLoggedIn = (user != null);
 %>
-<div class="auth-container">
-    <h2>Login</h2>
+
+<div class="navbar">
+    <div class="nav-left">
+        <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
+        <% if (isLoggedIn) { %>
+        <a href="${pageContext.request.contextPath}/userProfile" class="nav-btn">Profile</a>
+        <% }
+        else { %>
+        <a href="${pageContext.request.contextPath}/login" class="nav-btn">Log In</a>
+        <% } %>
+    </div>
+</div>
+
+<div class="auth-wrapper">
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to access your account and manage bookings</p>
+        </div>
     <form method="post" action="<%=request.getContextPath()%>/login">
         <label for="full_name">Full Name</label>
         <input type="text" id="full_name" name="full_name" required />
@@ -20,14 +41,25 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required />
 
-        <button type="submit">Login</button>
+        <button type="submit" class="btn">Login</button>
+
+
+        <div class="message<%= isSuccess ? " success" : "" %>">
+                <%= msg != null ? msg : "" %>
     </form>
-    <div class="message<%= isSuccess ? " success" : "" %>">
-        <%= msg != null ? msg : "" %>
+        <div class="auth-footer">
+            <a href="register.jsp" style="color:var(--accent-gold);text-decoration:none;">Don't have an account? Register</a>
+        </div>
     </div>
-    <div style="text-align:center; margin-top:18px;">
-        <a href="register.jsp" style="color:var(--accent-gold);text-decoration:none;">Don't have an account? Register</a>
+
+
     </div>
+    </div>
+
+
+
+
+
 </div>
 </body>
-</html> 
+</html>

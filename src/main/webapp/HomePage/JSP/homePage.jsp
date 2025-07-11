@@ -1,6 +1,13 @@
 <%@ page import="org.example.car.Car.Model.Car" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.example.car.User.Model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+<%
+  User user = (User) session.getAttribute("user");
+  Boolean isLoggedIn = (user != null);
+%>
 <html>
 <head>
   <title>Car Rental Home</title>
@@ -15,8 +22,12 @@
 <div class="navbar">
   <div class="nav-left">
     <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
+    <% if (isLoggedIn) { %>
     <a href="${pageContext.request.contextPath}/userProfile" class="nav-btn">Profile</a>
-    <a href="${pageContext.request.contextPath}/login" class="nav-btn">Log in</a>
+    <% }
+    else { %>
+    <a href="${pageContext.request.contextPath}/login" class="nav-btn">Log In</a>
+    <% } %>
   </div>
 </div>
 
@@ -39,15 +50,28 @@
       <div class="horizontal-filter">
         <h3 class="filter-title">PRICE RANGE</h3>
         <div class="filter-inputs">
-          <input type="number" id="priceFrom" name="priceFrom" min="0" placeholder="Min">
+          <input
+                  type="number"
+                  id="priceFrom"
+                  name="priceFrom"
+                  min="0"
+                  placeholder="Min"
+                  value="<%= request.getAttribute("from") != null ? request.getAttribute("from") : "0" %>"
+          >
           <span class="filter-separator">to</span>
-          <input type="number" id="priceTo" name="priceTo" min="0" placeholder="Max">
+          <input
+                  type="number"
+                  id="priceTo"
+                  name="priceTo"
+                  min="0"
+                  placeholder="Max"
+                  value="<%= request.getAttribute("to") != null ? request.getAttribute("to") : "-" %>"
+          >
         </div>
         <button type="submit" class="filter-button">APPLY</button>
       </div>
       </form>
     </div>
-
 
     <div class="glass-header">
       <h1>Find the perfect ride for your journey</h1>
