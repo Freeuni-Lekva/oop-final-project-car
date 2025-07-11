@@ -144,15 +144,16 @@ public class CarRepository {
         }
     }
 
-    public static List<Car> getCarsFilter(double from, double to) {
+    public static List<Car> getCarsFilter(double from, double to, String brand) {
         List<Car> result = new ArrayList<>();
-        String query = "SELECT * FROM cars WHERE price_per_day >= ? AND price_per_day <= ?";
+        String query = "SELECT * FROM cars WHERE price_per_day >= ? AND price_per_day <= ? AND brand LIKE ?";
 
         try (Connection conn = DBConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setDouble(1, from);
             stmt.setDouble(2, to);
+            stmt.setString(3, "%" + brand + "%");
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

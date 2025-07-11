@@ -26,8 +26,8 @@ public class CarService {
        return CarDetailsRepository.getCarById(id);
     }
 
-    public static List<Car> getCarsFilter(double from, double to){
-        return CarRepository.getCarsFilter(from, to);
+    public static List<Car> getCarsFilter(double from, double to, String brand){
+        return CarRepository.getCarsFilter(from, to, brand);
     }
 
     public static void updateCar(Car car) throws SQLException {

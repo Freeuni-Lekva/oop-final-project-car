@@ -75,7 +75,7 @@ public class CarServiceTest {
         CarService.addCar(new Car(4, "Kia", "Picanto", 2017, 25.0, "Cheap", "p.jpg"));
         CarService.addCar(new Car(5, "Mercedes", "GLE", 2022, 150.0, "Luxury", "gle.jpg"));
 
-        List<Car> cheap = CarService.getCarsFilter(20.0, 30.0);
+        List<Car> cheap = CarService.getCarsFilter(20.0, 30.0, "");
         assertEquals(1, cheap.size());
         assertEquals("Picanto", cheap.get(0).getModel());
     }
