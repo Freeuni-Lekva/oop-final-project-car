@@ -36,7 +36,7 @@ public class AdminRegisterServlet extends HttpServlet {
         boolean success = UserService.save(fullName, password, isAdmin);
         if (success) {
             String msg = URLEncoder.encode("Admin registration successful. Please log in.", "UTF-8");
-            resp.sendRedirect("Authentication/jsp/adminLogin.jsp?msg=" + msg + "&success=true");
+            resp.sendRedirect("Authentication/jsp/login.jsp?msg=" + msg + "&success=true");
         } else {
             String msg = URLEncoder.encode("Registration failed. User with this full name already exists.", "UTF-8");
             resp.sendRedirect("Authentication/jsp/adminRegister.jsp?msg=" + msg + "&success=false");
