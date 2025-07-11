@@ -19,7 +19,8 @@ public class AIServlet extends HttpServlet {
         String message = request.getParameter("message");
 
         GeminiAI ai = new GeminiAI();
-        String AIresponse = ai.ask(message);
+        String AIresponse = "123";
+        //AIresponse = ai.ask(message);
 
         System.out.println(AIresponse);
 
@@ -35,7 +36,7 @@ public class AIServlet extends HttpServlet {
 
         session.setAttribute("chat", chat);
 
-        response.sendRedirect("AIchat.jsp");
+        response.sendRedirect("/car_war_exploded/HPcontroller");
 
 
     }
