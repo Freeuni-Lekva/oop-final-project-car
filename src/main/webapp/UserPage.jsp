@@ -194,6 +194,7 @@
                 Home
             </a>
         </div>
+        <a href="logout" class="btn-action">Logout</a>
     </header>
 
     <div class="profile">
