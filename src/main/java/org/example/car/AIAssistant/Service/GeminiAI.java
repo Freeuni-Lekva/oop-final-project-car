@@ -1,8 +1,9 @@
-package org.example.car.AIAssistant;
+package org.example.car.AIAssistant.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.car.AIAssistant.Repository.AIRepository;
 import org.example.car.BookingSystem.Booking;
 import org.example.car.BookingSystem.Repository.BookingRepository;
 import org.example.car.Car.Model.Car;
@@ -19,6 +20,13 @@ public class GeminiAI {
     private final String KEY = "AIzaSyAKnhrDBjmBRbP40J8I4pjLepnVyBS_94Y";
     private final String AIModel = "models/gemini-1.5-flash";
     private final String URL = "https://generativelanguage.googleapis.com/v1/" + AIModel + ":generateContent?key=" + KEY;
+
+    private final AIRepository repo;
+
+    public GeminiAI(){
+        repo = new AIRepository();
+
+    }
 
     public String ask(String message) throws IOException {
         message = prepareMessage(message);
@@ -88,32 +96,13 @@ public class GeminiAI {
 
     private String prepareMessage(String message){
 
-        List<Car> cars = CarRepository.getAllCars();
-        List<Booking> bookings = BookingRepository.getBookings();
-        List<Review> reviews = ReviewRepository.getReviews();
 
         StringBuilder sb = new StringBuilder();
         sb.append("you are assistant for car rental website. ONLY answer questions related to data below\n\n");
 
-        sb.append("\n=== Cars ===\n");
-        for(Car car: cars) {
-            String s = String.format("Car ID: %d: Brand - %s; Model - %s; Year of release - %d; Price per day - %.2f; Description - %s",
-                    car.getId(), car.getBrand(), car.getModel(), car.getYear(), car.getPrice_per_day(), car.getDescription());
-            sb.append(s).append("\n");
-        }
-
-        sb.append("\n=== Bookings ===\n");
-        for(Booking b: bookings){
-            String s = String.format("Car with ID: %d is booked from %s to %s", b.getCarId(), b.getStartDate(), b.getEndDate());
-            sb.append(s).append("\n");
-        }
-
-        sb.append("\n=== Reviews ===\n");
-        for(Review r: reviews){
-            String s = String.format("Car with ID: %d is rated %d/5", r.getCarId(), r.getRating());
-            sb.append(s).append("\n");
-        }
-
+        sb.append(repo.getCarsAsMessage());
+        sb.append(repo.getBookingsAsMessage());
+        sb.append(repo.getReviewsAsMessage());
 
         sb.append("\nremember you ONLY answer questions about data above\n\n");
         sb.append("User question: ").append(message);
