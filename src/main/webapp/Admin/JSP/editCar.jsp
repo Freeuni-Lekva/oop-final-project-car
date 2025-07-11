@@ -8,7 +8,10 @@
 
 <h1>Edit Car</h1>
 
-<form method="post" action="${pageContext.request.contextPath}/updateCar">
+<form method="post"
+      action="${pageContext.request.contextPath}/updateCar"
+      enctype="multipart/form-data">
+
     <input type="hidden" name="carId" value="${car.id}">
 
     <label>Brand:</label><br>
@@ -26,11 +29,13 @@
     <label>Description:</label><br>
     <textarea name="description" rows="5" cols="40">${car.description}</textarea><br><br>
 
-    <label>Image URL:</label><br>
-    <input type="text" name="image_url" value="${car.image_url}" required><br><br>
+    Image (upload):  <input type="file" name="image"><br><br>
+    or Image URL:    <input type="text" name="image_url_fallback"
+                            value="${car.image_url}"><br><br>
 
     <button type="submit">Save Changes</button>
 </form>
+
 
 </body>
 </html>
