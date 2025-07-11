@@ -6,6 +6,7 @@ import org.example.car.User.Service.PasswordHashingService;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserService {
@@ -28,12 +29,12 @@ public class UserService {
         return UserRepository.save(userToSave);
     }
 
-    public static User authenticate(String fullName, String password) {
+    public static User authenticate(String fullName, String password) throws SQLException {
         String hashedPassword = PasswordHashingService.hashPassword(password);
         return UserRepository.findByFullNameAndPassword(fullName, hashedPassword);
     }
 
-    public static User getUserById(int userId){
+    public static User getUserById(int userId) throws SQLException {
         return UserRepository.getUserById(userId);
     }
 }

@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.example.car.User.Model.User;
 import org.example.car.User.Repository.UserRepository;
+import org.example.car.User.Service.UserService;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +26,7 @@ public class AdminServlet extends HttpServlet {
             return;
         }
 
-        List<User> allUsers = UserRepository.getAllUsers();
+        List<User> allUsers = UserService.getAllUsers();
         req.setAttribute("admin", user);
         req.setAttribute("users", allUsers);
 

@@ -4,103 +4,129 @@ import org.example.car.BookingSystem.Booking;
 import org.example.car.BookingSystem.BookingDisplay;
 import org.example.car.BookingSystem.BookingRequest;
 import org.example.car.BookingSystem.Service.BookingService;
+import org.example.car.Car.Model.Car;
+import org.example.car.Car.Repository.CarRepository;
 import org.example.car.DBConnector;
 import org.junit.jupiter.api.*;
 
 import java.sql.*;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.example.car.BookingSystem.Repository.BookingRepository;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BookingServiceTest {
+    BookingService bookingService;
 
-    private static int testUserId;
-    private static int testCarId;
-    private static int insertedBookingId;
+    @BeforeEach
+     void setUp() throws SQLException {
+        try (Connection c = DBConnector.getConnection();
+             Statement s = c.createStatement()) {
+            s.execute("""
+                CREATE TABLE IF NOT EXISTS cars (
+                    id INT PRIMARY KEY,
+                    brand VARCHAR(255),
+                    model VARCHAR(255),
+                    "year" INT,
+                    price_per_day DECIMAL(10,2),
+                    description TEXT,
+                    image_url VARCHAR(255)
+                );
+            """);
 
-    private static BookingService bookingService;
-
-    @BeforeAll
-    static void setup() throws SQLException {
-        try (Connection conn = DBConnector.getConnection()) {
-            PreparedStatement userStmt = conn.prepareStatement(
-                "INSERT INTO users (full_name, password_hash, is_admin) VALUES (?, ?, ?)",
-                Statement.RETURN_GENERATED_KEYS
-            );
-            userStmt.setString(1, "ServiceTestUser");
-            userStmt.setString(2, "test123");
-            userStmt.setBoolean(3, false);
-            userStmt.executeUpdate();
-            ResultSet userKeys = userStmt.getGeneratedKeys();
-            if (userKeys.next()) testUserId = userKeys.getInt(1);
-
-            PreparedStatement carStmt = conn.prepareStatement(
-                "INSERT INTO cars (brand, model, year, price_per_day, description, image_url) " +
-                "VALUES (?, ?, ?, ?, ?, ?)",
-                Statement.RETURN_GENERATED_KEYS
-            );
-            carStmt.setString(1, "BrandS");
-            carStmt.setString(2, "ModelS");
-            carStmt.setInt(3, 2024);
-            carStmt.setBigDecimal(4, new java.math.BigDecimal("49.99"));
-            carStmt.setString(5, "Service test car");
-            carStmt.setString(6, "image.jpg");
-            carStmt.executeUpdate();
-            ResultSet carKeys = carStmt.getGeneratedKeys();
-            if (carKeys.next()) testCarId = carKeys.getInt(1);
+            s.execute("""
+                CREATE TABLE IF NOT EXISTS bookings (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    user_id INT,
+                    car_id INT,
+                    start_date DATE,
+                    end_date DATE
+                );
+            """);
         }
-
         bookingService = new BookingService();
     }
 
-    @AfterAll
-    static void cleanup() throws SQLException {
-        try (Connection conn = DBConnector.getConnection()) {
-            conn.prepareStatement("DELETE FROM bookings WHERE user_id = " + testUserId).executeUpdate();
-            conn.prepareStatement("DELETE FROM users WHERE id = " + testUserId).executeUpdate();
-            conn.prepareStatement("DELETE FROM cars WHERE id = " + testCarId).executeUpdate();
+    @AfterEach
+    void cleanup() throws SQLException {
+        try (Connection c = DBConnector.getConnection();
+             Statement s = c.createStatement()) {
+            s.execute("DELETE FROM bookings");
+            s.execute("DELETE FROM cars");
         }
     }
 
+
     @Test
-    @Order(1)
-    void testBookCarSuccess() {
-        BookingRequest request = new BookingRequest(
-            testUserId,
-            testCarId,
-            java.sql.Date.valueOf("2025-08-01"),
-            java.sql.Date.valueOf("2025-08-05")
-        );
-        boolean booked = bookingService.bookCar(request);
-        assertTrue(booked);
+    void testBookCarSuccess() throws SQLException {
+        CarRepository.addCar(new Car(1, "Ford", "Fiesta", 2020, 35.0, "Eco", "f.jpg"));
+
+        BookingRequest req = new BookingRequest(1, 1,
+                Date.valueOf("2025-06-01"), Date.valueOf("2025-06-03"));
+
+        assertTrue(bookingService.bookCar(req));
+
+        List<Booking> userBookings = BookingRepository.getBookingsByUserId(1);
+        assertFalse(userBookings.isEmpty());
+        assertEquals(1, userBookings.get(0).getCarId());
     }
 
     @Test
-    @Order(2)
-    void testCategorizeBookings() throws SQLException {
-        Map<String, List<BookingDisplay>> map = BookingService.categorizeBookings(testUserId);
-        assertNotNull(map.get("future"));
-        assertFalse(map.get("future").isEmpty());
+    void testBookCarFailsWhenUnavailable() throws SQLException {
+        CarRepository.addCar(new Car(2, "Audi", "A3", 2021, 80.0, "Hatch", "a.jpg"));
 
-        BookingDisplay bd = map.get("future").get(0);
-        assertEquals(testCarId, bd.getCar().getId());
-        insertedBookingId = bd.getBooking().getId();
+        BookingRequest initial = new BookingRequest(5, 2,
+                Date.valueOf("2025-07-10"), Date.valueOf("2025-07-15"));
+        bookingService.bookCar(initial);
+
+        BookingRequest overlap = new BookingRequest(6, 2,
+                Date.valueOf("2025-07-14"), Date.valueOf("2025-07-16"));
+        assertFalse(bookingService.bookCar(overlap));
+
+        List<Booking> carBookings = BookingRepository.getCarBookings(2);
+        assertEquals(1, carBookings.size());
+        assertEquals(2, carBookings.get(0).getCarId());
     }
 
-    @Test
-    @Order(3)
-    void testGetBookingById() {
-        Booking booking = BookingService.getBookingById(insertedBookingId);
-        assertNotNull(booking);
-        assertEquals(testUserId, booking.getUserId());
-    }
+
 
     @Test
-    @Order(4)
-    void testDeleteBooking() {
-        BookingService.deleteBooking(insertedBookingId);
-        Booking deleted = BookingService.getBookingById(insertedBookingId);
-        assertNull(deleted);
+    void testCategorizeBookingsAddsCarInfo() throws SQLException {
+        CarRepository.addCar(new Car(3, "Tesla", "Model Y", 2023, 120.0, "EV", "y.jpg"));
+        CarRepository.addCar(new Car(4, "BMW", "M4", 2024, 200.0, "Sport", "m4.jpg"));
+        int userId = 11;
+        LocalDate today = LocalDate.now();
+
+        // past
+        bookingService.bookCar(new BookingRequest(userId, 3,
+                Date.valueOf(today.minusDays(10)), Date.valueOf(today.minusDays(5))));
+        // future
+        bookingService.bookCar(new BookingRequest(userId, 4,
+                Date.valueOf(today.plusDays(5)), Date.valueOf(today.plusDays(7))));
+
+        Map<String, List<BookingDisplay>> map = BookingService.categorizeBookings(userId);
+        assertEquals(1, map.get("past").size());
+        assertEquals("Tesla", map.get("past").get(0).getCar().getBrand());
+
+        assertEquals(1, map.get("future").size());
+        assertEquals("BMW", map.get("future").get(0).getCar().getBrand());
+
+        assertTrue(map.get("current").isEmpty());
+    }
+
+
+    @Test
+    void testDeleteBookingViaService() throws SQLException {
+        CarRepository.addCar(new Car(8, "Kia", "Soul", 2022, 45.0, "Box", "s.jpg"));
+        bookingService.bookCar(new BookingRequest(22, 8,
+                Date.valueOf("2025-08-01"), Date.valueOf("2025-08-03")));
+        int id = BookingService.getBookingById(1).getId();
+
+        BookingService.deleteBooking(id);
+        assertNull(BookingService.getBookingById(id));
     }
 }
