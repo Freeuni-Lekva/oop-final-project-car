@@ -1,6 +1,7 @@
 <%@ page import="org.example.car.Car.Model.Car" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
   <head>
     <title>Car Rental Home</title>
@@ -16,6 +17,8 @@
       <a href="${pageContext.request.contextPath}/login" class="nav-btn">Log in</a>
     </div>
   </div>
+
+
 
 
   <div class="wrapper">
@@ -62,6 +65,12 @@
 
     </div>
   </div>
+
+  <c:if test="${sessionScope.user != null && sessionScope.user.admin}">
+    <form action="${pageContext.request.contextPath}/addCar" method="get" style="margin:1rem 0;">
+      <button class="btn">➕ Add a Car</button>
+    </form>
+  </c:if>
 
   </body>
 </html>
