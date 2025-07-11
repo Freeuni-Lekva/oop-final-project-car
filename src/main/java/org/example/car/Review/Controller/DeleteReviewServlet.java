@@ -11,15 +11,14 @@ import org.example.car.Review.Service.ReviewService;
 import org.example.car.User.Model.User;
 
 import java.io.IOException;
-@WebServlet("/user/reviews/delete")
+@WebServlet("/deleteReview")
 public class DeleteReviewServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         User user = (User) req.getSession().getAttribute("user");
-
         if (user == null) {
-            resp.sendRedirect("/login.jsp");
+            resp.sendRedirect(req.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
             return;
         }
 
@@ -27,15 +26,17 @@ public class DeleteReviewServlet extends HttpServlet {
             int reviewId = Integer.parseInt(req.getParameter("reviewId"));
             Review review = ReviewService.getReviewById(reviewId);
 
-            if (review != null && review.getUser_id() == user.getId()) {
+            if (review != null && (review.getUser_id() == user.getId() || user.isAdmin())) {
                 ReviewService.deleteReview(reviewId);
             }
+
+            resp.sendRedirect(req.getContextPath() + "/userProfile" + (user.isAdmin() ? "?userId=" + review.getUser_id() : ""));
         } catch (NumberFormatException e) {
             req.setAttribute("error", "Review not found.");
             req.getRequestDispatcher("/UserPage.jsp").forward(req, resp);
+        } catch (Exception e) {
+            req.setAttribute("error", "Something went wrong: " + e.getMessage());
+            req.getRequestDispatcher("/UserPage.jsp").forward(req, resp);
         }
-
-        resp.sendRedirect("/UserPage");
     }
 }
-

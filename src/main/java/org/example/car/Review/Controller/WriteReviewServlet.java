@@ -28,9 +28,9 @@ public class WriteReviewServlet extends HttpServlet {
         String carIdStr = request.getParameter("carId");
 
 
-        if(user==null){
-            response.sendRedirect(request.getContextPath() + "/login" );
-
+        if (user == null || !user.isAdmin()) {
+            response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Access+denied");
+            return;
         }
         else {
 

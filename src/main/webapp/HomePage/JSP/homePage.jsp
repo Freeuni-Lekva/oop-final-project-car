@@ -8,6 +8,7 @@
   User user = (User) session.getAttribute("user");
   Boolean isLoggedIn = (user != null);
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
   <title>Car Rental Home</title>
@@ -24,7 +25,7 @@
     <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
     <% if (isLoggedIn) { %>
     <a href="${pageContext.request.contextPath}/userProfile" class="nav-btn">Profile</a>
-    <%if(user.is_admin()){%>
+    <%if(user.isAdmin()){%>
     <a href="${pageContext.request.contextPath}/Admin-Dashboard" class="nav-btn">admin-dashboard</a>
     <% } }
     else { %>
@@ -43,8 +44,10 @@
   </div>
 </section>
 
-<div class="wrapper">
-  <div class="glass">
+
+
+  <div class="wrapper">
+    <div class="glass">
 
 
     <div class="horizontal-filter-container">
@@ -116,6 +119,13 @@
   </div>
 </div>
 
+  <c:if test="${sessionScope.user != null && sessionScope.user.admin}">
+    <form action="${pageContext.request.contextPath}/addCar" method="get" style="margin:1rem 0;">
+      <button class="btn">➕ Add a Car</button>
+    </form>
+  </c:if>
+
+  </body>
 <%@ include file="../../AI/JSP/AIchat.jsp" %>
 <script src="${pageContext.request.contextPath}/AI/JS/chat.js"></script>
 </body>
