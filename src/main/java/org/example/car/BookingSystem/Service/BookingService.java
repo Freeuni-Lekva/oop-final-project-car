@@ -78,4 +78,8 @@ public class BookingService {
     public static void deleteBooking(int bookindId){
         BookingRepository.deleteBooking(bookindId);
     }
+
+    public static Booking getBookingById(int bookingId){
+        return BookingRepository.getBookingById(bookingId);
+    }
 }

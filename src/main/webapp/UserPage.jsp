@@ -217,10 +217,19 @@
                             </div>
                             <img src="${bd.car.image_url}" alt="Car Image" class="car-image">
                         </div>
+
+                        <c:if test="${sessionScope.user.admin}">
+                            <form method="post" action="${pageContext.request.contextPath}/cancelBooking"
+                                  onsubmit="return confirm('Delete this booking?');">
+                                <input type="hidden" name="bookingId" value="${bd.booking.id}" />
+                                <button class="btn-action" type="submit">Delete</button>
+                            </form>
+                        </c:if>
                     </div>
                 </c:if>
             </c:forEach>
         </div>
+
         <c:if test="${currentBookings.size() > 2}">
             <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=current">See More</a>
         </c:if>
@@ -271,10 +280,19 @@
                             </div>
                             <img src="${bd.car.image_url}" alt="Car Image" class="car-image">
                         </div>
+
+                        <c:if test="${sessionScope.user.admin}">
+                            <form method="post" action="${pageContext.request.contextPath}/cancelBooking"
+                                  onsubmit="return confirm('Delete this booking?');">
+                                <input type="hidden" name="bookingId" value="${bd.booking.id}" />
+                                <button class="btn-action" type="submit">Delete</button>
+                            </form>
+                        </c:if>
                     </div>
                 </c:if>
             </c:forEach>
         </div>
+
         <c:if test="${pastBookings.size() > 2}">
             <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=past">See More</a>
 
@@ -296,8 +314,8 @@
                             <img src="${r.car.image_url}" alt="Car Image" class="car-image">
                         </div>
 
-                        <form method="post" action="/deleteReview">
-                            <input type="hidden" name="reviewId" value="${r.review.id}" />
+                        <form method="post" action="${pageContext.request.contextPath}/deleteReview">
+                        <input type="hidden" name="reviewId" value="${r.review.id}" />
                             <button class="btn-action" type="submit">Delete</button>
                         </form>
                     </div>

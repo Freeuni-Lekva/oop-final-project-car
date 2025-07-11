@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.example.car.BookingSystem.Booking;
 import org.example.car.BookingSystem.BookingDisplay;
 import org.example.car.BookingSystem.Service.BookingService;
 import org.example.car.User.Model.User;
@@ -28,7 +29,7 @@ public class DeleteBookingServlet extends HttpServlet {
 
         try {
             int bookingId = Integer.parseInt(request.getParameter("bookingId"));
-
+            Booking toDelete = BookingService.getBookingById(bookingId);
             if (user.isAdmin()) {
                 BookingService.deleteBooking(bookingId);
             } else {
@@ -57,7 +58,7 @@ public class DeleteBookingServlet extends HttpServlet {
             }
 
             if (user.isAdmin()) {
-                response.sendRedirect(request.getContextPath() + "/admin-dashboard/bookings");
+                response.sendRedirect(request.getContextPath() + "/userProfile" + (user.isAdmin() ? "?userId=" + toDelete.getUserId() : ""));
             } else {
                 response.sendRedirect(request.getContextPath() + "/userProfile");
             }
