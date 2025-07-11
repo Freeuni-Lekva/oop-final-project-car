@@ -23,7 +23,8 @@ public class LoginServlet extends HttpServlet {
         String prevPage = req.getParameter("prevPage");
 
         if (fullName == null || fullName.isEmpty() || password == null || password.isEmpty()) {
-            resp.sendRedirect("Authentication/jsp/login.jsp?msg=All+fields+are+required.&prevPage=" + URLEncoder.encode(prevPage, "UTF-8"));
+            String encodedPrevPage = prevPage != null ? URLEncoder.encode(prevPage, "UTF-8") : "";
+            resp.sendRedirect("Authentication/jsp/login.jsp?msg=All+fields+are+required.&prevPage=" + encodedPrevPage);
             return;
         }
 
@@ -43,7 +44,8 @@ public class LoginServlet extends HttpServlet {
                 resp.sendRedirect("index.jsp");
             }
         } else {
-            resp.sendRedirect("Authentication/jsp/login.jsp?msg=Invalid+credentials.&prevPage=" + URLEncoder.encode(prevPage, "UTF-8"));
+            String encodedPrevPage = prevPage != null ? URLEncoder.encode(prevPage, "UTF-8") : "";
+            resp.sendRedirect("Authentication/jsp/login.jsp?msg=Invalid+credentials.&prevPage=" + encodedPrevPage);
         }
     }
 

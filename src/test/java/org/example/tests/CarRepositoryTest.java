@@ -24,7 +24,7 @@ public class CarRepositoryTest {
                     id INT PRIMARY KEY,
                     brand VARCHAR(255),
                     model VARCHAR(255),
-                    "year" INT,
+                    `year` INT,
                     price_per_day DECIMAL(10,2),
                     description TEXT,
                     image_url VARCHAR(255)

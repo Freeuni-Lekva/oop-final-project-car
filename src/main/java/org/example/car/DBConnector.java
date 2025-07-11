@@ -16,6 +16,7 @@ public class DBConnector {
 //    private static final String URL = "jdbc:h2:mem:car_rental;DB_CLOSE_DELAY=-1";
 //    private static final String USER = "sa";
 //    private static final String PASSWORD = "";
+
     public static Connection getConnection() throws SQLException {
         try{
             Class.forName("org.h2.Driver");
