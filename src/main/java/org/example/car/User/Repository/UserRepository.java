@@ -35,19 +35,23 @@ public class UserRepository {
         return users;
     }
 
-    public static void deleteUser(int user_id){
+    public static boolean deleteUser(int user_id) {
         String sql = "DELETE FROM users WHERE id = ?";
 
-        try(
-                Connection conn = DBConnector.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
-        ){
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setInt(1, user_id);
-            ps.executeUpdate();
+            int rowsAffected = ps.executeUpdate();
+
+            return rowsAffected > 0;
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return false;
         }
     }
+
 
     public static User getUserById(int id){
         String query = "select * from users where id = ?";
@@ -82,7 +86,7 @@ public class UserRepository {
         ) {
             ps.setString(1, user.getFull_name());
             ps.setString(2, user.getPassword_hash());
-            ps.setBoolean(3, user.is_admin());
+            ps.setBoolean(3, user.isAdmin());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 return false;

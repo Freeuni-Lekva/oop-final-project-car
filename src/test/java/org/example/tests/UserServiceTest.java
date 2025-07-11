@@ -51,7 +51,7 @@ public class UserServiceTest {
 
         assertNotNull(user);
         assertEquals("Tekla", user.getFull_name());
-        assertFalse(user.is_admin());
+        assertFalse(user.isAdmin());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class UserServiceTest {
 
         assertNotNull(authenticated);
         assertEquals("Admin", authenticated.getFull_name());
-        assertTrue(authenticated.is_admin());
+        assertTrue(authenticated.isAdmin());
     }
 
     @Test

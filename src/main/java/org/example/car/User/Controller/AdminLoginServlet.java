@@ -26,10 +26,10 @@ public class AdminLoginServlet extends HttpServlet {
         }
 
         User user = UserService.authenticate(fullName, password);
-        if (user != null && user.is_admin()) {
+        if (user != null && user.isAdmin()) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            resp.sendRedirect("admin-dashboard.jsp");
+            resp.sendRedirect(req.getContextPath() + "/admin-dashboard");
         } else {
             String msg = URLEncoder.encode("Invalid admin credentials.", "UTF-8");
             resp.sendRedirect("Authentication/jsp/adminLogin.jsp?msg=" + msg);

@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 
 public class PasswordHashingService {
+
     public static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");

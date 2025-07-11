@@ -101,9 +101,44 @@ public class CarRepository {
         ps.executeUpdate();
     }
 
-    public static void deleteCar(int id) throws SQLException {
-        String query = "DELETE FROM cars WHERE id = " + id;
-        Connection connection = DBConnector.getConnection();
-        connection.prepareStatement(query).executeQuery();
+    public static boolean deleteCar(int carId) throws SQLException {
+        String sql = "DELETE FROM cars WHERE id = ?";
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, carId);
+
+            int rows = ps.executeUpdate();
+            return rows > 0;
+        }
+    }
+
+
+    public static boolean updateCar(Car car) throws SQLException {
+        String sql = """
+            UPDATE cars
+               SET brand         = ?,
+                   model         = ?,
+                   year          = ?,
+                   price_per_day = ?,
+                   description   = ?,
+                   image_url     = ?
+             WHERE id = ?""";
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, car.getBrand());
+            ps.setString(2, car.getModel());
+            ps.setInt   (3, car.getYear());
+            ps.setDouble(4, car.getPrice_per_day());
+            ps.setString(5, car.getDescription());
+            ps.setString(6, car.getImage_url());
+            ps.setInt   (7, car.getId());
+
+            int rows = ps.executeUpdate();
+            return rows == 1;
+        }
     }
 }

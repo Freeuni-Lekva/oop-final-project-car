@@ -25,4 +25,15 @@ public class CarService {
     public static Car getCarById(int id) throws SQLException {
        return CarDetailsRepository.getCarById(id);
     }
+
+    public static void updateCar(Car car) throws SQLException {
+        if (car.getPrice_per_day() < 0) {
+            throw new IllegalArgumentException("Price per day cannot be negative");
+        }
+
+        boolean ok = CarRepository.updateCar(car);
+        if (!ok) {
+            throw new SQLException("Car update failed or car not found (id=" + car.getId() + ")");
+        }
+    }
 }

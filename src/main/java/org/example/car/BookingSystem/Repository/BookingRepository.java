@@ -200,7 +200,7 @@ public class BookingRepository {
         return bookings;
     }
 
-    public void deleteBooking(int bookindId) {
+    public static void deleteBooking(int bookindId) {
         String sql = "DELETE FROM bookings WHERE id = ?";
 
         try (Connection conn = DBConnector.getConnection();
@@ -212,6 +212,34 @@ public class BookingRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static Booking getBookingById(int bookingId) {
+        Booking booking = null;
+        String sql = "SELECT * FROM bookings WHERE id = ?";
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, bookingId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int id = rs.getInt("id");
+                    int userId = rs.getInt("user_id");
+                    int carId = rs.getInt("car_id");
+                    Date startDate = rs.getDate("start_date");
+                    Date endDate = rs.getDate("end_date");
+
+                    booking = new Booking(id, userId, carId, startDate, endDate);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return booking;
     }
 
 }
