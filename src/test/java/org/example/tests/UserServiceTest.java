@@ -40,7 +40,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void testSaveNewUser_Success() {
+    void testSaveNewUser_Success() throws SQLException {
         boolean result = UserService.save("Tekla", "mySecret123", false);
         assertTrue(result);
 
@@ -66,7 +66,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void testAuthenticate_Success() {
+    void testAuthenticate_Success() throws SQLException {
         String plainPassword = "AdminPass";
         String hashed = PasswordHashingService.hashPassword(plainPassword);
 
@@ -81,7 +81,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void testAuthenticate_WrongPassword() {
+    void testAuthenticate_WrongPassword() throws SQLException {
         UserService.save("FailTest", "rightPass", false);
 
         User result = UserService.authenticate("FailTest", "wrongPass");
@@ -90,8 +90,53 @@ public class UserServiceTest {
     }
 
     @Test
-    void testAuthenticate_NonExistentUser() {
+    void testAuthenticate_NonExistentUser() throws SQLException {
         User result = UserService.authenticate("GhostUser", "ghostPass");
         assertNull(result);
     }
+
+    @Test
+    void testGetAllUsers_ReturnsCorrectList() throws SQLException {
+        UserService.save("Alice", "pass1", false);
+        UserService.save("Bob", "pass2", false);
+
+        assertEquals(2, UserService.getAllUsers().size());
+
+        assertTrue(
+                UserService.getAllUsers().stream()
+                        .anyMatch(u -> u.getFull_name().equals("Alice"))
+        );
+    }
+
+    @Test
+    void testDeleteUser_RemovesCorrectUser() throws SQLException {
+        UserService.save("ToDelete", "pass3", false);
+        User user = UserRepository.findByFullNameAndPassword(
+                "ToDelete",
+                PasswordHashingService.hashPassword("pass3")
+        );
+
+        assertNotNull(user);
+        boolean deleted = UserService.deleteUser(user.getId());
+
+        assertTrue(deleted);
+        assertNull(UserRepository.getUserById(user.getId()));
+    }
+
+    @Test
+    void testGetUserById_ReturnsCorrectUser() throws SQLException {
+        UserService.save("LookupUser", "lookup123", true);
+        User user = UserRepository.findByFullNameAndPassword(
+                "LookupUser",
+                PasswordHashingService.hashPassword("lookup123")
+        );
+
+        User fetched = UserService.getUserById(user.getId());
+        assertNotNull(fetched);
+        assertEquals("LookupUser", fetched.getFull_name());
+        assertTrue(fetched.isAdmin());
+    }
+
+
+
 }

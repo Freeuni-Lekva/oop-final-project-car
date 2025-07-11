@@ -53,7 +53,7 @@ public class UserRepository {
     }
 
 
-    public static User getUserById(int id){
+    public static User getUserById(int id) throws SQLException {
         String query = "select * from users where id = ?";
 
         try (Connection connection = DBConnector.getConnection();
@@ -71,9 +71,6 @@ public class UserRepository {
             }
         }
 
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         return null;
     }
@@ -98,7 +95,7 @@ public class UserRepository {
         }
     }
 
-    public static User findByFullNameAndPassword(String fullName, String password) {
+    public static User findByFullNameAndPassword(String fullName, String password) throws SQLException {
         String sql = "SELECT * FROM users WHERE full_name = ? AND password_hash = ?";
         try (
             Connection conn = DBConnector.getConnection();
@@ -114,8 +111,6 @@ public class UserRepository {
                 boolean isAdmin = rs.getBoolean("is_admin");
                 return new User(id, name, pass, isAdmin);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
