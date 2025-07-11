@@ -14,7 +14,7 @@ public class CarRepository {
         List<Car> cars = new ArrayList<Car>();
 
         if ("year".equalsIgnoreCase(sortBy)) {
-            sortBy = "\"year\"";  // Fix H2 syntax error
+            sortBy = "`year`";
         }
 
         String sql = "select * from cars order by " + sortBy+" "+order;
@@ -90,7 +90,7 @@ public class CarRepository {
         return car;
     }
     public static void addCar(Car car) throws SQLException {
-        String query = "INSERT INTO cars (id, brand, model, \"year\", price_per_day, description, image_url) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO cars (id, brand, model, `year`, price_per_day, description, image_url) VALUES (?,?,?,?,?,?,?)";
         Connection connection = DBConnector.getConnection();
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1, car.getId());
@@ -122,7 +122,7 @@ public class CarRepository {
             UPDATE cars
                SET brand         = ?,
                    model         = ?,
-                   "year"          = ?,
+                   `year`        = ?,
                    price_per_day = ?,
                    description   = ?,
                    image_url     = ?
