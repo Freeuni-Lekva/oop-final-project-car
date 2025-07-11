@@ -1,6 +1,7 @@
 package org.example.tests;
 
 import org.example.car.Car.Model.Car;
+import org.example.car.Car.Repository.CarDetailsRepository;
 import org.example.car.Car.Repository.CarRepository;
 import org.example.car.DBConnector;
 import org.junit.jupiter.api.*;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CarRepositoryTest {
 
     @BeforeAll
-    void setup() throws SQLException {
+    static void setup() throws SQLException {
         try (Connection conn = DBConnector.getConnection();
              Statement stmt = conn.createStatement()) {
 
@@ -80,6 +81,50 @@ public class CarRepositoryTest {
         List<Car> midRange = CarRepository.getCarsFilter(25.0, 50.0);
         assertEquals(1, midRange.size());
         assertEquals("Rio", midRange.get(0).getModel());
+    }
+    @Test
+    void testUpdateCar() throws SQLException {
+        CarRepository.addCar(new Car(1, "VW", "Golf", 2019, 55.0, "Hatch", "g.jpg"));
+
+        Car updated = new Car(1, "VW", "Golf", 2019, 60.0, "Updated desc", "g2.jpg");
+        boolean ok = CarRepository.updateCar(updated);
+        assertTrue(ok);
+
+        Car after = CarRepository.getCarById(1);
+        assertEquals(60.0, after.getPrice_per_day());
+        assertEquals("Updated desc", after.getDescription());
+    }
+
+
+    @Test
+    void testDeleteCar() throws SQLException {
+        CarRepository.addCar(new Car(1, "Honda", "Civic", 2020, 45.0, "Reliable", "c.jpg"));
+        assertTrue(CarRepository.deleteCar(1));
+        assertNull(CarRepository.getCarById(1));
+    }
+
+    @Test
+    void testCarDetailsRepositoryGetCarById() throws SQLException {
+        Car sample = new Car(
+                99,
+                "Lexus",
+                "RX",
+                2023,
+                110.0,
+                "Luxury SUV",
+                "lexus-rx.jpg");
+
+        CarRepository.addCar(sample);
+
+        Car fetched = CarDetailsRepository.getCarById(99);
+
+        assertNotNull(fetched);
+        assertEquals("Lexus",  fetched.getBrand());
+        assertEquals("RX",     fetched.getModel());
+        assertEquals(2023,     fetched.getYear());
+        assertEquals(110.0,    fetched.getPrice_per_day());
+        assertEquals("Luxury SUV", fetched.getDescription());
+        assertEquals("lexus-rx.jpg",   fetched.getImage_url());
     }
 
 
