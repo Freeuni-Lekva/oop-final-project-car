@@ -25,4 +25,8 @@ public class CarService {
     public static Car getCarById(int id) throws SQLException {
        return CarDetailsRepository.getCarById(id);
     }
+
+    public static List<Car> getCarsFilter(double from, double to){
+        return CarRepository.getCarsFilter(from, to);
+    }
 }

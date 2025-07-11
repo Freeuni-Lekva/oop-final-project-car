@@ -2,6 +2,7 @@ package org.example.car.HomePage.Service;
 
 import org.example.car.Car.Model.Car;
 import org.example.car.Car.Repository.CarRepository;
+import org.example.car.Car.Service.CarService;
 
 import java.util.List;
 
@@ -14,5 +15,9 @@ public class HPservice {
 
     public List<Car> getAllCars(){
         return carRepo.getAllCars();
+    }
+
+    public static List<Car> getCarsFilter(double from, double to){
+        return CarService.getCarsFilter(from, to);
     }
 }

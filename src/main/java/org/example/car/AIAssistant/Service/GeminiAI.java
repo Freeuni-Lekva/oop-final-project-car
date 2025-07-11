@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.List;
 
 public class GeminiAI {
-    private final String KEY = "AIzaSyB5VJKWJs52Cv32aDVQ8wo-CuiavCFGqok";
+    private final String KEY = "AIzaSyBVVNzNC6M_nrHBiRUg3-Kgv6f7ZvQVaOs";
     private final String AIModel = "models/gemini-1.5-flash";
     private final String URL = "https://generativelanguage.googleapis.com/v1/" + AIModel + ":generateContent?key=" + KEY;
 

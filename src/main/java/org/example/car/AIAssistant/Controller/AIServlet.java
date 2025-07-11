@@ -20,7 +20,7 @@ public class AIServlet extends HttpServlet {
 
         GeminiAI ai = new GeminiAI();
         String AIresponse = "123";
-        //AIresponse = ai.ask(message);
+        AIresponse = ai.ask(message);
 
         System.out.println(AIresponse);
 

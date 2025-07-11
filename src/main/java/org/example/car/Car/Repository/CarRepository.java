@@ -42,14 +42,12 @@ public class CarRepository {
 
     public static List<Car> getAllCars() {
         List<Car> cars = new ArrayList<Car>();
-        System.out.println("3");
         try{
             Connection connection = DBConnector.getConnection();
             String query = "SELECT * FROM cars";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            System.out.println("12");
             while (resultSet.next()) {
 
                 Car car = new Car();
@@ -105,5 +103,36 @@ public class CarRepository {
         String query = "DELETE FROM cars WHERE id = " + id;
         Connection connection = DBConnector.getConnection();
         connection.prepareStatement(query).executeQuery();
+    }
+
+    public static List<Car> getCarsFilter(double from, double to) {
+        List<Car> result = new ArrayList<>();
+        String query = "SELECT * FROM cars WHERE price_per_day >= ? AND price_per_day <= ?";
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setDouble(1, from);
+            stmt.setDouble(2, to);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Car car = new Car(
+                        rs.getInt("id"),
+                        rs.getString("brand"),
+                        rs.getString("model"),
+                        rs.getInt("year"),
+                        rs.getDouble("price_per_day"),
+                        rs.getString("description"),
+                        rs.getString("image_url")
+                );
+                result.add(car);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

@@ -33,15 +33,32 @@
 <div class="wrapper">
   <div class="glass">
 
-    <div class="glass-header">
-      <h1>Available Cars</h1>
-      <h2>Find the perfect ride for your journey</h2>
+
+    <div class="horizontal-filter-container">
+      <form action="HPcontroller" method="GET">
+      <div class="horizontal-filter">
+        <h3 class="filter-title">PRICE RANGE</h3>
+        <div class="filter-inputs">
+          <input type="number" id="priceFrom" name="priceFrom" min="0" placeholder="Min">
+          <span class="filter-separator">to</span>
+          <input type="number" id="priceTo" name="priceTo" min="0" placeholder="Max">
+        </div>
+        <button type="submit" class="filter-button">APPLY</button>
+      </div>
+      </form>
     </div>
+
+
+    <div class="glass-header">
+      <h1>Find the perfect ride for your journey</h1>
+    </div>
+
 
     <%
       List<Car> cars = (List<Car>) request.getAttribute("cars");
       if (cars != null && !cars.isEmpty()) {
     %>
+
 
     <div class="car-list">
       <%
