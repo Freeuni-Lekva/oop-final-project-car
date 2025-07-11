@@ -24,7 +24,9 @@
     <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
     <% if (isLoggedIn) { %>
     <a href="${pageContext.request.contextPath}/userProfile" class="nav-btn">Profile</a>
-    <% }
+    <%if(user.is_admin()){%>
+    <a href="${pageContext.request.contextPath}/Admin-Dashboard" class="nav-btn">admin-dashboard</a>
+    <% } }
     else { %>
     <a href="${pageContext.request.contextPath}/login" class="nav-btn">Log In</a>
     <% } %>
