@@ -19,6 +19,9 @@
 <div class="navbar">
   <div class="nav-left">
     <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
+    <% if (session.getAttribute("user") != null && ((org.example.car.User.Model.User)session.getAttribute("user")).isAdmin()) { %>
+    <a href="${pageContext.request.contextPath}/admin-dashboard" class="nav-btn">Admin Dashboard</a>
+    <% } %>
   </div>
   <a href="${pageContext.request.contextPath}/logout" class="btn logout-btn">Logout</a>
 </div>
@@ -26,7 +29,10 @@
 <div class="wrapper">
   <div class="glass">
     <div class="profile">
-      <p>Name: ${user.full_name}</p>
+      <p>Name: <c:choose>
+        <c:when test="${not empty targetUser}">${targetUser.full_name}</c:when>
+        <c:otherwise>${user.full_name}</c:otherwise>
+      </c:choose></p>
     </div>
     <div>
       <div class="section-title">Bookings</div>

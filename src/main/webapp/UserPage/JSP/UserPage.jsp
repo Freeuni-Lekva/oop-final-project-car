@@ -17,6 +17,13 @@
         response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
         return;
     }
+    
+    // Get userId parameter for admin viewing user profile
+    String userIdParam = request.getParameter("userId");
+    String userIdQueryParam = "";
+    if (userIdParam != null && !userIdParam.isEmpty()) {
+        userIdQueryParam = "&userId=" + userIdParam;
+    }
 %>
 
 <%
@@ -47,6 +54,9 @@
 <div class="navbar">
     <div class="nav-left">
         <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
+        <% if (session.getAttribute("user") != null && ((org.example.car.User.Model.User)session.getAttribute("user")).isAdmin()) { %>
+        <a href="${pageContext.request.contextPath}/admin-dashboard" class="nav-btn">Admin Dashboard</a>
+        <% } %>
     </div>
     <a href="${pageContext.request.contextPath}/logout" class="btn logout-btn">Logout</a>
 </div>
@@ -90,7 +100,7 @@
             </div>
 
             <c:if test="${currentBookings.size() > 2}">
-                <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=current">See More</a>
+                <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=current<%= userIdQueryParam %>">See More</a>
             </c:if>
         </div>
 
@@ -120,7 +130,7 @@
                 </c:forEach>
             </div>
             <c:if test="${futureBookings.size() > 2}">
-                <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=future">See More</a>
+                <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=future<%= userIdQueryParam %>">See More</a>
 
             </c:if>
         </div>
@@ -155,7 +165,7 @@
             </div>
 
             <c:if test="${pastBookings.size() > 2}">
-                <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=past">See More</a>
+                <a class="see-more" href="${pageContext.request.contextPath}/userBookingsFull?type=past<%= userIdQueryParam %>">See More</a>
 
             </c:if>
         </div>
@@ -184,7 +194,7 @@
                 </c:forEach>
             </div>
             <c:if test="${userReviews.size() > 2}">
-                <a class="see-more" href="${pageContext.request.contextPath}/userReviewsFull">See More</a>
+                <a class="see-more" href="${pageContext.request.contextPath}/userReviewsFull<%= userIdParam != null ? "?userId=" + userIdParam : "" %>">See More</a>
 
             </c:if>
         </div>

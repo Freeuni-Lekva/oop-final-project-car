@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.example.car.Review.ReviewDisplayForUser;
 import org.example.car.Review.Service.ReviewService;
 import org.example.car.User.Model.User;
+import org.example.car.User.Service.UserService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,19 +27,28 @@ public class UserReviewsMore extends HttpServlet {
             return;
         }
 
-        List<ReviewDisplayForUser> reviews;
+        // Determine which user's reviews to show
+        int targetUserId;
+        String param = req.getParameter("userId");
+        if (param != null && user.isAdmin()) {
+            targetUserId = Integer.parseInt(param);
+        } else {
+            targetUserId = user.getId();
+        }
 
+        List<ReviewDisplayForUser> reviews;
+        User targetUser = null;
         try {
-            reviews = ReviewService.getReviewsByUserIdForUser(user.getId());
+            reviews = ReviewService.getReviewsByUserIdForUser(targetUserId);
+            targetUser = UserService.getUserById(targetUserId);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         req.setAttribute("userReviews", reviews);
         req.setAttribute("user", user);
+        req.setAttribute("targetUser", targetUser);
 
         req.getRequestDispatcher("/UserPage/JSP/userReviewFullList.jsp").forward(req, resp);
-
-
     }
 }
