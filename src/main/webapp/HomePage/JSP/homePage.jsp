@@ -17,6 +17,9 @@
 
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/AI/CSS/chat.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 <body>
 
@@ -95,6 +98,38 @@
         </form>
       </div>
 
+      <div class="horizontal-filter-container">
+        <form action="HPcontroller" method="GET">
+        <div class="horizontal-filter">
+          <h3 class="filter-title">DATE RANGE</h3>
+          <div class="filter-inputs">
+            <input
+                    type="text"
+                    id="startDate"
+                    name="startDate"
+                    placeholder="Start Date"
+                    readonly
+                    value="<%= request.getAttribute("startDate") != null ? request.getAttribute("startDate") : "" %>"
+            >
+            <span class="filter-separator">to</span>
+            <input
+                    type="text"
+                    id="endDate"
+                    name="endDate"
+                    placeholder="End Date"
+                    readonly
+                    value="<%= request.getAttribute("endDate") != null ? request.getAttribute("endDate") : "" %>"
+            >
+          </div>
+          <button type="submit" class="filter-button">APPLY</button>
+        </div>
+        </form>
+      </div>
+
+
+
+
+
     <div class="glass-header">
       <h1>Find the perfect ride for your journey</h1>
     </div>
@@ -145,5 +180,29 @@
   </body>
 <%@ include file="../../AI/JSP/AIchat.jsp" %>
 <script src="${pageContext.request.contextPath}/AI/JS/chat.js"></script>
+
+<script>
+$(function() {
+    $('#startDate').datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: 0,
+        onSelect: function() {
+            const startDate = $(this).datepicker('getDate');
+            const minDate = new Date(startDate);
+            minDate.setDate(minDate.getDate() + 1);
+            
+            $('#endDate').val('').datepicker('option', {
+                minDate: minDate
+            });
+        }
+    });
+
+    $('#endDate').datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: 1
+    });
+});
+</script>
+
 </body>
 </html>

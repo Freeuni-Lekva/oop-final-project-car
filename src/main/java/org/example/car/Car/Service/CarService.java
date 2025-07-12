@@ -30,6 +30,10 @@ public class CarService {
         return CarRepository.getCarsFilter(from, to, brand);
     }
 
+    public static List<Car> getCarsFilter(double from, double to, String brand, String startDate, String endDate){
+        return CarRepository.getCarsFilter(from, to, brand, startDate, endDate);
+    }
+
     public static void updateCar(Car car) throws SQLException {
         if (car.getPrice_per_day() < 0) {
             throw new IllegalArgumentException("Price per day cannot be negative");

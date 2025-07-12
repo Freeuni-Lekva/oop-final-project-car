@@ -17,8 +17,8 @@ public class HPservice {
         return carRepo.getAllCars();
     }
 
-    public static List<Car> getCarsFilter(double from, double to, String brand){
-        return CarService.getCarsFilter(from, to, brand);
+    public static List<Car> getCarsFilter(double from, double to, String brand, String startDate, String endDate){
+        return CarService.getCarsFilter(from, to, brand, startDate, endDate);
     }
 
 }

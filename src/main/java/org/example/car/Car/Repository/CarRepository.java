@@ -145,15 +145,35 @@ public class CarRepository {
     }
 
     public static List<Car> getCarsFilter(double from, double to, String brand) {
+        return getCarsFilter(from, to, brand, "", "");
+    }
+
+    public static List<Car> getCarsFilter(double from, double to, String brand, String startDate, String endDate) {
         List<Car> result = new ArrayList<>();
-        String query = "SELECT * FROM cars WHERE price_per_day >= ? AND price_per_day <= ? AND brand LIKE ?";
+        
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM cars WHERE price_per_day >= ? AND price_per_day <= ? AND brand LIKE ?");
+        List<Object> params = new ArrayList<>();
+        
+        params.add(from);
+        params.add(to);
+        params.add("%" + brand + "%");
+        
+        if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+            queryBuilder.append(" AND id NOT IN (SELECT DISTINCT car_id FROM bookings WHERE (start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?) OR (start_date >= ? AND end_date <= ?))");
+            params.add(endDate);
+            params.add(startDate);
+            params.add(endDate);
+            params.add(startDate);
+            params.add(startDate);
+            params.add(endDate);
+        }
 
         try (Connection conn = DBConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+             PreparedStatement stmt = conn.prepareStatement(queryBuilder.toString())) {
 
-            stmt.setDouble(1, from);
-            stmt.setDouble(2, to);
-            stmt.setString(3, "%" + brand + "%");
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
