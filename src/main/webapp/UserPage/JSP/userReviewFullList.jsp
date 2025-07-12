@@ -18,7 +18,10 @@
 <div class="wrapper">
   <div class="glass">
     <div class="profile">
-      <p>Name: ${user.full_name}</p>
+      <p>Name: <c:choose>
+        <c:when test="${not empty targetUser}">${targetUser.full_name}</c:when>
+        <c:otherwise>${user.full_name}</c:otherwise>
+      </c:choose></p>
     </div>
     <div>
       <div class="section-title">Your Reviews</div>
