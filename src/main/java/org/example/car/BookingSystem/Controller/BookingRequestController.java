@@ -26,7 +26,10 @@ public class BookingRequestController extends HttpServlet{
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first");
+            String returnUrl = request.getParameter("returnUrl");
+            String encodedReturnUrl = returnUrl != null ? java.net.URLEncoder.encode(returnUrl, "UTF-8") : "";
+            response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Please+login+first&returnUrl=" + encodedReturnUrl);
+            return;
         }
 
         else{

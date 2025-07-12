@@ -43,6 +43,9 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required />
 
+        <input type="hidden" name="returnUrl" value="<%= request.getParameter("returnUrl") != null ? request.getParameter("returnUrl") : "" %>" />
+        <input type="hidden" name="prevPage" value="<%= request.getParameter("prevPage") != null ? request.getParameter("prevPage") : "" %>" />
+
         <button type="submit" class="btn">Login</button>
 
 

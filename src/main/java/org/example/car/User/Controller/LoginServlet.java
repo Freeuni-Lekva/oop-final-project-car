@@ -21,10 +21,12 @@ public class LoginServlet extends HttpServlet {
         String fullName = req.getParameter("full_name");
         String password = req.getParameter("password");
         String prevPage = req.getParameter("prevPage");
+        String returnUrl = req.getParameter("returnUrl");
 
         if (fullName == null || fullName.isEmpty() || password == null || password.isEmpty()) {
             String encodedPrevPage = prevPage != null ? URLEncoder.encode(prevPage, "UTF-8") : "";
-            resp.sendRedirect("Authentication/jsp/login.jsp?msg=All+fields+are+required.&prevPage=" + encodedPrevPage);
+            String encodedReturnUrl = returnUrl != null ? URLEncoder.encode(returnUrl, "UTF-8") : "";
+            resp.sendRedirect("Authentication/jsp/login.jsp?msg=All+fields+are+required.&prevPage=" + encodedPrevPage + "&returnUrl=" + encodedReturnUrl);
             return;
         }
 
@@ -38,14 +40,17 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
 
-            if(Objects.equals(prevPage, "home") || prevPage == null)
+            if (returnUrl != null && !returnUrl.isEmpty()) {
+                resp.sendRedirect(returnUrl);
+            } else if(Objects.equals(prevPage, "home") || prevPage == null) {
                 resp.sendRedirect("HPcontroller");
-            else{
+            } else {
                 resp.sendRedirect("index.jsp");
             }
         } else {
             String encodedPrevPage = prevPage != null ? URLEncoder.encode(prevPage, "UTF-8") : "";
-            resp.sendRedirect("Authentication/jsp/login.jsp?msg=Invalid+credentials.&prevPage=" + encodedPrevPage);
+            String encodedReturnUrl = returnUrl != null ? URLEncoder.encode(returnUrl, "UTF-8") : "";
+            resp.sendRedirect("Authentication/jsp/login.jsp?msg=Invalid+credentials.&prevPage=" + encodedPrevPage + "&returnUrl=" + encodedReturnUrl);
         }
     }
 
