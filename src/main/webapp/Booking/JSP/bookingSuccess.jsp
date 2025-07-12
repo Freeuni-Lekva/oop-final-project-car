@@ -35,7 +35,7 @@
 
 
   <div class = "car">
-    <img src="${pageContext.request.contextPath}/${carPic}" alt="${carName}" class="car-image">
+    <img src="${carPic}" alt="${carName}" class="car-image">
     <div class = "car_info">
         <h2>${carName}</h2>
         <p class = "car_desc">${carDetails}</p>
