@@ -80,6 +80,9 @@
           <button type="submit" class="filter-button">APPLY</button>
           <button type="button" class="remove-filter-btn" onclick="removePriceFilter()">REMOVE</button>
         </div>
+        <input type="hidden" name="brand" value="<%= request.getParameter("brand") != null ? request.getParameter("brand") : (request.getAttribute("brand") != null ? request.getAttribute("brand") : "") %>">
+        <input type="hidden" name="startDate" value="<%= request.getParameter("startDate") != null ? request.getParameter("startDate") : (request.getAttribute("startDate") != null ? request.getAttribute("startDate") : "") %>">
+        <input type="hidden" name="endDate" value="<%= request.getParameter("endDate") != null ? request.getParameter("endDate") : (request.getAttribute("endDate") != null ? request.getAttribute("endDate") : "") %>">
       </div>
       </form>
     </div>
@@ -100,6 +103,10 @@
             <button type="submit" class="filter-button">APPLY</button>
             <button type="button" class="remove-filter-btn" onclick="removeBrandFilter()">REMOVE</button>
           </div>
+          <input type="hidden" name="priceFrom" value="<%= request.getParameter("priceFrom") != null ? request.getParameter("priceFrom") : (request.getAttribute("from") != null ? request.getAttribute("from") : "0") %>">
+          <input type="hidden" name="priceTo" value="<%= request.getParameter("priceTo") != null ? request.getParameter("priceTo") : (request.getAttribute("to") != null ? request.getAttribute("to") : "") %>">
+          <input type="hidden" name="startDate" value="<%= request.getParameter("startDate") != null ? request.getParameter("startDate") : (request.getAttribute("startDate") != null ? request.getAttribute("startDate") : "") %>">
+          <input type="hidden" name="endDate" value="<%= request.getParameter("endDate") != null ? request.getParameter("endDate") : (request.getAttribute("endDate") != null ? request.getAttribute("endDate") : "") %>">
         </div>
         </form>
       </div>
@@ -131,6 +138,9 @@
             <button type="submit" class="filter-button">APPLY</button>
             <button type="button" class="remove-filter-btn" onclick="removeDateFilter()">REMOVE</button>
           </div>
+          <input type="hidden" name="priceFrom" value="<%= request.getParameter("priceFrom") != null ? request.getParameter("priceFrom") : (request.getAttribute("from") != null ? request.getAttribute("from") : "0") %>">
+          <input type="hidden" name="priceTo" value="<%= request.getParameter("priceTo") != null ? request.getParameter("priceTo") : (request.getAttribute("to") != null ? request.getAttribute("to") : "") %>">
+          <input type="hidden" name="brand" value="<%= request.getParameter("brand") != null ? request.getParameter("brand") : (request.getAttribute("brand") != null ? request.getAttribute("brand") : "") %>">
         </div>
         </form>
       </div>

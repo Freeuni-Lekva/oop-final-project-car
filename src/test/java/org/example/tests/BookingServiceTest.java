@@ -23,7 +23,7 @@ public class BookingServiceTest {
     BookingService bookingService;
 
     @BeforeEach
-     void setUp() throws SQLException {
+    void setUp() throws SQLException {
         try (Connection c = DBConnector.getConnection();
              Statement s = c.createStatement()) {
             s.execute("""

@@ -20,14 +20,14 @@ public class BookingRepositoryTest {
         try (Connection conn = DBConnector.getConnection();
              Statement stmt = conn.createStatement()) {
             stmt.execute("""
-                CREATE TABLE IF NOT EXISTS bookings (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    user_id INT,
-                    car_id INT,
-                    start_date DATE,
-                    end_date DATE
-                );
-            """);
+            CREATE TABLE IF NOT EXISTS bookings (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT,
+                car_id INT,
+                start_date DATE,
+                end_date DATE
+            );
+        """);
         }
     }
 
@@ -115,4 +115,5 @@ public class BookingRepositoryTest {
         assertNotNull(booking);
         assertEquals(5, booking.getUserId());
     }
+
 }

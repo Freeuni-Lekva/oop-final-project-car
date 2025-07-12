@@ -10,8 +10,9 @@
 <div class="navbar">
     <div class="nav-left">
         <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
+        <a href="${pageContext.request.contextPath}/userProfile" class="nav-btn">Profile</a>
+        <a href="${pageContext.request.contextPath}/admin-dashboard" class="nav-btn">Admin Dashboard</a>
     </div>
-    <a href="${pageContext.request.contextPath}/logout" class="btn logout-btn">Logout</a>
 </div>
 
 <div class="wrapper">

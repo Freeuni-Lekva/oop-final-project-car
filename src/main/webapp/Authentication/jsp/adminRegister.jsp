@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../css/authStyles.css">
 </head>
 <body>
+
 <div class="auth-container">
     <h2>Admin Register</h2>
     <form method="post" action="<%=request.getContextPath()%>/admin-register">
