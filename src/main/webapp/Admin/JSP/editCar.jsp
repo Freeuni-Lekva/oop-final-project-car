@@ -7,10 +7,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <c:if test="${sessionScope.user != null && sessionScope.user.admin}">
-        <a href="${pageContext.request.contextPath}/admin-dashboard" class="home-btn" style="top: 20px; left: 180px;">Admin Dashboard</a>
-    </c:if>
-    <a href="${pageContext.request.contextPath}/" class="home-btn">Home</a>
+<div class="navbar">
+  <div class="nav-left">
+    <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
+    <% if (session.getAttribute("user") != null) { %>
+    <a href="${pageContext.request.contextPath}/userProfile" class="nav-btn">Profile</a>
+    <%if(((org.example.car.User.Model.User)session.getAttribute("user")).isAdmin()){%>
+    <a href="${pageContext.request.contextPath}/admin-dashboard" class="nav-btn">Admin Dashboard</a>
+    <% } }
+    else { %>
+    <a href="${pageContext.request.contextPath}/login?prevPage=home" class="nav-btn">Log In</a>
+    <% } %>
+  </div>
+</div>
     <div class="form-wrapper">
         <div class="form-container">
             <div class="form-header">

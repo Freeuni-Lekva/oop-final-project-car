@@ -25,7 +25,7 @@
         <a href="${pageContext.request.contextPath}/admin-dashboard" class="nav-btn">Admin Dashboard</a>
         <% } }
         else { %>
-        <a href="${pageContext.request.contextPath}/login" class="nav-btn">Log In</a>
+        <a href="${pageContext.request.contextPath}/login?prevPage=home" class="nav-btn">Log In</a>
         <% } %>
     </div>
 </div>

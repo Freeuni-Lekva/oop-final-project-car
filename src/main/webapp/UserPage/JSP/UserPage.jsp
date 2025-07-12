@@ -54,11 +54,11 @@
 <div class="navbar">
     <div class="nav-left">
         <a href="${pageContext.request.contextPath}/HPcontroller" class="nav-btn">Home</a>
+        <a href="${pageContext.request.contextPath}/userProfile" class="nav-btn">Profile</a>
         <% if (session.getAttribute("user") != null && ((org.example.car.User.Model.User)session.getAttribute("user")).isAdmin()) { %>
         <a href="${pageContext.request.contextPath}/admin-dashboard" class="nav-btn">Admin Dashboard</a>
         <% } %>
     </div>
-    <a href="${pageContext.request.contextPath}/logout" class="btn logout-btn">Logout</a>
 </div>
 
 <div class="wrapper">
