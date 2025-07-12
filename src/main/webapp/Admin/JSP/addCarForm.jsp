@@ -7,6 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <c:if test="${sessionScope.user != null && sessionScope.user.admin}">
+        <a href="${pageContext.request.contextPath}/admin-dashboard" class="home-btn" style="top: 20px; left: 180px;">Admin Dashboard</a>
+    </c:if>
     <a href="${pageContext.request.contextPath}/" class="home-btn">Home</a>
     <div class="form-wrapper">
         <div class="form-container">
