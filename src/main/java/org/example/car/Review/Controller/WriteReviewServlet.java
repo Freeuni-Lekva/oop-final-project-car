@@ -29,7 +29,9 @@ public class WriteReviewServlet extends HttpServlet {
 
 
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Access+denied");
+            String returnUrl = request.getParameter("returnUrl");
+            String encodedReturnUrl = returnUrl != null ? java.net.URLEncoder.encode(returnUrl, "UTF-8") : "";
+            response.sendRedirect(request.getContextPath() + "/Authentication/jsp/login.jsp?msg=Access+denied&returnUrl=" + encodedReturnUrl);
             return;
         }
         else {

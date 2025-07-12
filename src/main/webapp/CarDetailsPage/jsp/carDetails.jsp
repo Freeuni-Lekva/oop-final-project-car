@@ -42,6 +42,7 @@
 
       <form action="${pageContext.request.contextPath}/BookingRequestController" method="get">
         <input type="hidden" name="carId" value="${car.id}">
+        <input type="hidden" name="returnUrl" value="${pageContext.request.contextPath}/car-details?car=${car.id}">
         <button type="submit" class="btn">Book Now</button>
       </form>
 
@@ -67,6 +68,7 @@
       <h2 class="review-title">Write your review</h2>
       <form class="review-form" method="post" action="submitReview">
         <input type="hidden" name="carId" value="${car.id}">
+        <input type="hidden" name="returnUrl" value="${pageContext.request.contextPath}/car-details?car=${car.id}">
 
         <textarea name="comment" placeholder="Add a comment..." required></textarea>
         <div class="star-rating">
