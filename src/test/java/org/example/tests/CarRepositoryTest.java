@@ -78,7 +78,7 @@ public class CarRepositoryTest {
         CarRepository.addCar(new Car(1, "Kia", "Rio", 2017, 30.0, "Cheap", "k.jpg"));
         CarRepository.addCar(new Car(2, "Mercedes", "E‑Class", 2022, 130.0, "Luxury", "e.jpg"));
 
-        List<Car> midRange = CarRepository.getCarsFilter(25.0, 50.0);
+        List<Car> midRange = CarRepository.getCarsFilter(25.0, 50.0, "");
         assertEquals(1, midRange.size());
         assertEquals("Rio", midRange.get(0).getModel());
     }

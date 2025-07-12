@@ -33,10 +33,11 @@ public class HPcontroller extends HttpServlet {
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
 
-        System.out.println(startDateStr);
-        System.out.println(endDateStr);
-        System.out.println(startDateStr);
-        System.out.println(endDateStr);
+        String brand = request.getParameter("brand");
+
+        if(brand == null){
+            brand = "";
+        }
 
             double from = 0;
             if(fromStr != null && !fromStr.isEmpty()){
@@ -58,11 +59,12 @@ public class HPcontroller extends HttpServlet {
                 }
             }
 
-        List<Car> allCars = HPservice.getCarsFilter(from, to);
+        List<Car> allCars = HPservice.getCarsFilter(from, to, brand);
 
         request.setAttribute("cars", allCars);
         request.setAttribute("from", from);
         request.setAttribute("to", to);
+        request.setAttribute("brand", brand);
         request.getRequestDispatcher("HomePage/JSP/homePage.jsp").forward(request, response);
     }
 }

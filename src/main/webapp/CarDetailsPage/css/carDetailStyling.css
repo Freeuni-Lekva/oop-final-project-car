@@ -2,7 +2,7 @@
 
 :root {
     --background: #f5f7fa;
-    --glass: rgba(255, 255, 255, 0.9);
+    --glass: rgba(255, 255, 255, 0.95);
     --glass-border: rgba(0, 0, 0, 0.1);
     --text-dark: #0a0a0a;
     --text-light: #1a1a1a;
@@ -39,6 +39,19 @@ body {
     box-shadow: 0 12px 32px var(--shadow-strong);
     animation: fadeIn 0.5s ease-out;
     transition: box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.glass::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(230,57,70,0.1) 0%, rgba(255,255,255,0) 70%);
+    z-index: -1;
 }
 
 .glass:hover {
@@ -68,7 +81,7 @@ body {
 .review-title {
     font-size: 1.6rem;
     font-weight: 600;
-    color: var(--accent-gold);
+    color: var(--accent);
     margin-bottom: 1.2rem;
 }
 
@@ -83,7 +96,7 @@ body {
     border-radius: 10px;
     border: 1px solid #ccc;
     resize: vertical;
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--glass);
     color: var(--text-dark);
     font-size: 1rem;
     height: 120px;
@@ -166,7 +179,7 @@ body {
 }
 
 .review-card {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--glass);
     border-radius: 14px;
     padding: 1.2rem 1.5rem;
     margin-bottom: 1.2rem;

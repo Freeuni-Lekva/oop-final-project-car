@@ -78,6 +78,23 @@
       </form>
     </div>
 
+
+      <div class="horizontal-filter-container">
+        <form action="HPcontroller" method="GET">
+        <div class="horizontal-filter">
+          <h3 class="filter-title">Brand</h3>
+          <div class="filter-inputs">
+            <input type="text"
+                   id="brand"
+                   name="brand"
+                   placeholder=<%= request.getAttribute("brand") %>>
+
+          </div>
+          <button type="submit" class="filter-button">APPLY</button>
+        </div>
+        </form>
+      </div>
+
     <div class="glass-header">
       <h1>Find the perfect ride for your journey</h1>
     </div>
