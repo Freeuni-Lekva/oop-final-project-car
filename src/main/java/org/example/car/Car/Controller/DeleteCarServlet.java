@@ -40,7 +40,7 @@ public class DeleteCarServlet extends HttpServlet {
             CarService.deleteCar(carId);
 
 
-            response.sendRedirect(request.getContextPath() + "/admin-dashboard");
+            response.sendRedirect(request.getContextPath() + "/HPcontroller");
 
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid carId");
