@@ -10,6 +10,12 @@
     --shadow: rgba(0, 0, 0, 0.15);
 }
 
+.add-car-center {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 1rem 0;
+  }
+
 .navbar {
     position: fixed;
     top: 0;

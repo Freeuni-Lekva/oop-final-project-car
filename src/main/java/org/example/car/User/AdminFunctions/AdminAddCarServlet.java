@@ -57,7 +57,6 @@ public class AdminAddCarServlet extends HttpServlet {
             String imageUrl;
 
             if (filePart != null && filePart.getSize() > 0) {
-                // Save to /car-images/<originalFilename>
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 Path uploadPath = Paths.get(getServletContext().getRealPath("/") + UPLOAD_DIR);
                 Files.createDirectories(uploadPath);
