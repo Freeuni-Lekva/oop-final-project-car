@@ -1,23 +1,63 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html><head><title>Add Car</title></head><body>
-<h2>Add a New Car</h2>
+<html>
+<head>
+    <title>Add Car</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin/CSS/adminFormStyles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="${pageContext.request.contextPath}/" class="home-btn">Home</a>
+    <div class="form-wrapper">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Add a New Car</h2>
+                <p>Fill in the details below to add a new car to the inventory</p>
+            </div>
 
-<c:if test="${not empty errorMessage}">
-  <p style="color:red">${errorMessage}</p>
-</c:if>
+            <c:if test="${not empty errorMessage}">
+                <div class="message error">${errorMessage}</div>
+            </c:if>
 
-<form method="post" action="${pageContext.request.contextPath}/addCar" enctype="multipart/form-data">
-  Brand:        <input type="text" name="brand" required><br><br>
-  Model:        <input type="text" name="model" required><br><br>
-  Year:         <input type="number" name="year" required><br><br>
-  Price/Day:    <input type="number" step="0.01" name="price_per_day" required><br><br>
-  Description:<br>
-  <textarea name="description" rows="4" cols="40"></textarea><br><br>
+            <form method="post" action="${pageContext.request.contextPath}/addCar" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="brand">Brand:</label>
+                    <input type="text" id="brand" name="brand" required>
+                </div>
 
-  Image (upload):  <input type="file" name="image"><br><br>
-  or Image URL:    <input type="text" name="image_url_fallback"><br><br>
+                <div class="form-group">
+                    <label for="model">Model:</label>
+                    <input type="text" id="model" name="model" required>
+                </div>
 
-  <button type="submit">Add Car</button>
-</form>
-</body></html>
+                <div class="form-group">
+                    <label for="year">Year:</label>
+                    <input type="number" id="year" name="year" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="price_per_day">Price per Day:</label>
+                    <input type="number" id="price_per_day" step="0.01" name="price_per_day" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Image (upload):</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+
+                <div class="form-group">
+                    <label for="image_url_fallback">or Image URL:</label>
+                    <input type="text" id="image_url_fallback" name="image_url_fallback" placeholder="https://example.com/image.jpg">
+                </div>
+
+                <button type="submit" class="btn">Add Car</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

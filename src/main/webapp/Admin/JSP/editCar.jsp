@@ -3,39 +3,59 @@
 <html>
 <head>
     <title>Edit Car</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin/CSS/adminFormStyles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a href="${pageContext.request.contextPath}/" class="home-btn">Home</a>
+    <div class="form-wrapper">
+        <div class="form-container">
+            <div class="form-header">
+                <h1>Edit Car</h1>
+                <p>Update the car details below</p>
+            </div>
 
-<h1>Edit Car</h1>
+            <form method="post" action="${pageContext.request.contextPath}/updateCar" enctype="multipart/form-data">
+                <input type="hidden" name="carId" value="${car.id}">
 
-<form method="post"
-      action="${pageContext.request.contextPath}/updateCar"
-      enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="brand">Brand:</label>
+                    <input type="text" id="brand" name="brand" value="${car.brand}" required>
+                </div>
 
-    <input type="hidden" name="carId" value="${car.id}">
+                <div class="form-group">
+                    <label for="model">Model:</label>
+                    <input type="text" id="model" name="model" value="${car.model}" required>
+                </div>
 
-    <label>Brand:</label><br>
-    <input type="text" name="brand" value="${car.brand}" required><br><br>
+                <div class="form-group">
+                    <label for="year">Year:</label>
+                    <input type="number" id="year" name="year" value="${car.year}" required>
+                </div>
 
-    <label>Model:</label><br>
-    <input type="text" name="model" value="${car.model}" required><br><br>
+                <div class="form-group">
+                    <label for="price_per_day">Price per Day:</label>
+                    <input type="number" id="price_per_day" step="0.01" name="price_per_day" value="${car.price_per_day}" required>
+                </div>
 
-    <label>Year:</label><br>
-    <input type="number" name="year" value="${car.year}" required><br><br>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="5">${car.description}</textarea>
+                </div>
 
-    <label>Price per Day:</label><br>
-    <input type="number" step="0.01" name="price_per_day" value="${car.price_per_day}" required><br><br>
+                <div class="form-group">
+                    <label for="image">Image (upload):</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
 
-    <label>Description:</label><br>
-    <textarea name="description" rows="5" cols="40">${car.description}</textarea><br><br>
+                <div class="form-group">
+                    <label for="image_url_fallback">or Image URL:</label>
+                    <input type="text" id="image_url_fallback" name="image_url_fallback" value="${car.image_url}" placeholder="https://example.com/image.jpg">
+                </div>
 
-    Image (upload):  <input type="file" name="image"><br><br>
-    or Image URL:    <input type="text" name="image_url_fallback"
-                            value="${car.image_url}"><br><br>
-
-    <button type="submit">Save Changes</button>
-</form>
-
-
+                <button type="submit" class="btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
