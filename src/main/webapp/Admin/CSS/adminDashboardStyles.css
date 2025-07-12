@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+    --background: #f5f7fa;
+    --glass: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --text-dark: #0a0a0a;
+    --text-light: #1a1a1a;
+    --text-muted: #6c757d;
+    --accent: #e63946;
+    --accent-hover: #d62828;
+    --accent-secondary: #219ebc;
+    --accent-secondary-hover: #1e8ba8;
+    --shadow-mid: rgba(0, 0, 0, 0.1);
+    --shadow-strong: rgba(0, 0, 0, 0.2);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background);
+    color: var(--text-light);
+    margin: 0;
+    padding: 2rem;
+    line-height: 1.6;
+    padding-top: 70px;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+    overflow-x: hidden;
+}
+
+.glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 12px 32px var(--shadow-strong);
+    animation: fadeIn 0.5s ease-out;
+    transition: box-shadow 0.3s ease;
+    overflow: auto;
+    padding-top: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.glass:hover {
+    box-shadow: 0 16px 40px var(--shadow-strong);
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.nav-left {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-btn {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+.btn {
+    background: var(--accent);
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+    align-self: flex-end;
+    cursor: pointer;
+    box-shadow: 0 6px 16px var(--shadow-mid);
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s;
+}
+
+.btn.logout-btn {
+    background: var(--accent);
+    color: white;
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    vertical-align: middle;
+    align-self: center;
+    height: fit-content;
+    margin-right: 3rem;
+}
+
+.btn.logout-btn:hover {
+    background: var(--accent-hover);
+}
+
+.profile {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--glass-border);
+    margin-top: 2rem;
+}
+
+.profile p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.profile .summary {
+    font-weight: 600;
+    color: var(--accent-secondary);
+    font-size: 1.1rem;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+    border-bottom: 2px solid var(--accent-secondary);
+    padding-bottom: 0.5rem;
+    margin: 2rem 0 1rem 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--glass-border);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px;
+}
+
+.card-footer {
+    margin-top: auto;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.card-content {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.card-text {
+    flex: 1;
+}
+
+.card-text p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+}
+
+.card-text strong {
+    color: var(--accent-secondary);
+    font-weight: 600;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.see-more {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.7rem 1.5rem;
+    background: var(--accent-secondary);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.see-more:hover {
+    background: var(--accent-secondary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--shadow-mid);
+}
+
+form {
+    display: inline;
+}
+
+.btn-delete {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-delete:hover {
+    background: var(--accent-hover);
+}
+
+.btn-view {
+    background: var(--accent-secondary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 0.5rem;
+}
+
+.btn-view:hover {
+    background: var(--accent-secondary-hover);
+}
+
+.car-collection-btn {
+    background: var(--accent-secondary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 16px var(--shadow-mid);
+    margin-bottom: 2rem;
+}
+
+.car-collection-btn:hover {
+    background: var(--accent-secondary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow-strong);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    .wrapper {
+        padding: 1rem;
+    }
+
+    .glass {
+        padding: 1.5rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+    }
+}
