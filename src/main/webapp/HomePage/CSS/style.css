@@ -222,70 +222,6 @@ body {
     display: flex;
     justify-content: center;
     margin: 20px 0;
-}
-
-.horizontal-filter {
-    display: flex;
-    align-items: center;
-    background: white;
-    border-radius: 12px;
-    padding: 12px 20px;
-    border: 2px solid #e63946;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    gap: 15px;
-}
-
-.filter-title {
-    margin: 0;
-    color: #e63946;
-    font-size: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-.filter-inputs {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.filter-inputs input {
-    width: 80px;
-    padding: 8px 10px;
-    border-radius: 6px;
-    border: 2px solid #e63946;
-    font-size: 14px;
-    text-align: center;
-}
-
-.filter-separator {
-    color: #666;
-    font-size: 13px;
-}
-
-.filter-button {
-    padding: 8px 20px;
-    background-color: #e63946;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 14px;
-    white-space: nowrap;
-    transition: background-color 0.3s ease;
-}
-
-.filter-button:hover {
-    background-color: #d62828;
-}
-
-.horizontal-filter-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -313,6 +249,20 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
+}
+
+.filter-inputs input {
+    width: 80px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 2px solid #e63946;
+    font-size: 14px;
+    text-align: center;
+}
+
+.filter-separator {
+    color: #666;
+    font-size: 13px;
 }
 
 .date-input-group {
@@ -356,6 +306,47 @@ body {
 .filter-button:hover {
     background-color: #d62828;
 }
+
+.filter-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.remove-filter-btn {
+    padding: 8px 20px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+}
+
+.remove-filter-btn:hover {
+    background-color: #5a6268;
+}
+
+button.remove-filter-btn {
+    padding: 8px 20px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+}
+
+button.remove-filter-btn:hover {
+    background-color: #5a6268;
+}
+
+
 
 input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;

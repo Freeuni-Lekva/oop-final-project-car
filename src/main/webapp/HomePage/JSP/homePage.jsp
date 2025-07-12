@@ -76,7 +76,10 @@
                   value="<%= request.getAttribute("to") != null ? request.getAttribute("to") : "-" %>"
           >
         </div>
-        <button type="submit" class="filter-button">APPLY</button>
+        <div class="filter-buttons">
+          <button type="submit" class="filter-button">APPLY</button>
+          <button type="button" class="remove-filter-btn" onclick="removePriceFilter()">REMOVE</button>
+        </div>
       </div>
       </form>
     </div>
@@ -93,7 +96,10 @@
                    placeholder=<%= request.getAttribute("brand") %>>
 
           </div>
-          <button type="submit" class="filter-button">APPLY</button>
+          <div class="filter-buttons">
+            <button type="submit" class="filter-button">APPLY</button>
+            <button type="button" class="remove-filter-btn" onclick="removeBrandFilter()">REMOVE</button>
+          </div>
         </div>
         </form>
       </div>
@@ -121,7 +127,10 @@
                     value="<%= request.getAttribute("endDate") != null ? request.getAttribute("endDate") : "" %>"
             >
           </div>
-          <button type="submit" class="filter-button">APPLY</button>
+          <div class="filter-buttons">
+            <button type="submit" class="filter-button">APPLY</button>
+            <button type="button" class="remove-filter-btn" onclick="removeDateFilter()">REMOVE</button>
+          </div>
         </div>
         </form>
       </div>
@@ -202,6 +211,28 @@ $(function() {
         minDate: 1
     });
 });
+
+function removePriceFilter() {
+    $('#priceFrom').val('0');
+    $('#priceTo').val('');
+    window.location.href = 'HPcontroller?priceFrom=0&priceTo=';
+}
+
+function removeBrandFilter() {
+    $('#brand').val('');
+    window.location.href = 'HPcontroller?brand=';
+}
+
+function removeDateFilter() {
+    $('#startDate').val('');
+    $('#endDate').val('');
+    window.location.href = 'HPcontroller?startDate=&endDate=';
+}
+
+
+
+
+
 </script>
 
 </body>
