@@ -101,4 +101,24 @@ public class UserRepoTest {
         UserRepository.save(new User(0, "Existing", "pw", false));
         assertTrue(UserRepository.existsByFullName("Existing"));
     }
+
+    @Test
+    void testSearchUsersByName_PartialAndCaseInsensitive() {
+        UserRepository.save(new User(0, "Alice Wonderland", "pw1", false));
+        UserRepository.save(new User(0, "Bob Builder", "pw2", true));
+        UserRepository.save(new User(0, "Alicia Keys", "pw3", false));
+        UserRepository.save(new User(0, "Charlie", "pw4", false));
+
+        var results = UserRepository.searchUsersByName("ali");
+        assertEquals(2, results.size());
+        assertTrue(results.stream().anyMatch(u -> u.getFull_name().equals("Alice Wonderland")));
+        assertTrue(results.stream().anyMatch(u -> u.getFull_name().equals("Alicia Keys")));
+
+        var exact = UserRepository.searchUsersByName("Bob Builder");
+        assertEquals(1, exact.size());
+        assertEquals("Bob Builder", exact.get(0).getFull_name());
+
+        var none = UserRepository.searchUsersByName("Zebra");
+        assertTrue(none.isEmpty());
+    }
 }

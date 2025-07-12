@@ -129,4 +129,26 @@ public class UserRepository {
         }
         return false;
     }
+
+    public static List<User> searchUsersByName(String name) {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM users WHERE LOWER(full_name) LIKE ?";
+        try (
+            Connection conn = DBConnector.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+            ps.setString(1, "%" + name.toLowerCase() + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String full_name = rs.getString("full_name");
+                String password_hash = rs.getString("password_hash");
+                boolean is_admin = rs.getBoolean("is_admin");
+                users.add(new User(id, full_name, password_hash, is_admin));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 }

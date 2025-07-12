@@ -37,4 +37,8 @@ public class UserService {
     public static User getUserById(int userId) throws SQLException {
         return UserRepository.getUserById(userId);
     }
+
+    public static List<User> searchUsersByName(String name) {
+        return UserRepository.searchUsersByName(name);
+    }
 }
