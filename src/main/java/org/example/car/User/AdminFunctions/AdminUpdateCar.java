@@ -21,7 +21,7 @@ import java.sql.SQLException;
 )
 public class AdminUpdateCar extends HttpServlet {
 
-    private static final String UPLOAD_DIR = "car-images";
+    private static final String UPLOAD_DIR = "images/cars";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

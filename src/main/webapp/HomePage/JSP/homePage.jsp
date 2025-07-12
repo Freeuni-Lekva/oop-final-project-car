@@ -181,9 +181,11 @@
 </div>
 
   <c:if test="${sessionScope.user != null && sessionScope.user.admin}">
-    <form action="${pageContext.request.contextPath}/addCar" method="get" style="margin:1rem 0;">
-      <button class="btn">➕ Add a Car</button>
-    </form>
+    <div class="add-car-center">
+      <form action="${pageContext.request.contextPath}/addCar" method="get">
+        <button class="btn">➕ Add a Car</button>
+      </form>
+    </div>
   </c:if>
 
   </body>
