@@ -9,24 +9,24 @@ import org.example.car.User.Model.User;
 import org.example.car.User.Service.UserService;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/admin-user-search")
 public class AdminUserSearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userIdParam = req.getParameter("userId");
-        User searchedUser = null;
+        String userNameParam = req.getParameter("userName");
+        List<User> searchedUsers = null;
         String searchError = null;
         try {
-            int userId = Integer.parseInt(userIdParam);
-            searchedUser = UserService.getUserById(userId);
-            if (searchedUser == null) {
-                searchError = "No user found with ID: " + userId;
+            searchedUsers = UserService.searchUsersByName(userNameParam);
+            if (searchedUsers == null || searchedUsers.isEmpty()) {
+                searchError = "No users found with name: " + userNameParam;
             }
         } catch (Exception e) {
-            searchError = "Invalid user ID.";
+            searchError = "Invalid search input.";
         }
-        req.setAttribute("searchedUser", searchedUser);
+        req.setAttribute("searchedUsers", searchedUsers);
         req.setAttribute("searchError", searchError);
         req.getRequestDispatcher("/Admin/JSP/admin-dashboard.jsp").forward(req, resp);
     }

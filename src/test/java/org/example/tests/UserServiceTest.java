@@ -137,6 +137,25 @@ public class UserServiceTest {
         assertTrue(fetched.isAdmin());
     }
 
+    @Test
+    void testSearchUsersByName_PartialAndCaseInsensitive() {
+        UserService.save("Alice Wonderland", "pw1", false);
+        UserService.save("Bob Builder", "pw2", true);
+        UserService.save("Alicia Keys", "pw3", false);
+        UserService.save("Charlie", "pw4", false);
+
+        var results = UserService.searchUsersByName("ali");
+        assertEquals(2, results.size());
+        assertTrue(results.stream().anyMatch(u -> u.getFull_name().equals("Alice Wonderland")));
+        assertTrue(results.stream().anyMatch(u -> u.getFull_name().equals("Alicia Keys")));
+
+        var exact = UserService.searchUsersByName("Bob Builder");
+        assertEquals(1, exact.size());
+        assertEquals("Bob Builder", exact.get(0).getFull_name());
+
+        var none = UserService.searchUsersByName("Zebra");
+        assertTrue(none.isEmpty());
+    }
 
 
 }

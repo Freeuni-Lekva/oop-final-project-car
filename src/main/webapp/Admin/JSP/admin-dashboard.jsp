@@ -17,34 +17,36 @@
 <div class="wrapper">
     <div class="glass">
         <form class="user-search-form" action="${pageContext.request.contextPath}/admin-user-search" method="get">
-            <input type="number" name="userId" class="user-search-input" placeholder="Search user by ID..." required />
+            <input type="text" name="userName" class="user-search-input" placeholder="Search user by name..." required />
             <button type="submit" class="btn user-search-btn">Search</button>
         </form>
         
-        <c:if test="${not empty searchedUser}">
-            <div class="section-title">Search Result</div>
+        <c:if test="${not empty searchedUsers}">
+            <div class="section-title">Search Results</div>
             <div class="grid">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="user-avatar">
-                            ${searchedUser.full_name.charAt(0)}
+                <c:forEach var="u" items="${searchedUsers}">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="user-avatar">
+                                ${u.full_name.charAt(0)}
+                            </div>
+                            <div class="card-text">
+                                <p><strong>ID:</strong> ${u.id}</p>
+                                <p><strong>Name:</strong> ${u.full_name}</p>
+                            </div>
                         </div>
-                        <div class="card-text">
-                            <p><strong>ID:</strong> ${searchedUser.id}</p>
-                            <p><strong>Name:</strong> ${searchedUser.full_name}</p>
+                        <div class="card-footer">
+                            <form action="${pageContext.request.contextPath}/userProfile" method="get" style="display:inline;">
+                                <input type="hidden" name="userId" value="${u.id}" />
+                                <button type="submit" class="btn-view">See More</button>
+                            </form>
+                            <form action="${pageContext.request.contextPath}/deleteUser" method="post" style="display:inline;">
+                                <input type="hidden" name="userId" value="${u.id}" />
+                                <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                            </form>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <form action="${pageContext.request.contextPath}/userProfile" method="get" style="display:inline;">
-                            <input type="hidden" name="userId" value="${searchedUser.id}" />
-                            <button type="submit" class="btn-view">See More</button>
-                        </form>
-                        <form action="${pageContext.request.contextPath}/deleteUser" method="post" style="display:inline;">
-                            <input type="hidden" name="userId" value="${searchedUser.id}" />
-                            <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
-                        </form>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </c:if>
         <c:if test="${not empty searchError}">
