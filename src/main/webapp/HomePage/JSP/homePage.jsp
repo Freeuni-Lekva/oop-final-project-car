@@ -73,7 +73,7 @@
                   name="priceTo"
                   min="0"
                   placeholder="Max"
-                  value="<%= request.getAttribute("to") != null ? request.getAttribute("to") : "-" %>"
+                  value="<%= request.getAttribute("to") != null ? request.getAttribute("to") : "" %>"
           >
         </div>
         <div class="filter-buttons">

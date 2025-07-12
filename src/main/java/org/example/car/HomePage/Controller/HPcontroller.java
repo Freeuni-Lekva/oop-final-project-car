@@ -71,7 +71,9 @@ public class HPcontroller extends HttpServlet {
 
         request.setAttribute("cars", allCars);
         request.setAttribute("from", from);
-        request.setAttribute("to", to);
+        if (to != Double.MAX_VALUE) {
+            request.setAttribute("to", to);
+        }
         request.setAttribute("brand", brand);
         request.setAttribute("startDate", startDate);
         request.setAttribute("endDate", endDate);
